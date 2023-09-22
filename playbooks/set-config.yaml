@@ -241,6 +241,14 @@
           dest: "{{ lookup('env','HOME') }}/.config/lvim/config.lua"
           force: no
 
+  - name: Ensure Alfred preferences directory exists
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences"
+      state: directory
+      owner: josh
+      group: staff
+      mode: '0755'
+
   - name: Alfred | Unzip and restore preferences
     tags: alfred
     unarchive:
