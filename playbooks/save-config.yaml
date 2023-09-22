@@ -26,7 +26,7 @@
       when: git_status.stdout == ""
     
     - name: Brew | Gather currently installed packages
-      shell: brew list --formula
+      shell: brew list --formula --full-name
       register: current_brew_packages
       changed_when: false  # to ensure this task is always reported as unchanged
       args:
@@ -45,10 +45,9 @@
       when:
         - brew_file_stat.stat.exists
         - current_brew_packages.stdout != lookup('file', '{{ project_path }}/files/brew.txt')
-      notify: Brew file updated  # Just a sample if you have a handler or you can omit
 
     - name: Brew | Gather currently installed GUI applications via cask
-      shell: brew list --casks
+      shell: brew list --casks --full-name
       register: current_brew_casks
       changed_when: false
       args:
@@ -67,7 +66,6 @@
       when:
         - brew_casks_file_stat.stat.exists
         - current_brew_casks.stdout != lookup('file', '{{ project_path }}/files/brew-casks.txt')
-      notify: Brew cask file updated  # Just a sample if you have a handler or you can omit
 
     - name: Visual Studio Code | Save user settings
       copy:
