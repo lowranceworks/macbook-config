@@ -17,4 +17,4 @@ git clone https://github.com/lowranceworks/macbook_config.git $HOME/Projects/mac
 
 # run set-config.yaml playbook
 echo -e "\033[32mrunning set-config.yaml playbook...\033[0m"
-ansible-playbook $HOME/Projects/macbook_config/playbooks/set-config.yaml
+ansible-playbook $HOME/Projects/macbook_config/playbooks/set-config.yaml -e "project_path=$HOME/Projects/macbook_config"
