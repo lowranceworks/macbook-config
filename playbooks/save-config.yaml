@@ -1,0 +1,149 @@
+---
+- name: Save Configuration
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    project_path: /Users/josh/Projects/macbook_config
+    commit_message: "fix: update configuration files"
+    pr_title: "update configuration files"
+    pr_body: "These changes were applied by the save-configuration.yaml playbook."
+    branch_name: "update-configuration"
+
+  tasks:
+    - name: Git | Check for local changes
+      command:
+        cmd: git status --porcelain
+        chdir: "{{ project_path }}"
+      register: git_status
+      changed_when: false
+
+    - name: Git | Pull configuration from remote repository
+      git:
+        repo: 'https://github.com/lowranceworks/macbook_config.git'
+        dest: "{{ project_path }}"
+        update: yes
+      when: git_status.stdout == ""
+    
+    - name: Brew | Gather currently installed packages
+      shell: brew list --formula
+      register: current_brew_packages
+      changed_when: false  # to ensure this task is always reported as unchanged
+      args:
+        executable: /bin/sh
+
+    - name: Brew | Check if installed packages match brew.txt
+      stat:
+        path: "{{ project_path }}/files/brew.txt"
+      register: brew_file_stat
+      changed_when: false
+
+    - name: Brew | Update brew.txt if there are differences
+      copy:
+        content: "{{ current_brew_packages.stdout }}"
+        dest: "{{ project_path }}/files/brew.txt"
+      when:
+        - brew_file_stat.stat.exists
+        - current_brew_packages.stdout != lookup('file', '{{ project_path }}/files/brew.txt')
+      notify: Brew file updated  # Just a sample if you have a handler or you can omit
+
+    - name: Brew | Gather currently installed GUI applications via cask
+      shell: brew list --casks
+      register: current_brew_casks
+      changed_when: false
+      args:
+        executable: /bin/sh
+
+    - name: Brew | Check if installed GUI applications match brew-casks.txt
+      stat:
+        path: "{{ project_path }}/files/brew-casks.txt"
+      register: brew_casks_file_stat
+      changed_when: false
+
+    - name: Brew | Update brew-casks.txt if there are differences
+      copy:
+        content: "{{ current_brew_casks.stdout }}"
+        dest: "{{ project_path }}/files/brew-casks.txt"
+      when:
+        - brew_casks_file_stat.stat.exists
+        - current_brew_casks.stdout != lookup('file', '{{ project_path }}/files/brew-casks.txt')
+      notify: Brew cask file updated  # Just a sample if you have a handler or you can omit
+
+    - name: Visual Studio Code | Save user settings
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
+        dest: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/settings.json"
+
+    - name: Inkdrop | Save Inkdrop initialization configuration
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+        dest: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/init.js"
+
+    - name: MacOS | Save native keybindings
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+        dest: "{{ project_path }}/files/home_directory/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+    - name: Visual Studio Code | Save keybindings 
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/keybindings.json"
+        dest: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/keybindings.json"
+
+    - name: Inkdrop | Save keybindings
+      copy:
+        src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
+        dest: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/keymap.cson"
+
+    - name: Inkdrop | Save packages
+      archive:
+        path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
+        dest: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/packages.zip"
+        format: zip
+
+    - name: Alfred | Ensure temporary directory exists
+      tags: alfred
+      file:
+        path: "{{ playbook_dir }}/tmp/Alfred.alfredpreferences/"
+        state: directory
+        mode: '0755'
+
+    - name: Alfred | Rsync preferences excluding remote directory to temp location
+      tags: alfred
+      command:
+        cmd: "rsync -av --exclude 'remote/' '{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences/' '{{ playbook_dir }}/tmp/Alfred.alfredpreferences/'"
+        
+    - name: Alfred | Archive the preferences from temp location
+      tags: alfred
+      archive:
+        path: "{{ playbook_dir }}/tmp/Alfred.alfredpreferences/"
+        dest: "{{ project_path }}/files/home_directory/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
+        format: zip
+
+    - name: Alfred | Clean up temporary directory
+      tags: alfred
+      file:
+        path: "{{ playbook_dir }}/tmp/Alfred.alfredpreferences/"
+        state: absent
+
+    - name: Git | Add all changes
+      command:
+        cmd: git add --all
+        chdir: '{{ project_path }}'
+
+    - name: Git | Execute status command
+      command:
+        cmd: git status
+        chdir: '{{ project_path }}'
+      register: git_status_result
+
+    - name: Git | Commit changes
+      command:
+        cmd: git commit -m '{{ commit_message }}'
+        chdir: '{{ project_path }}'
+      when: "'Your branch is up to date with' not in git_status_result.stdout"
+
+    - name: Git | Push changes
+      command:
+        cmd: git push --set-upstream origin main
+        chdir: '{{ project_path }}'
+      when: "'Your branch is up to date with' not in git_status_result.stdout"

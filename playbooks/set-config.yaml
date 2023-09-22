@@ -1,0 +1,205 @@
+---
+- name: Set Configuration
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    project_path: /Users/josh/Projects/macbook_config
+  tasks:
+  - name: Brew | Gather currently installed packages
+    tags: brew
+    command: "brew list --formula"
+    register: installed_brew_packages
+    changed_when: false
+
+  - name: Brew | Set fact for installed packages
+    tags: brew
+    set_fact:
+      installed_brews: "{{ installed_brew_packages.stdout_lines }}"
+
+  - name: Brew | Install terminal applications
+    tags: brew
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ lookup('file', project_path + '/files/brew.txt').splitlines() }}"
+    when: item not in installed_brews
+    become: false
+
+  - name: Brew | Gather currently installed GUI applications via cask
+    tags: brew
+    command: "brew list --cask"
+    register: installed_gui_apps
+    changed_when: false
+
+  - name: Brew | Set fact for installed cask GUI applications
+    tags: brew
+    set_fact:
+      installed_casks: "{{ installed_gui_apps.stdout_lines }}"
+
+  - name: Brew | Install GUI applications
+    tags: brew
+    homebrew_cask:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ lookup('file', project_path + '/files/brew-casks.txt').splitlines() }}"
+    when: item not in installed_casks
+    become: false
+    
+  - name: Visual Studio Code | Set user settings
+    tags: vscode
+    copy:
+      src: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/settings.json"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
+
+  - name: Inkdrop | Set initialization configuration
+    tags: inkdrop
+    copy:
+      src: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/init.js"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+
+  - name: MacOS | Set native keybindings
+    copy:
+      src: "{{ project_path }}/files/home_directory/Library/Preferences/com.apple.symbolichotkeys.plist"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+
+  - name: Visual Studio Code | Set keybindings 
+    tags: vscode
+    copy:
+      src: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/keybindings.json"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/keybindings.json"
+
+  - name: Inkdrop | Set keybindings
+    tags: inkdrop
+    copy:
+      src: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/keymap.cson"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
+
+  - name: Inkdrop | Set packages
+    tags: inkdrop
+    unarchive:
+      src: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/packages.zip"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/"
+      remote_src: yes
+
+  - name: Podman | Create symbolic link from podman to docker
+    tags: podman
+    command:
+      cmd: ln -s /usr/local/bin/podman /usr/local/bin/docker
+    failed_when: false
+    changed_when: false
+
+  - name: Helm | Check if helm-secrets is already installed
+    tags: helm
+    command:
+      cmd: helm plugin list
+    register: helm_plugin_list
+    failed_when: false
+    changed_when: false
+
+  - name: Helm | Set fact for helm-secrets presence
+    tags: helm
+    set_fact:
+      is_secrets_installed: "{{ 'secrets' in helm_plugin_list.stdout }}"
+    
+  - name: Helm | Install helm-secrets plugin
+    tags: helm
+    command:
+      cmd: helm plugin install https://github.com/jkroepke/helm-secrets
+    when: not is_secrets_installed
+
+  - name: Inkdrop | Check if 'server' configuration exists
+    tags: inkdrop
+    shell: grep -Fq 'server:' "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+    register: server_config_check
+    failed_when: false
+    changed_when: false
+
+  - name: Inkdrop | Add 'server' configuration if it doesn't exist
+    tags: inkdrop
+    blockinfile:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+      insertafter: EOF
+      block: |
+        server:
+          auth:
+            password: "bar"
+            username: "foo"
+          bindAddress: "127.0.0.1"
+          enabled: true
+          port: 19840
+    when: server_config_check.rc != 0
+
+  - name: LunarVim | Check if LunarVim is installed
+    tags: lunarvim
+    stat:
+      path: "{{ lookup('env', 'HOME') }}/.config/nvim"
+    register: lunarvim_dir
+
+  - name: LunarVim | Installation and configuration
+    tags: lunarvim
+    when: not lunarvim_dir.stat.exists
+    block:
+      - name: LunarVim | Copy .zshenv
+        copy:
+          src: "{{ project_path }}/files/home_directory/.zshenv"
+          dest: "{{ lookup('env','HOME') }}/.zshenv"
+          force: no
+
+      # Install necessary software
+      - name: LunarVim | Ensure software dependencies are installed
+        tags: lunarvim
+        homebrew:
+          name:
+            - nvim
+            - git
+            - make
+            - python@3.11
+            - npm
+            - node
+            - rust
+          state: present
+
+      # Resolve EACCES permissions when installing packages globally
+      - name: LunarVim | Ensure ~/.npm-global directory exists
+        tags: lunarvim
+        file:
+          path: "{{ lookup('env','HOME') }}/.npm-global"
+          state: directory
+
+      - name: LunarVim | Configure npm global directory
+        tags: lunarvim
+        command:
+          cmd: npm config set prefix '~/.npm-global'
+          creates: "{{ lookup('env','HOME') }}/.npm-global"
+
+      - name: LunarVim | Update PATH for npm-global
+        tags: lunarvim
+        lineinfile:
+          path: "{{ lookup('env','HOME') }}/.zshrc"
+          line: 'export PATH=~/.npm-global/bin:$PATH'
+          insertafter: EOF
+          state: present
+
+      - name: LunarVim | Installation 
+        tags: lunarvim
+        command:
+          cmd: "LV_BRANCH='release-1.2/neovim-0.8' bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/fc6873809934917b470bff1b072171879899a36b/utils/installer/install.sh)"
+          creates: "{{ lookup('env','HOME') }}/.config/lvim"
+
+      - name: LunarVim | Set LunarVim configuration
+        tags: lunarvim
+        copy:
+          src: "{{ project_path }}/files/home_directory/.config/lvim/config.lua"
+          dest: "{{ lookup('env','HOME') }}/.config/lvim/config.lua"
+          force: no
+
+  - name: Alfred | Unzip and restore preferences
+    tags: alfred
+    unarchive:
+      src: "{{ project_path }}/files/home_directory/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/"
+      remote_src: yes 
+      owner: josh     
+      group: staff    
+      mode: '0755'    
