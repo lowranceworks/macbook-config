@@ -250,6 +250,7 @@
           force: no
 
   - name: Ensure Alfred preferences directory exists
+    tags: alfred
     file:
       path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences"
       state: directory
@@ -275,36 +276,82 @@
     tags: kubectl
     command: kubectl krew install ns
 
-  - name: Enable key repeat for VS Code Vim extension
-    tags: vscode
-    command: defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
-
-  - name: Enable global key-repeat
-    tags: os
-    command: defaults write -g ApplePressAndHoldEnabled -bool false
-
   - name: Install zsh-autosuggestions
     tags: zsh
     git:
       repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-autosuggestions"
 
-  - name: Install zsh-syntax-highlighting
+  - name: Zsh | Install zsh-syntax-highlighting
+    tags: zsh
     git:
       repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-syntax-highlighting"
 
-  - name: Install powerlevel10k theme
-    tags: zsh
+  - name: Zsh | Install powerlevel10k theme
+    tags: zsh, theme
     git:
       repo: 'https://github.com/romkatv/powerlevel10k.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
       depth: 1
 
-  - name: Set Git default branch to main
+  - name: Git | Set default branch to main
     tags: git
     command: git config --global init.defaultBranch main
 
-  - name: Enable kubectl auto-completion for zsh
-    tags: zsh
+  - name: Kubectl | Enable kubectl auto-completion for zsh
+    tags: kubectl
     shell: "/bin/zsh -ic 'source <(kubectl completion zsh)'"
+
+  - name: MacOS | Create Learn directory
+    tags: macos
+    file:
+      path: "~/Learn"
+      state: directory
+
+  - name: Themes | Create dracula-themes directory
+    tags: themes
+    file:
+      path: "~/.dracula-themes"
+      state: directory
+
+  - name: Zsh | Install oh-my-zsh
+    tags: zsh
+    shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+    args:
+      creates: "~/.oh-my-zsh"
+
+  - name: Iterm | Install iTerm2 Dracula theme
+    tags: iterm
+    git:
+      repo: "https://github.com/dracula/iterm.git"
+      dest: "~/.dracula-themes/iterm2/"
+
+  - name: Vim | Create themes/start directory
+    tags: vim 
+    file:
+      path: "~/.vim/pack/themes/start"
+      state: directory
+
+  - name: Vim | Install Dracula theme
+    tags: vim
+    git:
+      repo: "https://github.com/dracula/vim.git"
+      dest: "~/.vim/pack/themes/start/dracula"
+
+  # - name: Adjust permissions before installing git with brew
+  #   command: "sudo chown -R $(whoami) /opt/homebrew /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/locks && chmod u+w /opt/homebrew /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/locks"
+  #   become: true
+
+  - name: Visual Studio Code | Enable key repeating for VS Code Vim extension
+    tags: vscode, vim
+    command: "defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false"
+    args:
+      creates: "~/Library/Preferences/com.microsoft.VSCode.plist"
+
+  - name: MacOS | Enable global key-repeat
+    tags: os, global
+    command: "defaults write -g ApplePressAndHoldEnabled -bool false"
+    args:
+      creates: "~/Library/Preferences/.GlobalPreferences.plist"
+
