@@ -235,12 +235,10 @@
       - name: LunarVim | Installation
         tags: lunarvim
         shell:
-          cmd: "/bin/bash -c 'bash <(wget -O - https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)' -y"
+          cmd: "/bin/bash -c 'bash <(wget -O - https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh &>/dev/null)' -y"
           creates: "{{ lookup('env', 'HOME') }}/.local/bin/lvim"
         environment:
           LV_BRANCH: 'release-1.3/neovim-0.9'
-        ignore_errors: true
-        
 
       - name: LunarVim | Set LunarVim configuration
         tags: lunarvim
