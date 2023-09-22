@@ -245,7 +245,7 @@
     file:
       path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences"
       state: directory
-      owner: josh
+      owner: "{{ lookup('env', 'USER') }}"
       group: staff
       mode: '0755'
 
@@ -255,6 +255,6 @@
       src: "{{ project_path }}/files/home_directory/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/"
       remote_src: yes 
-      owner: josh     
+      owner: "{{ lookup('env', 'USER') }}"
       group: staff    
       mode: '0755'    
