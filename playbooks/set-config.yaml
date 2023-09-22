@@ -182,7 +182,8 @@
             - node
             - rust
           state: present
-
+        when: not (lookup('file', lookup('env', 'HOME') + '/.local/bin/lvim', errors='ignore') is search(''))
+        
       # Resolve EACCES permissions when installing packages globally
       - name: LunarVim | Ensure ~/.npm-global directory exists
         tags: lunarvim
