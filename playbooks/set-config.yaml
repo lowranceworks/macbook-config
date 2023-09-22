@@ -75,6 +75,7 @@
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
 
   - name: MacOS | Set native keybindings
+    tags: os
     copy:
       src: "{{ project_path }}/files/home_directory/Library/Preferences/com.apple.symbolichotkeys.plist"
       dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
@@ -265,3 +266,45 @@
       owner: "{{ lookup('env', 'USER') }}"
       group: staff    
       mode: '0755'    
+
+  - name: Install ctx plugin
+    tags: kubectl
+    command: kubectl krew install ctx
+
+  - name: Install ns plugin
+    tags: kubectl
+    command: kubectl krew install ns
+
+  - name: Enable key repeat for VS Code Vim extension
+    tags: vscode
+    command: defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+
+  - name: Enable global key-repeat
+    tags: os
+    command: defaults write -g ApplePressAndHoldEnabled -bool false
+
+  - name: Install zsh-autosuggestions
+    tags: zsh
+    git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-autosuggestions"
+
+  - name: Install zsh-syntax-highlighting
+    git:
+      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-syntax-highlighting"
+
+  - name: Install powerlevel10k theme
+    tags: zsh
+    git:
+      repo: 'https://github.com/romkatv/powerlevel10k.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
+      depth: 1
+
+  - name: Set Git default branch to main
+    tags: git
+    command: git config --global init.defaultBranch main
+
+  - name: Enable kubectl auto-completion for zsh
+    tags: zsh
+    shell: "/bin/zsh -ic 'source <(kubectl completion zsh)'"
