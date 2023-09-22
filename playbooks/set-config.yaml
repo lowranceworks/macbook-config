@@ -160,15 +160,8 @@
           port: 19840
     when: server_config_check.rc != 0
 
-  - name: Check if LunarVim is already installed
-    tags: lunarvim
-    stat:
-      path: "{{ lookup('env', 'HOME') }}/.config/lvim"
-    register: lvim_stat
-
   - name: LunarVim | Installation and configuration
     tags: lunarvim
-    when: not lvim_stat.stat.exists
     block:
       - name: LunarVim | Copy .zshenv
         copy:
