@@ -61,6 +61,13 @@
       src: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/settings.json"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
 
+  - name: Inkdrop | Ensure directory exists
+    tags: inkdrop
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop"
+      state: directory
+      mode: '0755'
+
   - name: Inkdrop | Set initialization configuration
     tags: inkdrop
     copy:
