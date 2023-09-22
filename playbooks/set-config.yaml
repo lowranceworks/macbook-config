@@ -346,9 +346,9 @@
     args:
       creates: "~/Library/Preferences/.GlobalPreferences.plist"
 
-  - name: MacOS | Map "Caps Lock" key to "Esc" key
-    tags: os, vim
-    command: "defaults -currentHost write -g com.apple.keyboard.modifiermapping.{{ item.device_id }}-0 -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>5</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'"
-    with_items:
-      - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
-    become: True
+  # - name: MacOS | Map "Caps Lock" key to "Esc" key
+  #   tags: os, vim
+  #   command: "defaults -currentHost write -g com.apple.keyboard.modifiermapping.{{ item.device_id }}-0 -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>5</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'"
+  #   with_items:
+  #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
+  #   become: True
