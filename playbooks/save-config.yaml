@@ -66,6 +66,22 @@
       when:
         - brew_casks_file_stat.stat.exists
         - current_brew_casks.stdout != lookup('file', '{{ project_path }}/files/brew-casks.txt')
+              
+    - name: Brew | Remove software from brew-casks.txt that I do not want saved
+      tags: brew
+      ansible.builtin.lineinfile:
+        path: "{{ project_path + '/files/brew-casks.txt' }}"
+        regexp: '^.*{{ item }}.*$'
+        state: absent
+      loop:
+        - expressvpn
+        - yubico-yubikey-manager
+        - signal
+        - teamviewer
+        - tailscale
+        - telegram
+        - betterdisplay
+        - steam
 
     - name: Visual Studio Code | Save user settings
       copy:

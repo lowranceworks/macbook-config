@@ -203,6 +203,20 @@
           cmd: npm config set prefix '~/.npm-global'
           creates: "{{ lookup('env','HOME') }}/.npm-global"
 
+      - name: Lunarvim | Check if '.zshrc' file exists
+        tags: lunarvim
+        stat:
+          path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        register: zshrc_file_status
+
+      - name: LunarVim | Ensure '.zshrc' file exists
+        tags: lunarvim
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.zshrc"
+          state: touch
+          mode: '0644'
+        when: not zshrc_file_status.stat.exists
+
       - name: LunarVim | Update PATH for npm-global
         tags: lunarvim
         lineinfile:

@@ -1,12 +1,10 @@
 alfred
-betterdisplay
 brave-browser
 chromium
 cleanshot
 contexts
 copyclip
 drawio
-expressvpn
 fig
 fork
 google-chrome
@@ -22,14 +20,8 @@ microsoft-teams
 mission-control-plus
 paintbrush
 rectangle-pro
-signal
 slack
 stats
-steam
-tailscale
-teamviewer
-telegram
 utm
 visual-studio-code
 webcatalog
-yubico-yubikey-manager
