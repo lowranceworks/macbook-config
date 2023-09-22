@@ -124,6 +124,20 @@
       cmd: helm plugin install https://github.com/jkroepke/helm-secrets
     when: not is_secrets_installed
 
+  - name: Inkdrop | Check if 'config.cson' file exists
+    tags: inkdrop
+    stat:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+    register: config_file_status
+
+  - name: Inkdrop | create 'config.cson' file
+    tags: inkdrop
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+      state: touch
+      mode: '0644'
+    when: not config_file_status.stat.exists
+
   - name: Inkdrop | Check if 'server' configuration exists
     tags: inkdrop
     shell: grep -Fq 'server:' "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
