@@ -219,6 +219,12 @@
           insertafter: EOF
           state: present
 
+      - name: Ensure ~/.bashrc exists
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.bashrc"
+          state: touch
+          mode: '0644'
+
       - name: LunarVim | Add paths to ~/.bashrc
         tags: lunarvim
         lineinfile:
