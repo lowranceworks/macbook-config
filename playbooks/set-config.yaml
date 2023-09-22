@@ -221,7 +221,9 @@
 
       - name: Install LunarVim
         command:
-          cmd: "bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)"
+          cmd: "bash <(wget -O - https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)"
+          environment:
+            LV_BRANCH: 'release-1.3/neovim-0.9'
         args:
           warn: no
         # when: not (lookup('file', lookup('env', 'HOME') + '/.local/bin/lvim', errors='ignore') is search(''))
