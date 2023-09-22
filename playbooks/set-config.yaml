@@ -219,14 +219,14 @@
           insertafter: EOF
           state: present
 
-      - name: Install LunarVim
-        command:
-          cmd: "bash <(wget -O - https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)"
-          environment:
-            LV_BRANCH: 'release-1.3/neovim-0.9'
-        args:
-          warn: no
-        # when: not (lookup('file', lookup('env', 'HOME') + '/.local/bin/lvim', errors='ignore') is search(''))
+      - name: LunarVim | Installation
+        tags: lunarvim
+        shell:
+          cmd: "/bin/bash -c 'bash <(wget -O - https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)'"
+          creates: "{{ lookup('env', 'HOME') }}/.local/bin/lvim"
+        environment:
+          LV_BRANCH: 'release-1.3/neovim-0.9'
+
 
       - name: LunarVim | Set LunarVim configuration
         tags: lunarvim
