@@ -48,13 +48,6 @@
     become: false
     ignore_errors: true
 
-  - name: Brew | Remove expressvpn from brew-casks.txt
-    tags: brew
-    ansible.builtin.lineinfile:
-      path: "{{ project_path + '/files/brew-casks.txt' }}"
-      regexp: '^.*expressvpn.*$'
-      state: absent
-          
   - name: Visual Studio Code | Set user settings
     tags: vscode
     copy:
