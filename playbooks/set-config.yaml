@@ -25,6 +25,7 @@
     loop: "{{ lookup('file', project_path + '/files/brew.txt').splitlines() }}"
     when: item not in installed_brews
     become: false
+    ignore_errors: true
 
   - name: Brew | Gather currently installed GUI applications via cask
     tags: brew
@@ -45,6 +46,7 @@
     loop: "{{ lookup('file', project_path + '/files/brew-casks.txt').splitlines() }}"
     when: item not in installed_casks
     become: false
+    ignore_errors: true
 
   - name: Brew | Remove expressvpn from brew-casks.txt
     tags: brew
