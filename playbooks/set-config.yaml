@@ -214,7 +214,7 @@
           insertafter: EOF
           state: present
 
-      - name: Ensure ~/.bashrc exists
+      - name: LunarVim | Ensure ~/.bashrc exists
         file:
           path: "{{ lookup('env', 'HOME') }}/.bashrc"
           state: touch
@@ -240,7 +240,7 @@
           dest: "{{ lookup('env','HOME') }}/.config/lvim/config.lua"
           force: no
 
-  - name: Ensure Alfred preferences directory exists
+  - name: Alfred | Ensure Alfred preferences directory exists
     tags: alfred
     file:
       path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences"
@@ -259,15 +259,15 @@
       group: staff    
       mode: '0755'    
 
-  - name: Install ctx plugin
+  - name: Kubectl | Install ctx plugin
     tags: kubectl
     command: kubectl krew install ctx
 
-  - name: Install ns plugin
+  - name: Kubectl | Install ns plugin
     tags: kubectl
     command: kubectl krew install ns
 
-  - name: Install zsh-autosuggestions
+  - name: Zsh | Install zsh-autosuggestions
     tags: zsh
     git:
       repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
@@ -346,3 +346,9 @@
     args:
       creates: "~/Library/Preferences/.GlobalPreferences.plist"
 
+  - name: MacOS | Map "Caps Lock" key to "Esc" key
+    tags: os, vim
+    command: "defaults -currentHost write -g com.apple.keyboard.modifiermapping.{{ item.device_id }}-0 -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>5</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'"
+    with_items:
+      - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
+    become: True

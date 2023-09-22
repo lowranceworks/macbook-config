@@ -161,3 +161,24 @@
         cmd: git push --set-upstream origin main
         chdir: '{{ project_path }}'
       when: "'Your branch is up to date with' not in git_status_result.stdout"
+
+    - name: MacOS | Save general keyboard preferences
+      tags: os
+      fetch:
+        src: "~/Library/Preferences/com.apple.HIToolbox.plist"
+        dest: "{{ project_path }}/files/home_directory/Library/Preferences/com.apple.HIToolbox.plist"
+        flat: yes
+            
+    - name: MacOS | Check if DefaultKeyBinding.dict exists
+      tags: os
+      stat:
+        path: "~/Library/KeyBindings/DefaultKeyBinding.dict"
+      register: keybinding_file
+
+    - name: MacOS | Save keybindings
+      tags: os
+      fetch:
+        src: "~/Library/KeyBindings/DefaultKeyBinding.dict"
+        dest: "{{ project_path }}/files/home_directory/Library/KeyBindings/DefaultKeyBinding.dict"
+        flat: yes
+      when: keybinding_file.stat.exists
