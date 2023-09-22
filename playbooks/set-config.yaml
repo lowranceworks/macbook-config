@@ -45,7 +45,14 @@
     loop: "{{ lookup('file', project_path + '/files/brew-casks.txt').splitlines() }}"
     when: item not in installed_casks
     become: false
-    
+
+  - name: Brew | Remove expressvpn from brew-casks.txt
+    tags: brew
+    ansible.builtin.lineinfile:
+      path: "{{ project_path + '/files/brew-casks.txt' }}"
+      regexp: '^.*expressvpn.*$'
+      state: absent
+          
   - name: Visual Studio Code | Set user settings
     tags: vscode
     copy:
