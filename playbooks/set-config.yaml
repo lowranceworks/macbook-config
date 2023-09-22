@@ -48,6 +48,13 @@
     become: false
     ignore_errors: true
 
+  - name: Visual Studio Code | Ensure directory exists
+    tags: vscode
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User"
+      state: directory
+      mode: '0755'
+
   - name: Visual Studio Code | Set user settings
     tags: vscode
     copy:
