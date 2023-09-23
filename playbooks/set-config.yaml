@@ -438,3 +438,16 @@
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
 
+  # - name: ohmyzsh | Ensure ~/.oh_my_zsh/custom/plugin directory exists
+  #   tags: ohmyzsh, zsh
+  #   file:
+  #     path: "~/.oh_my_zsh/custom/plugin"
+  #     state: directory
+  #     mode: '0755'
+
+  # - name: ohmyzsh | clone ohmyzsh project
+  #   tags: ohmyzsh, zsh
+  #   git:
+  #     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+  #     dest: '~/.oh_my_zsh/'
+
