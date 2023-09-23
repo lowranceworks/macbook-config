@@ -15,10 +15,10 @@ lvim.format_on_save.enabled = false
 -- appearence
 lvim.transparent_window = true
 lvim.colorscheme = "dracula"
-vim.opt.relativenumber = false 
+vim.opt.relativenumber = true
 
 -- to disable icons and use a minimalist setup, uncomment the following
-lvim.use_icons = false
+lvim.use_icons = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -77,6 +77,7 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
   "c",
+  "go",
   "javascript",
   "json",
   "lua",

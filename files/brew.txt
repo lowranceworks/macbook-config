@@ -17,7 +17,6 @@ ca-certificates
 capstone
 cffi
 checkov
-cockroach
 curl
 docker
 docker-completion
@@ -46,7 +45,6 @@ go-task
 grep
 groff
 guile
-hcledit
 helm
 highway
 icu4c
@@ -183,3 +181,5 @@ z3
 zsh-autosuggestions
 zsh-fast-syntax-highlighting
 zstd
+cockroachdb/tap/cockroach
+minamijoyo/hcledit/hcledit
