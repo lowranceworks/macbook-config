@@ -25,6 +25,7 @@
     loop: "{{ lookup('file', project_path + '/files/brew.txt').splitlines() }}"
     when: item not in installed_brews
     become: false
+    ignore_errors: true
 
   - name: Brew | Gather currently installed GUI applications via cask
     tags: brew
@@ -45,12 +46,27 @@
     loop: "{{ lookup('file', project_path + '/files/brew-casks.txt').splitlines() }}"
     when: item not in installed_casks
     become: false
-    
+    ignore_errors: true
+
+  - name: Visual Studio Code | Ensure directory exists
+    tags: vscode
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User"
+      state: directory
+      mode: '0755'
+
   - name: Visual Studio Code | Set user settings
     tags: vscode
     copy:
       src: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/settings.json"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
+
+  - name: Inkdrop | Ensure directory exists
+    tags: inkdrop
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop"
+      state: directory
+      mode: '0755'
 
   - name: Inkdrop | Set initialization configuration
     tags: inkdrop
@@ -59,6 +75,7 @@
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
 
   - name: MacOS | Set native keybindings
+    tags: os
     copy:
       src: "{{ project_path }}/files/home_directory/Library/Preferences/com.apple.symbolichotkeys.plist"
       dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
@@ -108,6 +125,20 @@
       cmd: helm plugin install https://github.com/jkroepke/helm-secrets
     when: not is_secrets_installed
 
+  - name: Inkdrop | Check if 'config.cson' file exists
+    tags: inkdrop
+    stat:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+    register: config_file_status
+
+  - name: Inkdrop | create 'config.cson' file
+    tags: inkdrop
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+      state: touch
+      mode: '0644'
+    when: not config_file_status.stat.exists
+
   - name: Inkdrop | Check if 'server' configuration exists
     tags: inkdrop
     shell: grep -Fq 'server:' "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
@@ -130,15 +161,8 @@
           port: 19840
     when: server_config_check.rc != 0
 
-  - name: LunarVim | Check if LunarVim is installed
-    tags: lunarvim
-    stat:
-      path: "{{ lookup('env', 'HOME') }}/.config/nvim"
-    register: lunarvim_dir
-
   - name: LunarVim | Installation and configuration
     tags: lunarvim
-    when: not lunarvim_dir.stat.exists
     block:
       - name: LunarVim | Copy .zshenv
         copy:
@@ -148,7 +172,6 @@
 
       # Install necessary software
       - name: LunarVim | Ensure software dependencies are installed
-        tags: lunarvim
         homebrew:
           name:
             - nvim
@@ -159,40 +182,72 @@
             - node
             - rust
           state: present
+        when: not (lookup('file', lookup('env', 'HOME') + '/.local/bin/lvim', errors='ignore') is search(''))
 
       # Resolve EACCES permissions when installing packages globally
       - name: LunarVim | Ensure ~/.npm-global directory exists
-        tags: lunarvim
         file:
           path: "{{ lookup('env','HOME') }}/.npm-global"
           state: directory
 
       - name: LunarVim | Configure npm global directory
-        tags: lunarvim
         command:
           cmd: npm config set prefix '~/.npm-global'
           creates: "{{ lookup('env','HOME') }}/.npm-global"
 
+      - name: Lunarvim | Check if '.zshrc' file exists
+        stat:
+          path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        register: zshrc_file_status
+
+      - name: LunarVim | Ensure '.zshrc' file exists
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.zshrc"
+          state: touch
+          mode: '0644'
+        when: not zshrc_file_status.stat.exists
+
       - name: LunarVim | Update PATH for npm-global
-        tags: lunarvim
         lineinfile:
           path: "{{ lookup('env','HOME') }}/.zshrc"
           line: 'export PATH=~/.npm-global/bin:$PATH'
           insertafter: EOF
           state: present
 
-      - name: LunarVim | Installation 
-        tags: lunarvim
-        command:
-          cmd: "LV_BRANCH='release-1.2/neovim-0.8' bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/fc6873809934917b470bff1b072171879899a36b/utils/installer/install.sh)"
-          creates: "{{ lookup('env','HOME') }}/.config/lvim"
+      - name: LunarVim | Ensure ~/.bashrc exists
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.bashrc"
+          state: touch
+          mode: '0644'
 
+      - name: LunarVim | Add paths to ~/.bashrc
+        lineinfile:
+          path: "{{ lookup('env', 'HOME') }}/.bashrc"
+          line: 'export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"'
+          state: present
+
+      - name: LunarVim | Installation
+        shell:
+          cmd: "/bin/bash -c 'bash <(wget -O - https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)' -y"
+          creates: "{{ lookup('env', 'HOME') }}/.local/bin/lvim"
+        environment:
+          LV_BRANCH: 'release-1.3/neovim-0.9'
+        ignore_errors: true # this is here because this task will fail on MacOS VM
+        
       - name: LunarVim | Set LunarVim configuration
-        tags: lunarvim
         copy:
           src: "{{ project_path }}/files/home_directory/.config/lvim/config.lua"
           dest: "{{ lookup('env','HOME') }}/.config/lvim/config.lua"
           force: no
+
+  - name: Alfred | Ensure Alfred preferences directory exists
+    tags: alfred
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences"
+      state: directory
+      owner: "{{ lookup('env', 'USER') }}"
+      group: staff
+      mode: '0755'
 
   - name: Alfred | Unzip and restore preferences
     tags: alfred
@@ -200,6 +255,173 @@
       src: "{{ project_path }}/files/home_directory/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/"
       remote_src: yes 
-      owner: josh     
+      owner: "{{ lookup('env', 'USER') }}"
       group: staff    
       mode: '0755'    
+
+  - name: Kubectl | Install ctx plugin
+    tags: kubectl
+    command: kubectl krew install ctx
+
+  - name: Kubectl | Install ns plugin
+    tags: kubectl
+    command: kubectl krew install ns
+
+  - name: Zsh | Install oh-my-zsh
+    tags: zsh
+    shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+    args:
+      creates: "~/.oh-my-zsh"
+
+  - name: Zsh | Install zsh-autosuggestions
+    tags: zsh
+    git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-autosuggestions"
+
+  - name: Zsh | Install zsh-syntax-highlighting
+    tags: zsh
+    git:
+      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-syntax-highlighting"
+
+  - name: Zsh | Install powerlevel10k theme
+    tags: zsh, theme
+    git:
+      repo: 'https://github.com/romkatv/powerlevel10k.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
+      depth: 1
+
+  - name: Zsh | Copy aliases.zsh to ~/.oh-my-zsh/
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.oh-my-zsh/aliases.zsh"
+      dest: "~/.oh-my-zsh/aliases.zsh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Copy oh-my-zsh.sh to ~/.oh-my-zsh/
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.oh-my-zsh/oh-my-zsh.sh"
+      dest: "~/.oh-my-zsh/oh-my-zsh.sh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Git | Set default branch to main
+    tags: git
+    command: git config --global init.defaultBranch main
+
+  - name: Kubectl | Enable kubectl auto-completion for zsh
+    tags: kubectl
+    shell: "/bin/zsh -ic 'source <(kubectl completion zsh)'"
+
+  - name: MacOS | Create Learn directory
+    tags: macos
+    file:
+      path: "~/Learn"
+      state: directory
+
+  - name: Themes | Create dracula-themes directory
+    tags: themes
+    file:
+      path: "~/.dracula-themes"
+      state: directory
+
+  - name: Iterm | Install iTerm2 Dracula theme
+    tags: iterm
+    git:
+      repo: "https://github.com/dracula/iterm.git"
+      dest: "~/.dracula-themes/iterm2/"
+
+  - name: Vim | Create themes/start directory
+    tags: vim 
+    file:
+      path: "~/.vim/pack/themes/start"
+      state: directory
+
+  - name: Vim | Install Dracula theme
+    tags: vim
+    git:
+      repo: "https://github.com/dracula/vim.git"
+      dest: "~/.vim/pack/themes/start/dracula"
+
+  # - name: Adjust permissions before installing git with brew
+  #   command: "sudo chown -R $(whoami) /opt/homebrew /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/locks && chmod u+w /opt/homebrew /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/locks"
+  #   become: true
+
+  - name: Visual Studio Code | Enable key repeating for VS Code Vim extension
+    tags: vscode, vim
+    command: "defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false"
+    args:
+      creates: "~/Library/Preferences/com.microsoft.VSCode.plist"
+
+  - name: MacOS | Enable global key-repeat
+    tags: os, global
+    command: "defaults write -g ApplePressAndHoldEnabled -bool false"
+    args:
+      creates: "~/Library/Preferences/.GlobalPreferences.plist"
+
+  # - name: MacOS | Map "Caps Lock" key to "Esc" key
+  #   tags: os, vim
+  #   command: "defaults -currentHost write -g com.apple.keyboard.modifiermapping.{{ item.device_id }}-0 -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>5</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'"
+  #   with_items:
+  #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
+  #   become: True
+
+  - name: LunarVim | Push all files to ~/.config/lvim/ recursively
+    tags: lunarvim
+    synchronize:
+      src: "{{ project_path }}/files/home_directory/.config/lvim/"
+      dest: "~/.config/lvim/"
+      recursive: yes
+      mode: push
+
+  - name: NeoVim | Push all files to ~/.config/nvim/ recursively
+    tags: neovim
+    synchronize:
+      src: "{{ project_path }}/files/home_directory/.config/nvim/"
+      dest: "~/.config/nvim/"
+      recursive: yes
+      mode: push
+
+  - name: SSH | Push ~/.ssh/config
+    tags: ssh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.ssh/config"
+      dest: "~/.ssh/config"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0600'  # This ensures the config file is readable only by the owner which is usually required for SSH config files
+
+  - name: zsh | Push ~/.p10k.zsh
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.p10k.zsh"
+      dest: "~/.p10k.zsh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Vim | Push ~/.vimrc
+    tags: vim
+    copy:
+      src: "{{ project_path }}/files/home_directory/.vimrc"
+      dest: "~/.vimrc"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Push ~/.zshenv
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.zshenv"
+      dest: "~/.zshenv"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Push ~/.zshrc
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.zshrc"
+      dest: "~/.zshrc"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
