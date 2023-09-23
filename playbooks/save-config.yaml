@@ -247,3 +247,18 @@
         src: "~/.zshrc"
         dest: "{{ project_path }}/files/home_directory/.zshrc"
         flat: yes
+
+    - name: Add changes from the files directory
+      command:
+        cmd: git add files/*
+        chdir: '{{ project_path }}'
+        
+    - name: Commit the changes
+      command:
+        cmd: "git commit -m 'fix: update configuration files'"
+        chdir: '{{ project_path }}'
+
+    - name: Push changes to the main branch
+      command:
+        cmd: git push origin main
+        chdir: '{{ project_path }}'

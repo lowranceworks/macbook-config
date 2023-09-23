@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -83,7 +85,6 @@ plugins=(
     zsh-syntax-highlighting
     docker
     terraform
-    kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -137,11 +138,11 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 # to get Kind working with Podman we need to export the following environment variable.
 export KIND_EXPERIMENTAL_PROVIDER=podman
 
-# export path (required for lunarvim)
-export PATH=$HOME/.local/bin:$PATH
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# set default docker platform to amd64
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
+export GO111MODULE=on
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+export PATH=~/.npm-global/bin:$PATH
