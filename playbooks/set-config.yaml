@@ -369,3 +369,18 @@
   #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
   #   become: True
 
+  - name: LunarVim | Push all files to ~/.config/lvim/ recursively
+    tags: lunarvim
+    synchronize:
+      src: "{{ project_path }}/files/home_directory/.config/lvim/"
+      dest: "~/.config/lvim/"
+      recursive: yes
+      mode: push
+
+  - name: NeoVim | Push all files to ~/.config/nvim/ recursively
+    tags: neovim
+    synchronize:
+      src: "{{ project_path }}/files/home_directory/.config/nvim/"
+      dest: "~/.config/nvim/"
+      recursive: yes
+      mode: push

@@ -196,3 +196,21 @@
         src: "~/.oh-my-zsh/oh-my-zsh.sh"
         dest: "{{ project_path }}/files/home_directory/.oh-my-zsh/oh-my-zsh.sh"
         flat: yes
+
+    - name: LunarVimVim | Fetch all files from ~/.config/lvim/ recursively
+      tags: lunarvim
+      synchronize:
+        src: "~/.config/nvim/"
+        dest: "{{ project_path }}/files/home_directory/.config/nvim/"
+        recursive: yes
+        mode: pull
+
+    - name: NeoVim | Fetch all files from ~/.config/nvim/ recursively
+      tags: neovim
+      synchronize:
+        src: "~/.config/nvim/"
+        dest: "{{ project_path }}/files/home_directory/.config/nvim/"
+        recursive: yes
+        mode: pull
+
+
