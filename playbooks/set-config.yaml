@@ -267,6 +267,12 @@
     tags: kubectl
     command: kubectl krew install ns
 
+  - name: Zsh | Install oh-my-zsh
+    tags: zsh
+    shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+    args:
+      creates: "~/.oh-my-zsh"
+
   - name: Zsh | Install zsh-autosuggestions
     tags: zsh
     git:
@@ -285,6 +291,22 @@
       repo: 'https://github.com/romkatv/powerlevel10k.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
       depth: 1
+
+  - name: Zsh | Copy aliases.zsh to ~/.oh-my-zsh/
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.oh-my-zsh/aliases.zsh"
+      dest: "~/.oh-my-zsh/aliases.zsh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Copy oh-my-zsh.sh to ~/.oh-my-zsh/
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/home_directory/.oh-my-zsh/oh-my-zsh.sh"
+      dest: "~/.oh-my-zsh/oh-my-zsh.sh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
 
   - name: Git | Set default branch to main
     tags: git
@@ -305,12 +327,6 @@
     file:
       path: "~/.dracula-themes"
       state: directory
-
-  - name: Zsh | Install oh-my-zsh
-    tags: zsh
-    shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
-    args:
-      creates: "~/.oh-my-zsh"
 
   - name: Iterm | Install iTerm2 Dracula theme
     tags: iterm
@@ -352,3 +368,4 @@
   #   with_items:
   #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
   #   become: True
+

@@ -182,3 +182,17 @@
         dest: "{{ project_path }}/files/home_directory/Library/KeyBindings/DefaultKeyBinding.dict"
         flat: yes
       when: keybinding_file.stat.exists
+
+    - name: Zsh | Fetch aliases.zsh from ~/.oh-my-zsh/
+      tags: zsh
+      fetch:
+        src: "~/.oh-my-zsh/aliases.zsh"
+        dest: "{{ project_path }}/files/home_directory/.oh-my-zsh/aliases.zsh"
+        flat: yes
+
+    - name: Zsh | Fetch oh-my-zsh.sh from ~/.oh-my-zsh/
+      tags: zsh
+      fetch:
+        src: "~/.oh-my-zsh/oh-my-zsh.sh"
+        dest: "{{ project_path }}/files/home_directory/.oh-my-zsh/oh-my-zsh.sh"
+        flat: yes
