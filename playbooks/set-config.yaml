@@ -391,6 +391,13 @@
       recursive: yes
       mode: push
 
+  - name: SSH | Ensure ~/.ssh directory exists
+    tags: ssh
+    file:
+      path: "{{ lookup('env', 'HOME') }}/.ssh"
+      state: directory
+      mode: '0755'
+
   - name: SSH | Push ~/.ssh/config
     tags: ssh
     copy:
