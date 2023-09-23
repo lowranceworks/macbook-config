@@ -207,18 +207,24 @@
           mode: '0644'
         when: not zshrc_file_status.stat.exists
 
+      - name: LunarVim | Ensure ~/.bashrc exists
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.bashrc"
+          state: touch
+          mode: '0644'
+
+      - name: Zsh | Ensure ~/.zshrc exists
+        file:
+          path: "{{ lookup('env', 'HOME') }}/.zshrc"
+          state: touch
+          mode: '0644'
+
       - name: LunarVim | Update PATH for npm-global
         lineinfile:
           path: "{{ lookup('env','HOME') }}/.zshrc"
           line: 'export PATH=~/.npm-global/bin:$PATH'
           insertafter: EOF
           state: present
-
-      - name: LunarVim | Ensure ~/.bashrc exists
-        file:
-          path: "{{ lookup('env', 'HOME') }}/.bashrc"
-          state: touch
-          mode: '0644'
 
       - name: LunarVim | Add paths to ~/.bashrc
         lineinfile:
