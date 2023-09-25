@@ -58,7 +58,7 @@
   - name: Visual Studio Code | Set user settings
     tags: vscode
     copy:
-      src: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/settings.json"
+      src: "{{ project_path }}/files/Home/Library/Application Support/Code/User/settings.json"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
 
   - name: Inkdrop | Ensure directory exists
@@ -71,31 +71,31 @@
   - name: Inkdrop | Set initialization configuration
     tags: inkdrop
     copy:
-      src: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/init.js"
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
 
   - name: MacOS | Set native keybindings
     tags: os
     copy:
-      src: "{{ project_path }}/files/home_directory/Library/Preferences/com.apple.symbolichotkeys.plist"
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
       dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
 
   - name: Visual Studio Code | Set keybindings 
     tags: vscode
     copy:
-      src: "{{ project_path }}/files/home_directory/Library/Application Support/Code/User/keybindings.json"
+      src: "{{ project_path }}/files/Home/Library/Application Support/Code/User/keybindings.json"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/keybindings.json"
 
   - name: Inkdrop | Set keybindings
     tags: inkdrop
     copy:
-      src: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/keymap.cson"
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
 
   - name: Inkdrop | Set packages
     tags: inkdrop
     unarchive:
-      src: "{{ project_path }}/files/home_directory/Library/Application Support/inkdrop/packages.zip"
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/"
       remote_src: yes
 
@@ -166,7 +166,7 @@
     block:
       - name: LunarVim | Copy .zshenv
         copy:
-          src: "{{ project_path }}/files/home_directory/.zshenv"
+          src: "{{ project_path }}/files/Home/.zshenv"
           dest: "{{ lookup('env','HOME') }}/.zshenv"
           force: no
 
@@ -242,7 +242,7 @@
         
       - name: LunarVim | Set LunarVim configuration
         copy:
-          src: "{{ project_path }}/files/home_directory/.config/lvim/config.lua"
+          src: "{{ project_path }}/files/Home/.config/lvim/config.lua"
           dest: "{{ lookup('env','HOME') }}/.config/lvim/config.lua"
           force: no
 
@@ -258,7 +258,7 @@
   - name: Alfred | Unzip and restore preferences
     tags: alfred
     unarchive:
-      src: "{{ project_path }}/files/home_directory/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
+      src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/"
       remote_src: yes 
       owner: "{{ lookup('env', 'USER') }}"
@@ -272,47 +272,6 @@
   - name: Kubectl | Install ns plugin
     tags: kubectl
     command: kubectl krew install ns
-
-  - name: Zsh | Install oh-my-zsh
-    tags: zsh
-    shell: "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
-    args:
-      creates: "~/.oh-my-zsh"
-
-  - name: Zsh | Install zsh-autosuggestions
-    tags: zsh
-    git:
-      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-autosuggestions"
-
-  - name: Zsh | Install zsh-syntax-highlighting
-    tags: zsh
-    git:
-      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-syntax-highlighting"
-
-  - name: Zsh | Install powerlevel10k theme
-    tags: zsh, theme
-    git:
-      repo: 'https://github.com/romkatv/powerlevel10k.git'
-      dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
-      depth: 1
-
-  - name: Zsh | Copy aliases.zsh to ~/.oh-my-zsh/
-    tags: zsh
-    copy:
-      src: "{{ project_path }}/files/home_directory/.oh-my-zsh/aliases.zsh"
-      dest: "~/.oh-my-zsh/aliases.zsh"
-      owner: "{{ lookup('env', 'USER') }}"
-      mode: '0644'
-
-  - name: Zsh | Copy oh-my-zsh.sh to ~/.oh-my-zsh/
-    tags: zsh
-    copy:
-      src: "{{ project_path }}/files/home_directory/.oh-my-zsh/oh-my-zsh.sh"
-      dest: "~/.oh-my-zsh/oh-my-zsh.sh"
-      owner: "{{ lookup('env', 'USER') }}"
-      mode: '0644'
 
   - name: Git | Set default branch to main
     tags: git
@@ -378,7 +337,7 @@
   - name: LunarVim | Push all files to ~/.config/lvim/ recursively
     tags: lunarvim
     synchronize:
-      src: "{{ project_path }}/files/home_directory/.config/lvim/"
+      src: "{{ project_path }}/files/Home/.config/lvim/"
       dest: "~/.config/lvim/"
       recursive: yes
       mode: push
@@ -386,7 +345,7 @@
   - name: NeoVim | Push all files to ~/.config/nvim/ recursively
     tags: neovim
     synchronize:
-      src: "{{ project_path }}/files/home_directory/.config/nvim/"
+      src: "{{ project_path }}/files/Home/.config/nvim/"
       dest: "~/.config/nvim/"
       recursive: yes
       mode: push
@@ -401,7 +360,7 @@
   - name: SSH | Push ~/.ssh/config
     tags: ssh
     copy:
-      src: "{{ project_path }}/files/home_directory/.ssh/config"
+      src: "{{ project_path }}/files/Home/.ssh/config"
       dest: "~/.ssh/config"
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0600'  # This ensures the config file is readable only by the owner which is usually required for SSH config files
@@ -409,7 +368,7 @@
   - name: zsh | Push ~/.p10k.zsh
     tags: zsh
     copy:
-      src: "{{ project_path }}/files/home_directory/.p10k.zsh"
+      src: "{{ project_path }}/files/Home/.p10k.zsh"
       dest: "~/.p10k.zsh"
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
@@ -417,7 +376,7 @@
   - name: Vim | Push ~/.vimrc
     tags: vim
     copy:
-      src: "{{ project_path }}/files/home_directory/.vimrc"
+      src: "{{ project_path }}/files/Home/.vimrc"
       dest: "~/.vimrc"
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
@@ -425,7 +384,7 @@
   - name: Zsh | Push ~/.zshenv
     tags: zsh
     copy:
-      src: "{{ project_path }}/files/home_directory/.zshenv"
+      src: "{{ project_path }}/files/Home/.zshenv"
       dest: "~/.zshenv"
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
@@ -433,8 +392,37 @@
   - name: Zsh | Push ~/.zshrc
     tags: zsh
     copy:
-      src: "{{ project_path }}/files/home_directory/.zshrc"
+      src: "{{ project_path }}/files/Home/.zshrc"
       dest: "~/.zshrc"
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
+
+  - name: Restore iTerm2 user configuration
+    tags: iterm
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
+      dest: "~/Library/Preferences/com.googlecode.iterm2.plist"
+      remote_src: yes
+      mode: '0644'
+
+  - name: Restore Terminal user configuration
+    tags: terminal
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
+      dest: "~/Library/Preferences/com.apple.Terminal.plist"
+      remote_src: yes
+      mode: '0644'
+
+  # - name: ohmyzsh | Ensure ~/.oh_my_zsh/custom/plugin directory exists
+  #   tags: ohmyzsh, zsh
+  #   file:
+  #     path: "~/.oh_my_zsh/custom/plugin"
+  #     state: directory
+  #     mode: '0755'
+
+  # - name: ohmyzsh | clone ohmyzsh project
+  #   tags: ohmyzsh, zsh
+  #   git:
+  #     repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+  #     dest: '~/.oh_my_zsh/'
 
