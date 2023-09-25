@@ -413,12 +413,21 @@
       remote_src: yes
       mode: '0644'
 
-  - name: Restore Visual Studio Code extensions from backup
+  - name: Gather list of extension backup zips
+    tags: vscode
+    find:
+      paths: "{{ project_path }}/files/Home/.vscode/extensions/"
+      patterns: "*.zip"
+    register: vscode_extension_backups
+
+  - name: Restore Visual Studio Code extensions from individual backups
     tags: vscode
     unarchive:
-      src: "{{ project_path }}/files/Home/.vscode/extensions_backup.zip"
+      src: "{{ item.path }}"
       dest: "~/.vscode/extensions/"
       remote_src: yes
+    loop: "{{ vscode_extension_backups.files }}"
+
 
   # - name: ohmyzsh | Ensure ~/.oh_my_zsh/custom/plugin directory exists
   #   tags: ohmyzsh, zsh
