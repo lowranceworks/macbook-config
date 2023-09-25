@@ -6,28 +6,24 @@
   vars:
     project_path: /Users/josh/Projects/macbook_config
   tasks:
+  - name: ohmyzsh | check if ~/.oh-my-zsh exists
+    stat:
+      path: ~/.oh-my-zsh
+    register: oh_my_zsh_check
+
   - name: ohmyzsh | clone project
     tags: ohmyzsh, zsh
     git:
       repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
       dest: '/tmp/oh-my-zsh/'
       force: true
-
-  - name: ohmyzsh | check if ~/.oh-my-zsh exists
-    stat:
-      path: ~/.oh-my-zsh
-    register: oh_my_zsh_check
-    
-  - name: Check if $ZSH folder exists
-    stat:
-      path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
-    register: zsh_folder_check
+    when:
+      - not oh_my_zsh_check.stat.exists
 
   - name: ohmyzsh | execute oh-my-zsh installation script
     command: /tmp/oh-my-zsh/tools/install.sh
     when:
       - not oh_my_zsh_check.stat.exists
-      - not zsh_folder_check.stat.exists
 
   - name: Check if ~/.oh-my-zsh directory exists
     stat:
