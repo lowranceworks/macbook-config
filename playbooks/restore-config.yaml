@@ -413,6 +413,14 @@
       remote_src: yes
       mode: '0644'
 
+  - name: Restore extensions.json
+    tags: vscode
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/.vscode/extensions/extensions.json"
+      dest: "~/.vscode/extensions/extensions.json"
+      remote_src: yes
+      mode: '0644'
+
   - name: Gather list of extension backup zips
     tags: vscode
     find:
