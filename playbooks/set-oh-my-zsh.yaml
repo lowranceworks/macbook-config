@@ -1,0 +1,143 @@
+---
+- name: Oh My Zsh configuration
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    project_path: /Users/josh/Projects/macbook_config
+  tasks:
+  - name: ohmyzsh | clone project
+    tags: ohmyzsh, zsh
+    git:
+      repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+      dest: '/tmp/oh-my-zsh/'
+      force: true
+
+  - name: ohmyzsh | check if ~/.oh-my-zsh exists
+    stat:
+      path: ~/.oh-my-zsh
+    register: oh_my_zsh_check
+    
+  - name: Check if $ZSH folder exists
+    stat:
+      path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
+    register: zsh_folder_check
+
+  - name: ohmyzsh | execute oh-my-zsh installation script
+    command: /tmp/oh-my-zsh/tools/install.sh
+    when:
+      - not oh_my_zsh_check.stat.exists
+      - not zsh_folder_check.stat.exists
+
+  - name: Check if ~/.oh-my-zsh directory exists
+    stat:
+      path: ~/.oh-my-zsh
+    register: oh_my_zsh_dir
+
+  # - name: Save a copy of the existing oh-my-zsh configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.oh-my-zsh/
+  #     dest: ~/.oh-my-zsh-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: yes
+  #   when: 
+  #     - oh_my_zsh_dir.stat.exists
+  #     - not oh_my_zsh_dir.stat.islnk
+
+  - name: Copy .oh-my-zsh configuration files
+    copy:
+      src: "{{ project_path }}/files/Home/.oh-my-zsh/"
+      dest: "~/.oh-my-zsh/"
+      remote_src: yes
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+      directory_mode: '0755'
+    when: project_path is defined
+
+  # - name: Copy plugins to custom plugins directory
+  #   ansible.builtin.copy:
+  #     src: "/tmp/oh-my-zsh/plugins/{{ item }}/"
+  #     dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/plugins/{{ item }}"
+  #     directory_mode: yes
+  #     remote_src: yes
+  #   loop:
+  #     - terraform
+  #     - ansible
+  #     - docker
+  #   when: 
+  #     - oh_my_zsh_dir.stat.exists
+
+  - name: Check if ~/.p10k.zsh exists
+    stat:
+      path: ~/.p10k.zsh
+    register: p10k_file_stat
+
+  # - name: Save a copy of the existing p10k.zsh configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.p10k.zsh
+  #     dest: ~/.p10k.zsh-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     remote_src: yes
+  #   when: p10k_file_stat.stat.exists
+
+  - name: Copy .p10k.zsh configuration file
+    copy:
+      src: "{{ project_path }}/files/Home/.p10k.zsh"
+      dest: "~/.p10k.zsh"
+      remote_src: yes
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+      directory_mode: '0755'
+    when: project_path is defined
+
+  - name: Zsh | Install zsh-autosuggestions
+    tags: zsh
+    git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-autosuggestions"
+
+  - name: Zsh | Install zsh-syntax-highlighting
+    tags: zsh
+    git:
+      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-syntax-highlighting"
+
+  - name: Zsh | Install powerlevel10k theme
+    tags: zsh, theme
+    git:
+      repo: 'https://github.com/romkatv/powerlevel10k.git'
+      dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
+      depth: 1
+
+  - name: Zsh | Copy aliases.zsh to ~/.oh-my-zsh/
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/Home/.oh-my-zsh/aliases.zsh"
+      dest: "~/.oh-my-zsh/aliases.zsh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Copy oh-my-zsh.sh to ~/.oh-my-zsh/
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
+      dest: "~/.oh-my-zsh/oh-my-zsh.sh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Powerlevel10k | Ensure fonts directory exists
+    ansible.builtin.file:
+      path: "~/Library/fonts"
+      mode: '0755'
+      state: directory
+
+  - name: Powerlevel10k | Copy recommended fonts
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Library/fonts/{{ item }}"
+      dest: "~/Library/fonts/{{ item }}"
+      mode: '0644'
+    become: false
+    loop:
+      - MesloLGS NF Bold Italic.ttf
+      - MesloLGS NF Bold.ttf
+      - MesloLGS NF Italic.ttf
+      - MesloLGS NF Regular.ttf

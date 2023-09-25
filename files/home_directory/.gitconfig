@@ -1,9 +1,0 @@
-[init]
-    defaultBranch = main
-
-[user]
-    name = lowranceworks
-    email = lowranceworks@gmail.com
-
-[includeIf "gitdir:~/Projects/work/"]
-    path = ~/Projects/work/.gitconfig
