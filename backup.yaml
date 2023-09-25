@@ -1,4 +1,5 @@
 ---
-- hosts: local
+- hosts: localhost
   roles:
     - backup
+  connection: local

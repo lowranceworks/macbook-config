@@ -1,0 +1,13 @@
+  - name: Git | Check for local changes
+    command:
+      cmd: git status --porcelain
+      chdir: "{{ project_path }}"
+    register: git_status
+    changed_when: false
+
+  - name: Git | Pull configuration from remote repository
+    git:
+      repo: 'https://github.com/lowranceworks/macbook_config.git'
+      dest: "{{ project_path }}"
+      update: yes
+    when: git_status.stdout == ""

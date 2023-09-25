@@ -1,0 +1,30 @@
+  - name: Save user settings
+    copy:
+      src: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/Code/User/settings.json"
+
+  - name: Save keybindings 
+    copy:
+      src: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/keybindings.json"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/Code/User/keybindings.json"
+
+  - name: Backup extensions.json
+    ansible.builtin.copy:
+      src: "~/.vscode/extensions/extensions.json"
+      dest: "{{ project_path }}/files/Home/.vscode/extensions/extensions.json"
+      remote_src: yes
+      mode: '0644'
+
+  - name: Gather list of extension directories
+    find:
+      paths: "~/.vscode/extensions/"
+      file_type: directory
+    register: vscode_extensions
+
+  - name: Backup individual Visual Studio Code extensions
+    archive:
+      path: "{{ item.path }}"
+      dest: "{{ project_path }}/files/Home/.vscode/extensions/{{ item.path | basename }}.zip"
+      format: zip
+    loop: "{{ vscode_extensions.files }}"
+    no_log: true

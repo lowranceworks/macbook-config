@@ -1,0 +1,57 @@
+  - name: Brew | Gather currently installed packages
+    shell: brew list --formula --full-name
+    register: current_brew_packages
+    changed_when: false  # to ensure this task is always reported as unchanged
+    args:
+      executable: /bin/sh
+
+  - name: Brew | Check if installed packages match brew.txt
+    stat:
+      path: "{{ project_path }}/files/brew.txt"
+    register: brew_file_stat
+    changed_when: false
+
+  - name: Brew | Update brew.txt if there are differences
+    copy:
+      content: "{{ current_brew_packages.stdout }}"
+      dest: "{{ project_path }}/files/brew.txt"
+    when:
+      - brew_file_stat.stat.exists
+      - current_brew_packages.stdout != lookup('file', '{{ project_path }}/files/brew.txt')
+
+  - name: Brew | Gather currently installed GUI applications via cask
+    shell: brew list --casks --full-name
+    register: current_brew_casks
+    changed_when: false
+    args:
+      executable: /bin/sh
+
+  - name: Brew | Check if installed GUI applications match brew-casks.txt
+    stat:
+      path: "{{ project_path }}/files/brew-casks.txt"
+    register: brew_casks_file_stat
+    changed_when: false
+
+  - name: Brew | Update brew-casks.txt if there are differences
+    copy:
+      content: "{{ current_brew_casks.stdout }}"
+      dest: "{{ project_path }}/files/brew-casks.txt"
+    when:
+      - brew_casks_file_stat.stat.exists
+      - current_brew_casks.stdout != lookup('file', '{{ project_path }}/files/brew-casks.txt')
+            
+  - name: Brew | Remove software from brew-casks.txt that I do not want saved
+    tags: brew
+    ansible.builtin.lineinfile:
+      path: "{{ project_path + '/files/brew-casks.txt' }}"
+      regexp: '^.*{{ item }}.*$'
+      state: absent
+    loop:
+      - expressvpn
+      - yubico-yubikey-manager
+      - signal
+      - teamviewer
+      - tailscale
+      - telegram
+      - betterdisplay
+      - steam
