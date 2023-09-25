@@ -114,18 +114,18 @@
       dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
       format: zip
 
+  - name: Check if Alfred.alfredpreferences directory exists
+    tags: alfred
+    ansible.builtin.stat:
+      path: "~/.alfred-preferences/Alfred.alfredpreferences/"
+    register: alfred_prefs
+
   - name: Alfred | Archive preferences and other directories
     tags: alfred
     archive:
-      path: "~/Library/Application\ Support/Alfred/"
-      dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/{{ item }}.zip"
+      path: "~/.alfred-preferences/Alfred.alfredpreferences/"
+      dest: "{{ project_path }}/files/Home/.alfred-preferences/Alfred.alfredpreferences.zip"
       format: zip
-    loop:
-      - Alfred.alfredpreferences
-      - workflows
-      - resources
-      - themes
-      - snippets
 
   - name: Alfred | 
     tags: alfred

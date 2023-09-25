@@ -246,30 +246,24 @@
           dest: "{{ lookup('env','HOME') }}/.config/lvim/config.lua"
           force: no
 
-  # - name: Alfred | Ensure Alfred preferences directory exists
-  #   tags: alfred
-  #   file:
-  #     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences"
-  #     state: directory
-  #     owner: "{{ lookup('env', 'USER') }}"
-  #     group: staff
-  #     mode: '0755'
+  - name: Ensure ~/.alfred-preferences directory exists
+    tags: alfred
+    ansible.builtin.file:
+      path: "~/.alfred-preferences/Alfred.alfredpreferences"
+      state: directory
+      mode: '0755'
+      owner: "{{ lookup('env', 'USER') }}"
+      group: staff
 
   - name: Alfred | Unzip and restore preferences and other directories
     tags: alfred
     unarchive:
-      src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/{{ item }}.zip"
-      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/"
-      remote_src: yes 
+      src: "{{ project_path }}/files/Home/.alfred-preferences/Alfred.alfredpreferences.zip"
+      dest: "~/.alfred-preferences/Alfred.alfredpreferences"
+      remote_src: yes
       owner: "{{ lookup('env', 'USER') }}"
       group: staff    
       mode: '0755'
-    loop:
-      - Alfred.alfredpreferences
-      - workflows
-      - resources
-      - themes
-      - snippets
 
   - name: Kubectl | Install ctx plugin
     tags: kubectl
