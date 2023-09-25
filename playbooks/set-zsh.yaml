@@ -6,7 +6,10 @@
   vars:
     project_path: /Users/josh/Projects/macbook_config
   tasks:
-
+  - name: Check if $ZSH folder exists
+    stat:
+      path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
+    register: zsh_folder_check
 
   - name: Check if ~/.zshrc exists
     stat:
