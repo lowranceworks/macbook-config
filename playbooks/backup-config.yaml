@@ -264,6 +264,14 @@
       remote_src: yes
       mode: '0644'
 
+  - name: Backup Visual Studio Code extensions
+    tags: vscode
+    archive:
+      path: "~/.vscode/extensions/"
+      dest: "{{ project_path }}/files/Home/.vscode/extensions_backup.zip"
+      format: zip
+
+
   # - name: Add changes from the files directory
   #   command:
   #     cmd: git add files/*
