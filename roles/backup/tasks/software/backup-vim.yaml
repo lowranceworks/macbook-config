@@ -1,0 +1,6 @@
+  - name: Vim | Fetch ~/.vimrc
+    tags: vim
+    fetch:
+      src: "~/.vimrc"
+      dest: "{{ project_path }}/files/Home/.vimrc"
+      flat: yes

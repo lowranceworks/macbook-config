@@ -1,0 +1,22 @@
+  - name: Git | Add all changes
+    command:
+      cmd: git add --all
+      chdir: '{{ project_path }}'
+
+  - name: Git | Execute status command
+    command:
+      cmd: git status
+      chdir: '{{ project_path }}'
+    register: git_status_result
+
+  # - name: Git | Commit changes
+  #   command:
+  #     cmd: git commit -m "update configuration files"
+  #     chdir: '{{ project_path }}'
+  #   when: "'Your branch is up to date with' not in git_status_result.stdout"
+
+  # - name: Git | Push changes
+  #   command:
+  #     cmd: git push --set-upstream origin main
+  #     chdir: '{{ project_path }}'
+  #   when: "'Your branch is up to date with' not in git_status_result.stdout"

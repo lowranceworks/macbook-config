@@ -1,0 +1,15 @@
+  - name: Inkdrop | Save Inkdrop initialization configuration
+    copy:
+      src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+
+  - name: Inkdrop | Save keybindings
+    copy:
+      src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
+
+  - name: Inkdrop | Save packages
+    archive:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
+      format: zip
