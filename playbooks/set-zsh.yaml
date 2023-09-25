@@ -1,0 +1,34 @@
+---
+- name: Zsh configuration
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    project_path: /Users/josh/Projects/macbook_config
+  tasks:
+
+
+  - name: Check if ~/.zshrc exists
+    stat:
+      path: ~/.zshrc
+    register: zshrc
+
+  # - name: Save a copy of the existing .zshrc configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.zshrc
+  #     dest: ~/.zshrc-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: yes
+  #   when: zshrc.stat.exists
+
+  - name: copy .zsh* configuration files
+    copy:
+      src: "{{ project_path }}/files/Home/{{ item }}"
+      dest: "~/{{ item }}"
+      remote_src: yes
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+    loop:
+      - .zshrc
+      - .zshenv
+    when: project_path is defined
