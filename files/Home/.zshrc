@@ -80,13 +80,14 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # use plugins from oh-my-zsh
-# plugins=( 
-#     git
-#     zsh-autosuggestions
-#     zsh-syntax-highlighting
-#     docker
-#     terraform
-# )
+plugins=( 
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    docker
+    terraform
+    ansible
+)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/aliases.zsh
