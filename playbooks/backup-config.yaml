@@ -264,6 +264,14 @@
       remote_src: yes
       mode: '0644'
 
+  - name: Backup extensions.json
+    tags: vscode
+    ansible.builtin.copy:
+      src: "~/.vscode/extensions/extensions.json"
+      dest: "{{ project_path }}/files/Home/.vscode/extensions/extensions.json"
+      remote_src: yes
+      mode: '0644'
+
   - name: Gather list of extension directories
     tags: vscode
     find:
