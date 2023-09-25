@@ -132,7 +132,7 @@
 
   - name: Powerlevel10k | Copy recommended fonts
     ansible.builtin.copy:
-      src: "{{ project_path }}/files/Library/fonts/{{ item }}"
+      src: "{{ project_path }}/files/Home/Library/fonts/{{ item }}"
       dest: "~/Library/fonts/{{ item }}"
       mode: '0644'
     become: false
