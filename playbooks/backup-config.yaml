@@ -114,26 +114,20 @@
       dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
       format: zip
 
-  - name: Alfred | Ensure temporary directory exists
-    tags: alfred
-    file:
-      path: "{{ playbook_dir }}/tmp/Alfred.alfredpreferences/"
-      state: directory
-      mode: '0755'
-
-  - name: Alfred | Rsync preferences excluding remote directory to temp location
-    tags: alfred
-    command:
-      cmd: "rsync -av --exclude 'remote/' '{{ lookup('env', 'HOME') }}/Library/Application Support/Alfred/Alfred.alfredpreferences/' '{{ playbook_dir }}/tmp/Alfred.alfredpreferences/'"
-      
-  - name: Alfred | Archive the preferences from temp location
+  - name: Alfred | Archive preferences and other directories
     tags: alfred
     archive:
-      path: "{{ playbook_dir }}/tmp/Alfred.alfredpreferences/"
-      dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
+      path: "~/Library/Application\ Support/Alfred/"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/{{ item }}.zip"
       format: zip
+    loop:
+      - Alfred.alfredpreferences
+      - workflows
+      - resources
+      - themes
+      - snippets
 
-  - name: Alfred | Clean up temporary directory
+  - name: Alfred | 
     tags: alfred
     file:
       path: "{{ playbook_dir }}/tmp/Alfred.alfredpreferences/"
