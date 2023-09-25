@@ -262,3 +262,11 @@
       command:
         cmd: git push origin main
         chdir: '{{ project_path }}'
+
+    - name: Backup iTerm2 user configuration
+      tags: iterm
+      ansible.builtin.copy:
+        src: "~/Library/Preferences/com.googlecode.iterm2.plist"
+        dest: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
+        remote_src: yes
+        mode: '0644'
