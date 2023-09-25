@@ -397,6 +397,14 @@
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
 
+  - name: Restore iTerm2 user configuration
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
+      dest: "~/Library/Preferences/com.googlecode.iterm2.plist"
+      remote_src: yes
+      mode: '0644'
+
+
   # - name: ohmyzsh | Ensure ~/.oh_my_zsh/custom/plugin directory exists
   #   tags: ohmyzsh, zsh
   #   file:
