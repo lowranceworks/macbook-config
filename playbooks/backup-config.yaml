@@ -264,12 +264,22 @@
       remote_src: yes
       mode: '0644'
 
-  - name: Backup Visual Studio Code extensions
+  - name: Gather list of extension directories
+    tags: vscode
+    find:
+      paths: "~/.vscode/extensions/"
+      file_type: directory
+    register: vscode_extensions
+
+  - name: Backup individual Visual Studio Code extensions
     tags: vscode
     archive:
-      path: "~/.vscode/extensions/"
-      dest: "{{ project_path }}/files/Home/.vscode/extensions_backup.zip"
+      path: "{{ item.path }}"
+      dest: "{{ project_path }}/files/Home/.vscode/extensions/{{ item.path | basename }}.zip"
       format: zip
+    loop: "{{ vscode_extensions.files }}"
+
+
 
 
   # - name: Add changes from the files directory
