@@ -256,6 +256,14 @@
       remote_src: yes
       mode: '0644'
 
+  - name: Backup Terminal user configuration
+    tags: iterminal
+    ansible.builtin.copy:
+      src: "~/Library/Preferences/com.apple.Terminal.plist"
+      dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
+      remote_src: yes
+      mode: '0644'
+
   # - name: Add changes from the files directory
   #   command:
   #     cmd: git add files/*
