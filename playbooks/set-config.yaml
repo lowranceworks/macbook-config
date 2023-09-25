@@ -405,6 +405,13 @@
       remote_src: yes
       mode: '0644'
 
+  - name: Restore Terminal user configuration
+    tags: terminal
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
+      dest: "~/Library/Preferences/com.apple.Terminal.plist"
+      remote_src: yes
+      mode: '0644'
 
   # - name: ohmyzsh | Ensure ~/.oh_my_zsh/custom/plugin directory exists
   #   tags: ohmyzsh, zsh
