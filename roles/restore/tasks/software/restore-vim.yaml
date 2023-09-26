@@ -1,0 +1,11 @@
+  - name: Vim | Create themes/start directory
+    tags: vim 
+    file:
+      path: "~/.vim/pack/themes/start"
+      state: directory
+
+  - name: Vim | Install Dracula theme
+    tags: vim
+    git:
+      repo: "https://github.com/dracula/vim.git"
+      dest: "~/.vim/pack/themes/start/dracula"

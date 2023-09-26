@@ -1,0 +1,18 @@
+  - name: Ensure ~/.alfred-preferences directory exists
+    tags: alfred
+    ansible.builtin.file:
+      path: "~/Library/Application\ Support/Alfred/"
+      state: directory
+      mode: '0755'
+      owner: "{{ lookup('env', 'USER') }}"
+      group: staff
+
+  - name: Alfred | Unzip and restore preferences and other directories
+    tags: alfred
+    unarchive:
+      src: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
+      dest: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
+      remote_src: yes
+      owner: "{{ lookup('env', 'USER') }}"
+      group: staff    
+      mode: '0755'

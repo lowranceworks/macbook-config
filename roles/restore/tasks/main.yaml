@@ -1,0 +1,19 @@
+- block:
+  - import_tasks: system/restore-macos.yaml
+  - import_tasks: system/restore-ssh.yaml
+  - import_tasks: system/restore-terminal.yaml
+  - import_tasks: system/restore-themes.yaml
+
+  - import_tasks: software/restore-brew-applications.yaml
+  # - import_tasks: software/restore-git.yaml
+  - import_tasks: software/restore-inkdrop.yaml
+  - import_tasks: software/restore-iterm.yaml
+  - import_tasks: software/restore-lunarvim.yaml
+  - import_tasks: software/restore-neovim.yaml
+  - import_tasks: software/restore-oh-my-zsh.yaml
+  - import_tasks: software/restore-vim.yaml
+  - import_tasks: software/restore-vscode.yaml
+  - import_tasks: software/restore-zsh.yaml 
+  - import_tasks: software/restore-podman.yaml
+  - import_tasks: software/restore-helm.yaml
+  - import_tasks: software/restore-alfred.yaml
