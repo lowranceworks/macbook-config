@@ -14,5 +14,6 @@
   - import_tasks: software/backup-vim.yaml
   - import_tasks: software/backup-vscode.yaml
   - import_tasks: software/backup-zsh.yaml 
+  - import_tasks: software/backup-alfred.yaml 
 
   - import_tasks: push-changes-to-remote-repository.yaml
