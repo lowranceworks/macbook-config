@@ -1,19 +1,19 @@
 - block:
-  - import_tasks: system/restore-macos.yaml
-  - import_tasks: system/restore-ssh.yaml
-  - import_tasks: system/restore-terminal.yaml
-  - import_tasks: system/restore-themes.yaml
+  - import_tasks: system/macos.yaml
+  - import_tasks: system/ssh.yaml
+  - import_tasks: system/terminal.yaml
+  - import_tasks: system/themes.yaml
 
-  - import_tasks: software/restore-brew-applications.yaml
-  # - import_tasks: software/restore-git.yaml
-  - import_tasks: software/restore-inkdrop.yaml
-  - import_tasks: software/restore-iterm.yaml
-  - import_tasks: software/restore-lunarvim.yaml
-  - import_tasks: software/restore-neovim.yaml
-  - import_tasks: software/restore-oh-my-zsh.yaml
-  - import_tasks: software/restore-vim.yaml
-  - import_tasks: software/restore-vscode.yaml
-  - import_tasks: software/restore-zsh.yaml 
-  - import_tasks: software/restore-podman.yaml
-  - import_tasks: software/restore-helm.yaml
-  - import_tasks: software/restore-alfred.yaml
+  - import_tasks: software/brew-applications.yaml
+  # - import_tasks: software/git.yaml
+  - import_tasks: software/inkdrop.yaml
+  - import_tasks: software/iterm.yaml
+  - import_tasks: software/lunarvim.yaml
+  - import_tasks: software/neovim.yaml
+  - import_tasks: software/oh-my-zsh.yaml
+  - import_tasks: software/vim.yaml
+  - import_tasks: software/vscode.yaml
+  - import_tasks: software/zsh.yaml 
+  - import_tasks: software/podman.yaml
+  - import_tasks: software/helm.yaml
+  - import_tasks: software/alfred.yaml

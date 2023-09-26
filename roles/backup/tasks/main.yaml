@@ -1,19 +1,19 @@
 - block:
   - import_tasks: pull-changes-from-remote-repository.yaml
 
-  - import_tasks: system/backup-terminal.yaml
-  - import_tasks: system/backup-macos.yaml
-  - import_tasks: system/backup-ssh.yaml
+  - import_tasks: system/terminal.yaml
+  - import_tasks: system/macos.yaml
+  - import_tasks: system/ssh.yaml
 
-  - import_tasks: software/backup-brew-applications.yaml
-  - import_tasks: software/backup-inkdrop.yaml
-  - import_tasks: software/backup-iterm.yaml
-  - import_tasks: software/backup-lunarvim.yaml
-  - import_tasks: software/backup-neovim.yaml
-  - import_tasks: software/backup-oh-my-zsh.yaml
-  - import_tasks: software/backup-vim.yaml
-  - import_tasks: software/backup-vscode.yaml
-  - import_tasks: software/backup-zsh.yaml 
-  - import_tasks: software/backup-alfred.yaml 
+  - import_tasks: software/brew-applications.yaml
+  - import_tasks: software/inkdrop.yaml
+  - import_tasks: software/iterm.yaml
+  - import_tasks: software/lunarvim.yaml
+  - import_tasks: software/neovim.yaml
+  - import_tasks: software/oh-my-zsh.yaml
+  - import_tasks: software/vim.yaml
+  - import_tasks: software/vscode.yaml
+  - import_tasks: software/zsh.yaml 
+  - import_tasks: software/alfred.yaml 
 
   - import_tasks: push-changes-to-remote-repository.yaml
