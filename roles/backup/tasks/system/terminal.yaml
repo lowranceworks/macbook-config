@@ -1,6 +1,5 @@
 
   - name: Backup Terminal user configuration
-    tags: terminal
     ansible.builtin.copy:
       src: "~/Library/Preferences/com.apple.Terminal.plist"
       dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"

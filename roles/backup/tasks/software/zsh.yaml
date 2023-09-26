@@ -30,35 +30,30 @@
     when: project_path is defined
 
   - name: Zsh | Fetch aliases.zsh from ~/.oh-my-zsh/
-    tags: zsh
     fetch:
       src: "~/.oh-my-zsh/aliases.zsh"
       dest: "{{ project_path }}/files/Home/.oh-my-zsh/aliases.zsh"
       flat: yes
 
   - name: Zsh | Fetch oh-my-zsh.sh from ~/.oh-my-zsh/
-    tags: zsh
     fetch:
       src: "~/.oh-my-zsh/oh-my-zsh.sh"
       dest: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
       flat: yes
 
   - name: Zsh | Fetch ~/.p10k.zsh
-    tags: zsh
     fetch:
       src: "~/.p10k.zsh"
       dest: "{{ project_path }}/files/Home/.p10k.zsh"
       flat: yes
 
   - name: Zsh | Fetch ~/.zshenv
-    tags: zsh
     fetch:
       src: "~/.zshenv"
       dest: "{{ project_path }}/files/Home/.zshenv"
       flat: yes
 
   - name: Zsh | Fetch ~/.zshrc
-    tags: zsh
     fetch:
       src: "~/.zshrc"
       dest: "{{ project_path }}/files/Home/.zshrc"
