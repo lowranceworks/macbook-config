@@ -1,0 +1,42 @@
+  - name: Visual Studio Code | Ensure directory exists
+    tags: vscode
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User"
+      state: directory
+      mode: '0755'
+
+  - name: Visual Studio Code | Set user settings
+    tags: vscode
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Application Support/Code/User/settings.json"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/settings.json"
+
+  - name: Visual Studio Code | Set keybindings 
+    tags: vscode
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Application Support/Code/User/keybindings.json"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/keybindings.json"
+
+  - name: Restore extensions.json
+    tags: vscode
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/.vscode/extensions/extensions.json"
+      dest: "~/.vscode/extensions/extensions.json"
+      remote_src: yes
+      mode: '0644'
+
+  - name: Gather list of extension backup zips
+    tags: vscode
+    find:
+      paths: "{{ project_path }}/files/Home/.vscode/extensions/"
+      patterns: "*.zip"
+    register: vscode_extension_backups
+
+  - name: Restore Visual Studio Code extensions from individual backups
+    tags: vscode
+    unarchive:
+      src: "{{ item.path }}"
+      dest: "~/.vscode/extensions/"
+      remote_src: yes
+    loop: "{{ vscode_extension_backups.files }}"
+    no_log: true

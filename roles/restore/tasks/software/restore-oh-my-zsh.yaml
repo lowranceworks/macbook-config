@@ -1,11 +1,4 @@
 ---
-- name: Oh My Zsh configuration
-  hosts: localhost
-  connection: local
-  gather_facts: true
-  vars:
-    project_path: /Users/josh/Projects/macbook_config
-  tasks:
   - name: ohmyzsh | check if ~/.oh-my-zsh exists
     stat:
       path: ~/.oh-my-zsh

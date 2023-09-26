@@ -1,0 +1,61 @@
+  - name: Inkdrop | Ensure directory exists
+    tags: inkdrop
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop"
+      state: directory
+      mode: '0755'
+
+  - name: Inkdrop | Set initialization configuration
+    tags: inkdrop
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+
+  - name: Inkdrop | Set keybindings
+    tags: inkdrop
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
+
+  - name: Inkdrop | Set packages
+    tags: inkdrop
+    unarchive:
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/"
+      remote_src: yes
+
+  - name: Inkdrop | Check if 'config.cson' file exists
+    tags: inkdrop
+    stat:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+    register: config_file_status
+
+  - name: Inkdrop | create 'config.cson' file
+    tags: inkdrop
+    file:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+      state: touch
+      mode: '0644'
+    when: not config_file_status.stat.exists
+
+  - name: Inkdrop | Check if 'server' configuration exists
+    tags: inkdrop
+    shell: grep -Fq 'server:' "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+    register: server_config_check
+    failed_when: false
+    changed_when: false
+
+  - name: Inkdrop | Add 'server' configuration if it doesn't exist
+    tags: inkdrop
+    blockinfile:
+      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+      insertafter: EOF
+      block: |
+        server:
+          auth:
+            password: "bar"
+            username: "foo"
+          bindAddress: "127.0.0.1"
+          enabled: true
+          port: 19840
+    when: server_config_check.rc != 0

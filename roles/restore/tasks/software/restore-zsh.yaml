@@ -1,11 +1,4 @@
 ---
-- name: Zsh configuration
-  hosts: localhost
-  connection: local
-  gather_facts: true
-  vars:
-    project_path: /Users/josh/Projects/macbook_config
-  tasks:
   - name: Check if $ZSH folder exists
     stat:
       path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
@@ -35,3 +28,19 @@
       - .zshrc
       - .zshenv
     when: project_path is defined
+
+  - name: Zsh | Push ~/.zshenv
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/Home/.zshenv"
+      dest: "~/.zshenv"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Push ~/.zshrc
+    tags: zsh
+    copy:
+      src: "{{ project_path }}/files/Home/.zshrc"
+      dest: "~/.zshrc"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'

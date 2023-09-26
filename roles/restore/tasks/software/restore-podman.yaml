@@ -1,0 +1,6 @@
+  - name: Podman | Create symbolic link from podman to docker
+    tags: podman
+    command:
+      cmd: ln -s /usr/local/bin/podman /usr/local/bin/docker
+    failed_when: false
+    changed_when: false
