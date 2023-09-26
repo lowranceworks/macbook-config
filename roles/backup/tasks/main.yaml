@@ -1,4 +1,11 @@
 ---
+- name: Git | Check for local changes
+  command:
+    cmd: git status --porcelain
+    chdir: "{{ project_path }}"
+  register: git_status
+  changed_when: false
+
 - name: Git | Pull configuration from remote repository
   git:
     repo: 'https://github.com/lowranceworks/macbook_config.git'
@@ -17,7 +24,7 @@
     tags: system, ssh
     
   - import_tasks: software/brew-applications.yaml
-    tags: software, applications
+    tags: software, applications, brew
 
   - import_tasks: software/inkdrop.yaml
     tags: software, inkdrop
@@ -45,13 +52,6 @@
 
   - import_tasks: software/alfred.yaml
     tags: software, alfred
-
-- name: Git | Check for local changes
-  command:
-    cmd: git status --porcelain
-    chdir: "{{ project_path }}"
-  register: git_status
-  changed_when: false
 
 - name: Git | Add all changes
   command:
