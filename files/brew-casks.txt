@@ -1,4 +1,5 @@
 alfred
+bitwarden
 brave-browser
 chromium
 cleanshot
