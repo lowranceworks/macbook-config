@@ -53,6 +53,18 @@
   - import_tasks: software/alfred.yaml
     tags: software, alfred
 
+  - import_tasks: software/cleanshot.yaml
+    tags: cleanshot 
+
+  - import_tasks: software/contexts.yaml
+    tags: contexts 
+
+  - import_tasks: software/fig.yaml
+    tags: fig 
+
+  - import_tasks: software/rectangle-pro.yaml
+    tags: software/rectangle-pro.yaml
+
 - name: Git | Add all changes
   command:
     cmd: git add --all
