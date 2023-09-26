@@ -1,5 +1,4 @@
   - name: Restore iTerm2 user configuration
-    tags: iterm
     ansible.builtin.copy:
       src: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
       dest: "~/Library/Preferences/com.googlecode.iterm2.plist"

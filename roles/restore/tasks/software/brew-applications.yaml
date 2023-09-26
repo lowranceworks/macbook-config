@@ -1,16 +1,13 @@
   - name: Brew | Gather currently installed packages
-    tags: brew
     command: "brew list --formula"
     register: installed_brew_packages
     changed_when: false
 
   - name: Brew | Set fact for installed packages
-    tags: brew
     set_fact:
       installed_brews: "{{ installed_brew_packages.stdout_lines }}"
 
   - name: Brew | Install terminal applications
-    tags: brew
     homebrew:
       name: "{{ item }}"
       state: present
@@ -20,18 +17,15 @@
     ignore_errors: true
 
   - name: Brew | Gather currently installed GUI applications via cask
-    tags: brew
     command: "brew list --cask"
     register: installed_gui_apps
     changed_when: false
 
   - name: Brew | Set fact for installed cask GUI applications
-    tags: brew
     set_fact:
       installed_casks: "{{ installed_gui_apps.stdout_lines }}"
 
   - name: Brew | Install GUI applications
-    tags: brew
     homebrew_cask:
       name: "{{ item }}"
       state: present

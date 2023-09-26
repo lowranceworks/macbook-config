@@ -1,5 +1,4 @@
   - name: Backup iTerm2 user configuration
-    tags: iterm
     ansible.builtin.copy:
       src: "~/Library/Preferences/com.googlecode.iterm2.plist"
       dest: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"

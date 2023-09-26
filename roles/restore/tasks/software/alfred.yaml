@@ -1,5 +1,4 @@
   - name: Ensure ~/.alfred-preferences directory exists
-    tags: alfred
     ansible.builtin.file:
       path: "~/Library/Application\ Support/Alfred/"
       state: directory
@@ -8,7 +7,6 @@
       group: staff
 
   - name: Alfred | Unzip and restore preferences and other directories
-    tags: alfred
     unarchive:
       src: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
       dest: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"

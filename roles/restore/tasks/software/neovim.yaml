@@ -1,5 +1,4 @@
   - name: NeoVim | Push all files to ~/.config/nvim/ recursively
-    tags: neovim
     synchronize:
       src: "{{ project_path }}/files/Home/.config/nvim/"
       dest: "~/.config/nvim/"

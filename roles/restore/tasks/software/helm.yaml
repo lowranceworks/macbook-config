@@ -1,5 +1,4 @@
   - name: Helm | Check if helm-secrets is already installed
-    tags: helm
     command:
       cmd: helm plugin list
     register: helm_plugin_list
@@ -7,12 +6,10 @@
     changed_when: false
 
   - name: Helm | Set fact for helm-secrets presence
-    tags: helm
     set_fact:
       is_secrets_installed: "{{ 'secrets' in helm_plugin_list.stdout }}"
     
   - name: Helm | Install helm-secrets plugin
-    tags: helm
     command:
       cmd: helm plugin install https://github.com/jkroepke/helm-secrets
     when: not is_secrets_installed

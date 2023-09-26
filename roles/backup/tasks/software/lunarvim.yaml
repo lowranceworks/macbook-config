@@ -1,4 +1,4 @@
-  - name: LunarVimVim | Fetch all files from ~/.config/lvim/ recursively
+  - name: LunarVim | Fetch all files from ~/.config/lvim/ recursively
     synchronize:
       src: "~/.config/nvim/"
       dest: "{{ project_path }}/files/Home/.config/nvim/"

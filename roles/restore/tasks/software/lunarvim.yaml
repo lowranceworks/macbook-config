@@ -80,7 +80,6 @@
       force: no
 
   - name: LunarVim | Push all files to ~/.config/lvim/ recursively
-    tags: lunarvim
     synchronize:
       src: "{{ project_path }}/files/Home/.config/lvim/"
       dest: "~/.config/lvim/"

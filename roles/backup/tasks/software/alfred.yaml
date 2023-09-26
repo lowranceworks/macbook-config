@@ -1,11 +1,9 @@
   - name: Check if Alfred.alfredpreferences directory exists
-    tags: alfred
     ansible.builtin.stat:
       path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
     register: alfred_prefs
 
   - name: Alfred | Archive preferences
-    tags: alfred
     archive:
       path: "~/.alfred-preferences/Alfred.alfredpreferences/"
       dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"

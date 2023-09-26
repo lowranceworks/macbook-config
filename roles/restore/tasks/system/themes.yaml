@@ -1,5 +1,0 @@
-  - name: Themes | Create dracula-themes directory
-    tags: themes
-    file:
-      path: "~/.dracula-themes"
-      state: directory

@@ -1,11 +1,10 @@
 ---
-  - name: ohmyzsh | check if ~/.oh-my-zsh exists
+  - name: Oh-My-Zsh | check if ~/.oh-my-zsh exists
     stat:
       path: ~/.oh-my-zsh
     register: oh_my_zsh_check
 
-  - name: ohmyzsh | clone project
-    tags: ohmyzsh, zsh
+  - name: Oh-My-Zsh | clone project
     git:
       repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
       dest: '/tmp/oh-my-zsh/'
@@ -13,7 +12,7 @@
     when:
       - not oh_my_zsh_check.stat.exists
 
-  - name: ohmyzsh | execute oh-my-zsh installation script
+  - name: Oh-My-Zsh | execute oh-my-zsh installation script
     command: /tmp/oh-my-zsh/tools/install.sh
     when:
       - not oh_my_zsh_check.stat.exists
@@ -79,26 +78,22 @@
     when: project_path is defined
 
   - name: Zsh | Install zsh-autosuggestions
-    tags: zsh
     git:
       repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-autosuggestions"
 
   - name: Zsh | Install zsh-syntax-highlighting
-    tags: zsh
     git:
       repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') | default(lookup('env', 'HOME') + '/.oh-my-zsh/custom', true) }}/plugins/zsh-syntax-highlighting"
 
   - name: Zsh | Install powerlevel10k theme
-    tags: zsh, theme
     git:
       repo: 'https://github.com/romkatv/powerlevel10k.git'
       dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/themes/powerlevel10k"
       depth: 1
 
   - name: Zsh | Copy aliases.zsh to ~/.oh-my-zsh/
-    tags: zsh
     copy:
       src: "{{ project_path }}/files/Home/.oh-my-zsh/aliases.zsh"
       dest: "~/.oh-my-zsh/aliases.zsh"
@@ -106,7 +101,6 @@
       mode: '0644'
 
   - name: Zsh | Copy oh-my-zsh.sh to ~/.oh-my-zsh/
-    tags: zsh
     copy:
       src: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
       dest: "~/.oh-my-zsh/oh-my-zsh.sh"

@@ -2,10 +2,8 @@
   - import_tasks: system/macos.yaml
   - import_tasks: system/ssh.yaml
   - import_tasks: system/terminal.yaml
-  - import_tasks: system/themes.yaml
 
   - import_tasks: software/brew-applications.yaml
-  # - import_tasks: software/git.yaml
   - import_tasks: software/inkdrop.yaml
   - import_tasks: software/iterm.yaml
   - import_tasks: software/lunarvim.yaml
@@ -17,3 +15,4 @@
   - import_tasks: software/podman.yaml
   - import_tasks: software/helm.yaml
   - import_tasks: software/alfred.yaml
+  # - import_tasks: software/git.yaml
