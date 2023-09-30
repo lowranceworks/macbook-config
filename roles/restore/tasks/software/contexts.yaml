@@ -1,5 +1,5 @@
-- name: Contexts | Restore default.realm file
+- name: Contexts | Restore plist file
   copy:
-    src: "{{ project_path }}/files/Home/Library/Application Support/com.contextsformac.Contexts/default.realm"
-    dest: "~/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    src: "{{ project_path }}/files/Home/Library/Preferences/com.contextsformac.Contexts.plist"
+    dest: "~/Library/Preferences/com.contextsformac.Contexts.plist"
     remote_src: no
