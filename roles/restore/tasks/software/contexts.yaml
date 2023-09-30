@@ -1,1 +1,14 @@
-# 
+  # - name: Contexts | Unzip preferences
+  #   unarchive:
+  #     src: "{{ project_path }}/files/Home/Library/Caches/com.contextsformac.Contexts.zip"
+  #     dest: "~/Library/Caches/com.contextsformac.Contexts/"
+  #     remote_src: yes
+  #     owner: "{{ lookup('env', 'USER') }}"
+  #     group: staff    
+  #     mode: '0755'
+
+- name: Contexts | Restore default.realm file
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    dest: "~/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    remote_src: no

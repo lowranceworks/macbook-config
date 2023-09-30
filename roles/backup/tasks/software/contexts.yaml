@@ -1,1 +1,16 @@
-# 
+  # - name: Contexts | Check if com.contextsformac.Contexts directory exists
+  #   ansible.builtin.stat:
+  #     path: "~/Library/Caches/com.contextsformac.Contexts/"
+  #   register: contexts_prefs
+
+  # - name: Contexts | Archive preferences
+  #   archive:
+  #     path: "~/Library/Application Support/com.contextsformac.Contexts/default.realm.management/access_control.control.mx"
+  #     dest: "{{ project_path }}/files/Home//Library/Application Support/com.contextsformac.Contexts/default.realm.management/access_control.control.mx"
+  #     format: zip
+
+- name: Contexts | Save default.realm file
+  copy:
+    src: "~/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    remote_src: no
