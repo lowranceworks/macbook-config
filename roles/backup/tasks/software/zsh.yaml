@@ -1,0 +1,60 @@
+---
+  - name: Check if $ZSH folder exists
+    stat:
+      path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
+    register: zsh_folder_check
+
+  - name: Check if ~/.zshrc exists
+    stat:
+      path: ~/.zshrc
+    register: zshrc
+
+  # - name: Save a copy of the existing .zshrc configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.zshrc
+  #     dest: ~/.zshrc-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: yes
+  #   when: zshrc.stat.exists
+
+  - name: copy .zsh* configuration files
+    copy:
+      src: "{{ project_path }}/files/Home/{{ item }}"
+      dest: "~/{{ item }}"
+      remote_src: yes
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+    loop:
+      - .zshrc
+      - .zshenv
+    when: project_path is defined
+
+  - name: Zsh | Fetch aliases.zsh from ~/.oh-my-zsh/
+    fetch:
+      src: "~/.oh-my-zsh/aliases.zsh"
+      dest: "{{ project_path }}/files/Home/.oh-my-zsh/aliases.zsh"
+      flat: yes
+
+  - name: Zsh | Fetch oh-my-zsh.sh from ~/.oh-my-zsh/
+    fetch:
+      src: "~/.oh-my-zsh/oh-my-zsh.sh"
+      dest: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
+      flat: yes
+
+  - name: Zsh | Fetch ~/.p10k.zsh
+    fetch:
+      src: "~/.p10k.zsh"
+      dest: "{{ project_path }}/files/Home/.p10k.zsh"
+      flat: yes
+
+  - name: Zsh | Fetch ~/.zshenv
+    fetch:
+      src: "~/.zshenv"
+      dest: "{{ project_path }}/files/Home/.zshenv"
+      flat: yes
+
+  - name: Zsh | Fetch ~/.zshrc
+    fetch:
+      src: "~/.zshrc"
+      dest: "{{ project_path }}/files/Home/.zshrc"
+      flat: yes

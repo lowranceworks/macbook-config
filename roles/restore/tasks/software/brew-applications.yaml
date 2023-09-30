@@ -1,0 +1,35 @@
+  - name: Brew | Gather currently installed packages
+    command: "brew list --formula"
+    register: installed_brew_packages
+    changed_when: false
+
+  - name: Brew | Set fact for installed packages
+    set_fact:
+      installed_brews: "{{ installed_brew_packages.stdout_lines }}"
+
+  - name: Brew | Install terminal applications
+    homebrew:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ lookup('file', project_path + '/files/brew.txt').splitlines() }}"
+    when: item not in installed_brews
+    become: false
+    ignore_errors: true
+
+  - name: Brew | Gather currently installed GUI applications via cask
+    command: "brew list --cask"
+    register: installed_gui_apps
+    changed_when: false
+
+  - name: Brew | Set fact for installed cask GUI applications
+    set_fact:
+      installed_casks: "{{ installed_gui_apps.stdout_lines }}"
+
+  - name: Brew | Install GUI applications
+    homebrew_cask:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ lookup('file', project_path + '/files/brew-casks.txt').splitlines() }}"
+    when: item not in installed_casks
+    become: false
+    ignore_errors: true

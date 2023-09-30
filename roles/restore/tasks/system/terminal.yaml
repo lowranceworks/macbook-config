@@ -1,0 +1,6 @@
+  - name: Restore Terminal user configuration
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
+      dest: "~/Library/Preferences/com.apple.Terminal.plist"
+      remote_src: no
+      mode: '0644'

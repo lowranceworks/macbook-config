@@ -1,0 +1,51 @@
+---
+  - name: Check if $ZSH folder exists
+    stat:
+      path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
+    register: zsh_folder_check
+
+  - name: Check if ~/.zshrc exists
+    stat:
+      path: ~/.zshrc
+    register: zshrc
+
+  # - name: Save a copy of the existing .zshrc configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.zshrc
+  #     dest: ~/.zshrc-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: yes
+  #   when: zshrc.stat.exists
+
+  - name: copy .zsh* configuration files
+    copy:
+      src: "{{ project_path }}/files/Home/{{ item }}"
+      dest: "~/{{ item }}"
+      remote_src: yes
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+    loop:
+      - .zshrc
+      - .zshenv
+    when: project_path is defined
+
+  - name: Zsh | Push ~/.zshenv
+    copy:
+      src: "{{ project_path }}/files/Home/.zshenv"
+      dest: "~/.zshenv"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: Zsh | Push ~/.zshrc
+    copy:
+      src: "{{ project_path }}/files/Home/.zshrc"
+      dest: "~/.zshrc"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
+
+  - name: zsh | Push ~/.p10k.zsh
+    copy:
+      src: "{{ project_path }}/files/Home/.p10k.zsh"
+      dest: "~/.p10k.zsh"
+      owner: "{{ lookup('env', 'USER') }}"
+      mode: '0644'
