@@ -1,5 +1,11 @@
-- name: Contexts | Restore plist file
+- name: Contexts | Save com.contextsformac.Contexts.plist file
   copy:
     src: "{{ project_path }}/files/Home/Library/Preferences/com.contextsformac.Contexts.plist"
     dest: "~/Library/Preferences/com.contextsformac.Contexts.plist"
+    remote_src: no
+
+- name: Contexts | Save ContextStoreAgent.plist file
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/ContextStoreAgent.plist"
+    dest: "~/Library/Preferences/ContextStoreAgent.plist"
     remote_src: no
