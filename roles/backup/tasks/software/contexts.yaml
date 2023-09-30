@@ -1,0 +1,5 @@
+- name: Contexts | Save default.realm file
+  copy:
+    src: "~/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    remote_src: no

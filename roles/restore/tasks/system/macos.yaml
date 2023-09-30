@@ -1,0 +1,21 @@
+  - name: MacOS | Set native keybindings
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+ 
+  - name: MacOS | Create Learn directory
+    file:
+      path: "~/Learn"
+      state: directory
+
+  - name: MacOS | Enable global key-repeat
+    command: "defaults write -g ApplePressAndHoldEnabled -bool false"
+    args:
+      creates: "~/Library/Preferences/.GlobalPreferences.plist"
+
+
+  # - name: MacOS | Map "Caps Lock" key to "Esc" key
+  #   command: "defaults -currentHost write -g com.apple.keyboard.modifiermapping.{{ item.device_id }}-0 -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>5</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'"
+  #   with_items:
+  #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
+  #   become: True

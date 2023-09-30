@@ -1,0 +1,59 @@
+- block:
+  - import_tasks: system/macos.yaml
+    tags: macos
+
+  - import_tasks: system/ssh.yaml
+    tags: ssh
+
+  - import_tasks: system/terminal.yaml
+    tags: terminal
+
+  - import_tasks: software/brew-applications.yaml
+    tags: brew 
+
+  - import_tasks: software/inkdrop.yaml
+    tags: inkdrop 
+
+  - import_tasks: software/iterm.yaml
+    tags: iterm 
+
+  - import_tasks: software/lunarvim.yaml
+    tags: lunarvim 
+
+  - import_tasks: software/neovim.yaml
+    tags: neovim 
+
+  - import_tasks: software/oh-my-zsh.yaml
+    tags: oh-my-zsh 
+
+  - import_tasks: software/vim.yaml
+    tags: vim 
+
+  - import_tasks: software/vscode.yaml
+    tags: vscode 
+
+  - import_tasks: software/zsh.yaml 
+    tags: zsh 
+
+  - import_tasks: software/podman.yaml
+    tags: podman 
+
+  - import_tasks: software/helm.yaml
+    tags: helm 
+
+  - import_tasks: software/alfred.yaml
+    tags: alfred 
+
+  - import_tasks: software/cleanshot.yaml
+    tags: cleanshot 
+
+  - import_tasks: software/contexts.yaml
+    tags: contexts 
+
+  - import_tasks: software/fig.yaml
+    tags: fig 
+
+  - import_tasks: software/rectangle-pro.yaml
+    tags: software/rectangle-pro.yaml
+
+  # - import_tasks: software/git.yaml

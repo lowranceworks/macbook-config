@@ -1,0 +1,6 @@
+  - name: Restore iTerm2 user configuration
+    ansible.builtin.copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
+      dest: "~/Library/Preferences/com.googlecode.iterm2.plist"
+      remote_src: yes
+      mode: '0644'

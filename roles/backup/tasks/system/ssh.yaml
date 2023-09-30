@@ -1,0 +1,5 @@
+  - name: SSH | Fetch ~/.ssh/config
+    fetch:
+      src: "~/.ssh/config"
+      dest: "{{ project_path }}/files/Home/.ssh/config"
+      flat: yes

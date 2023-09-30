@@ -1,0 +1,6 @@
+  - name: NeoVim | Fetch all files from ~/.config/nvim/ recursively
+    synchronize:
+      src: "~/.config/nvim/"
+      dest: "{{ project_path }}/files/Home/.config/nvim/"
+      recursive: yes
+      mode: pull
