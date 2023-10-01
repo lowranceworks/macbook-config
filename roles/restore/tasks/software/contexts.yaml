@@ -1,5 +1,11 @@
-- name: Contexts | Restore default.realm file
+- name: Contexts | Restore com.contextsformac.Contexts.plist file
   copy:
-    src: "{{ project_path }}/files/Home/Library/Application Support/com.contextsformac.Contexts/default.realm"
-    dest: "~/Library/Application Support/com.contextsformac.Contexts/default.realm"
+    src: "{{ project_path }}/files/Home/Library/Preferences/com.contextsformac.Contexts.plist"
+    dest: "~/Library/Preferences/com.contextsformac.Contexts.plist"
+    remote_src: no
+
+- name: Contexts | Restore ContextStoreAgent.plist file
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/ContextStoreAgent.plist"
+    dest: "~/Library/Preferences/ContextStoreAgent.plist"
     remote_src: no

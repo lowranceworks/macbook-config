@@ -1,1 +1,5 @@
-# 
+- name: Contexts | Save pl.maketheweb.cleanshotx.plist file
+  copy:
+    src: "~/Library/Preferences/pl.maketheweb.cleanshotx.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/pl.maketheweb.cleanshotx.plist"
+    remote_src: no
