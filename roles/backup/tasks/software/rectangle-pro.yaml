@@ -1,1 +1,5 @@
-# 
+- name: Rectangle Pro | Save com.knollsoft.Rectangle.plist file
+  copy:
+    src: "~/Library/Preferences/com.knollsoft.Rectangle.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.knollsoft.Rectangle.plist"
+    remote_src: no
