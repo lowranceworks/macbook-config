@@ -1,1 +1,23 @@
-# 
+- name: Rectangle Pro | Save com.knollsoft.Rectangle.plist file
+  copy:
+    src: "~/Library/Preferences/com.knollsoft.Rectangle.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.knollsoft.Rectangle.plist"
+    remote_src: no
+
+- name: Rectangle Pro | Check if RectangleProConfig.json exists
+  stat:
+    path: "~/Downloads/RectangleProConfig.json"
+  register: rectangleproconfig
+
+- name: Rectangle Pro | Save RectangleProConfig.json file
+  copy:
+    src: "~/Downloads/RectangleProConfig.json"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/Rectangle Pro/RectangleProConfig.json"
+    remote_src: yes
+  when: rectangleproconfig.stat.exists
+
+# - name: Rectangle Pro | Save com.knollsoft.Rectangle.plist file
+#   copy:
+#     src: "~/Library/SyncedPreferences/com.apple.kvs/ChangeTokens/NoEncryption/Rectangle Pro/XSYZ3E4B7D.com.knollsoft.Hookshot"
+#     dest: "{{ project_path }}/files/Home/Library/SyncedPreferences/com.apple.kvs/ChangeTokens/NoEncryption/Rectangle Pro/XSYZ3E4B7D.com.knollsoft.Hookshot"
+#     remote_src: no

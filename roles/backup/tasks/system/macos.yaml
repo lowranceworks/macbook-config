@@ -1,3 +1,13 @@
+  - name: MacOS | Save GlobalPreferences plist (keyboard shortcuts?)
+    copy:
+      src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
+      dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
+ 
+  - name: MacOS | Save GlobalPreferences_m plist (?)
+    copy:
+      src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
+      dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
+    
   - name: MacOS | Save native keybindings
     copy:
       src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
@@ -20,3 +30,9 @@
       dest: "{{ project_path }}/files/Home/Library/KeyBindings/DefaultKeyBinding.dict"
       flat: yes
     when: keybinding_file.stat.exists
+
+  - name: MacOS | Save dock configuration
+    fetch:
+      src: "~/Library/Preferences/com.apple.dock.plist"
+      dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
+      flat: yes

@@ -19,3 +19,19 @@
   #   with_items:
   #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
   #   become: True
+
+  - name: MacOS | Save GlobalPreferences plist (keyboard shortcuts?)
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
+ 
+  - name: MacOS | Save GlobalPreferences_m plist (?)
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
+
+  - name: MacOS | Save dock configuration
+    fetch:
+      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
+      dest: "~/Library/Preferences/com.apple.dock.plist"
+      flat: yes
