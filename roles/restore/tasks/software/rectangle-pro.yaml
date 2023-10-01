@@ -3,3 +3,9 @@
     src: "{{ project_path }}/files/Home/Library/Preferences/com.knollsoft.Rectangle.plist"
     dest: "~/Library/Preferences/com.knollsoft.Rectangle.plist"
     remote_src: no
+
+- name: Rectangle Pro | Restore RectangleProConfig.json file
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Application Support/Rectangle Pro/RectangleProConfig.json"
+    dest: "~/Library/Application Support/Rectangle Pro/RectangleProConfig.json"
+    remote_src: no
