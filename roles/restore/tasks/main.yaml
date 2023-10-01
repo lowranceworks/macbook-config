@@ -54,6 +54,6 @@
     tags: fig 
 
   - import_tasks: software/rectangle-pro.yaml
-    tags: software/rectangle-pro.yaml
+    tags: rectangle-pro
 
   # - import_tasks: software/git.yaml
