@@ -81,6 +81,6 @@
 
 - name: Git | Push changes
   command:
-    cmd: git push origin $(git_current_branch)
+    cmd: git push
     chdir: '{{ project_path }}'
   when: "'Your branch is up to date with' not in git_status_result.stdout"
