@@ -15,5 +15,5 @@ mkdir ~/Projects
 git clone https://github.com/lowranceworks/macbook_config.git $HOME/Projects/macbook_config
 
 # run set-config.yaml playbook
-echo -e "\033[32mrunning set-config.yaml playbook...\033[0m"
+echo -e "\033[32mrunning restore.yaml playbook...\033[0m"
 ansible-playbook $HOME/Projects/macbook_config/restore.yaml -e "project_path=$HOME/Projects/macbook_config"
