@@ -38,9 +38,6 @@
   - import_tasks: software/neovim.yaml
     tags: software, neovim
 
-  - import_tasks: software/oh-my-zsh.yaml
-    tags: software, zsh
-
   - import_tasks: software/vim.yaml
     tags: software, vim
 
@@ -48,22 +45,22 @@
     tags: software, vscode
 
   - import_tasks: software/zsh.yaml
-    tags: software, zsh
+    tags: software, zsh, oh-my-zsh
 
   - import_tasks: software/alfred.yaml
     tags: software, alfred
 
   - import_tasks: software/cleanshot.yaml
-    tags: cleanshot 
+    tags: software, cleanshot 
 
   - import_tasks: software/contexts.yaml
-    tags: contexts 
+    tags: software, contexts 
 
   - import_tasks: software/fig.yaml
-    tags: fig 
+    tags: software, fig 
 
   - import_tasks: software/rectangle-pro.yaml
-    tags: rectangle-pro
+    tags: software, rectangle-pro
 
 - name: Git | Add all changes
   command:
@@ -76,14 +73,14 @@
     chdir: '{{ project_path }}'
   register: git_status_result
 
-# - name: Git | Commit changes
-#   command:
-#     cmd: git commit -m "update configuration files"
-#     chdir: '{{ project_path }}'
-#   when: "'Your branch is up to date with' not in git_status_result.stdout"
+- name: Git | Commit changes
+  command:
+    cmd: git commit -m "update configuration files"
+    chdir: '{{ project_path }}'
+  when: "'Your branch is up to date with' not in git_status_result.stdout"
 
-# - name: Git | Push changes
-#   command:
-#     cmd: git push --set-upstream origin main
-#     chdir: '{{ project_path }}'
-#   when: "'Your branch is up to date with' not in git_status_result.stdout"
+- name: Git | Push changes
+  command:
+    cmd: git push
+    chdir: '{{ project_path }}'
+  when: "'Your branch is up to date with' not in git_status_result.stdout"

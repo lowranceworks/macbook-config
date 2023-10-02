@@ -1,11 +1,15 @@
-  - name: Kubectl | Install ctx plugin
-    command: kubectl krew install ctx
-
-  - name: Kubectl | Install ns plugin
-    command: kubectl krew install ns
-
-  - name: Git | Set default branch to main
-    command: git config --global init.defaultBranch main
-
   - name: Kubectl | Enable kubectl auto-completion for zsh
     shell: "/bin/zsh -ic 'source <(kubectl completion zsh)'"
+
+  - name: Kubectl | Krew | Get list of installed krew plugins
+    command: kubectl krew list
+    register: krew_plugins
+    changed_when: false
+
+  - name: Kubectl | Krew | Install ctx plugin
+    command: kubectl krew install ctx
+    when: "'ctx' not in krew_plugins.stdout"
+
+  - name: Kubectl | Krew | Install ns plugin
+    command: kubectl krew install ns
+    when: "'ns' not in krew_plugins.stdout"

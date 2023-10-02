@@ -1,5 +1,11 @@
-- name: Fig | Restore settings.json file
+- name: "Fig | Ensure the .fig directory exists"
+  file:
+    path: "~/.fig"
+    state: directory
+    mode: '0755'
+
+- name: "Fig | Restore settings.json file"
   copy:
     src: "{{ project_path }}/files/Home/.fig/settings.json"
     dest: "~/.fig/settings.json"
-    remote_src: no
+    remote_src: yes
