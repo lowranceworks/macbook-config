@@ -43,9 +43,6 @@
     flat: yes
   when: hitoolbox_stat.stat.exists
 
-# You already have the check for DefaultKeyBinding.dict
-# So the next two tasks are unchanged
-
 - name: "MacOS | Check if DefaultKeyBinding.dict exists"
   stat:
     path: "~/Library/KeyBindings/DefaultKeyBinding.dict"

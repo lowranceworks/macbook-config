@@ -1,4 +1,4 @@
-  - name: Ensure ~/.alfred-preferences directory exists
+  - name: Alfred | Ensure ~/.alfred-preferences directory exists
     ansible.builtin.file:
       path: "~/Library/Application\ Support/Alfred/"
       state: directory

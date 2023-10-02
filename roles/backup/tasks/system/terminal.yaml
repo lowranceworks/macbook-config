@@ -1,9 +1,9 @@
-- name: "Check if com.apple.Terminal.plist exists"
+- name: "Terminal | Check if com.apple.Terminal.plist exists"
   stat:
     path: "~/Library/Preferences/com.apple.Terminal.plist"
   register: terminal_plist_stat
 
-- name: "Backup Terminal user configuration"
+- name: "Terminal | Backup Terminal user configuration"
   ansible.builtin.copy:
     src: "~/Library/Preferences/com.apple.Terminal.plist"
     dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
