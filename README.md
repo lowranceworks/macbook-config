@@ -1,16 +1,9 @@
 # MacBook Config
 
-## Backup 
+## Backup
 
-### Caveats
-
-#### I have not found a way to backup Contexts configuration
-#### You must export the configuration for Retangle-Pro before running the `backup.yaml` playbook
-
-Alternatively, you can go into settings and enable sync configuration to iCloud. 
+[see documentation on the backup playbook](docs/backup.md)
 
 ## Restore
 
-### Caveats
-
-#### I have not found a way to backup Contexts configuration
+[see documentation on the restore playbook](docs/restore.md)
