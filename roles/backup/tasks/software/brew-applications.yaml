@@ -1,56 +1,63 @@
-  - name: Brew | Gather currently installed packages
+  - name: Brew | Gather currently installed formulas
     shell: brew list --formula --full-name
-    register: current_brew_packages
+    register: raw_brew_packages
     changed_when: false  # to ensure this task is always reported as unchanged
     args:
       executable: /bin/sh
 
-  - name: Brew | Check if installed packages match brew.txt
+  - name: Brew | Filter out unwanted formulas 
+    set_fact:
+      current_brew_packages: "{{ raw_brew_packages.stdout_lines | reject('in', unwanted_formulas) | list }}"
+    vars:
+      unwanted_formulas:
+        - "cockroachdb/tap/cockroach"
+        - "minikube"
+
+  - name: Brew | Check if brew-formulas.txt should be updated
     stat:
-      path: "{{ project_path }}/files/brew.txt"
+      path: "{{ project_path }}/files/brew-formulas.txt"
     register: brew_file_stat
     changed_when: false
 
-  - name: Brew | Update brew.txt if there are differences
+  - name: Brew | Save brew-formulas.txt if there are differences
     copy:
-      content: "{{ current_brew_packages.stdout }}"
-      dest: "{{ project_path }}/files/brew.txt"
+      content: "{{ current_brew_packages | join('\n') }}"
+      dest: "{{ project_path }}/files/brew-formulas.txt"
     when:
       - brew_file_stat.stat.exists
-      - current_brew_packages.stdout != lookup('file', '{{ project_path }}/files/brew.txt')
+      - current_brew_packages | join('\n') != lookup('file', project_path + '/files/brew-formulas.txt')
 
-  - name: Brew | Gather currently installed GUI applications via cask
+  - name: Brew | Gather currently installed casks (GUI applications)
     shell: brew list --casks --full-name
-    register: current_brew_casks
+    register: raw_brew_casks
     changed_when: false
     args:
       executable: /bin/sh
 
-  - name: Brew | Check if installed GUI applications match brew-casks.txt
+  - name: Brew | Filter out unwanted casks (GUI applications)
+    set_fact:
+      current_brew_casks: "{{ raw_brew_casks.stdout_lines | reject('in', unwanted_casks) | list }}"
+    vars:
+      unwanted_casks:
+        - "expressvpn"
+        - "yubico-yubikey-manager"
+        - "signal"
+        - "teamviewer"
+        - "tailscale"
+        - "telegram"
+        - "betterdisplay"
+        - "steam"
+
+  - name: Brew | Check if brew-casks.txt should be updated
     stat:
       path: "{{ project_path }}/files/brew-casks.txt"
     register: brew_casks_file_stat
     changed_when: false
 
-  - name: Brew | Update brew-casks.txt if there are differences
+  - name: Brew | Save brew-casks.txt if there are differences
     copy:
-      content: "{{ current_brew_casks.stdout }}"
+      content: "{{ current_brew_casks | join('\n') }}"
       dest: "{{ project_path }}/files/brew-casks.txt"
     when:
       - brew_casks_file_stat.stat.exists
-      - current_brew_casks.stdout != lookup('file', '{{ project_path }}/files/brew-casks.txt')
-            
-  - name: Brew | Remove software from brew-casks.txt that I do not want saved
-    ansible.builtin.lineinfile:
-      path: "{{ project_path + '/files/brew-casks.txt' }}"
-      regexp: '^.*{{ item }}.*$'
-      state: absent
-    loop:
-      - expressvpn
-      - yubico-yubikey-manager
-      - signal
-      - teamviewer
-      - tailscale
-      - telegram
-      - betterdisplay
-      - steam
+      - current_brew_casks | join('\n') != lookup('file', project_path + '/files/brew-casks.txt')

@@ -1,15 +1,33 @@
-  - name: Inkdrop | Save Inkdrop initialization configuration
-    copy:
-      src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
-      dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+- name: "Inkdrop | Check if init.js exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+  register: inkdrop_init_stat
 
-  - name: Inkdrop | Save keybindings
-    copy:
-      src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
-      dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
+- name: "Inkdrop | Save Inkdrop initialization configuration"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+  when: inkdrop_init_stat.stat.exists
 
-  - name: Inkdrop | Save packages
-    archive:
-      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
-      dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
-      format: zip
+- name: "Inkdrop | Check if keymap.cson exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
+  register: inkdrop_keymap_stat
+
+- name: "Inkdrop | Save keybindings"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
+  when: inkdrop_keymap_stat.stat.exists
+
+- name: "Inkdrop | Check if packages directory exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
+  register: inkdrop_packages_stat
+
+- name: "Inkdrop | Save packages"
+  archive:
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
+    format: zip
+  when: inkdrop_packages_stat.stat.exists and inkdrop_packages_stat.stat.isdir

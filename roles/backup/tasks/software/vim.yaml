@@ -1,5 +1,11 @@
-  - name: Vim | Fetch ~/.vimrc
-    fetch:
-      src: "~/.vimrc"
-      dest: "{{ project_path }}/files/Home/.vimrc"
-      flat: yes
+- name: "Vim | Check if ~/.vimrc exists"
+  stat:
+    path: "~/.vimrc"
+  register: vimrc_stat
+
+- name: "Vim | Save ~/.vimrc"
+  fetch:
+    src: "~/.vimrc"
+    dest: "{{ project_path }}/files/Home/.vimrc"
+    flat: yes
+  when: vimrc_stat.stat.exists

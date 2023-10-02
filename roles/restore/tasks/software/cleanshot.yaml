@@ -1,4 +1,10 @@
-- name: Contexts | Restore pl.maketheweb.cleanshotx.plist file
+- name: Cleanshot | Ensure Preferences directory exists
+  file:
+    path: "~/Library/Preferences"
+    state: directory
+    mode: '0755'
+
+- name: Cleanshot | Set pl.maketheweb.cleanshotx.plist file
   copy:
     src: "{{ project_path }}/files/Home/Library/Preferences/pl.maketheweb.cleanshotx.plist"
     dest: "~/Library/Preferences/pl.maketheweb.cleanshotx.plist"

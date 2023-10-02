@@ -1,6 +1,12 @@
-  - name: NeoVim | Fetch all files from ~/.config/nvim/ recursively
-    synchronize:
-      src: "~/.config/nvim/"
-      dest: "{{ project_path }}/files/Home/.config/nvim/"
-      recursive: yes
-      mode: pull
+- name: "NeoVim | Check if ~/.config/nvim/ directory exists"
+  stat:
+    path: "~/.config/nvim/"
+  register: neovim_config_stat
+
+- name: "NeoVim | Save all files from ~/.config/nvim/ recursively"
+  synchronize:
+    src: "~/.config/nvim/"
+    dest: "{{ project_path }}/files/Home/.config/nvim/"
+    recursive: yes
+    mode: pull
+  when: neovim_config_stat.stat.exists and neovim_config_stat.stat.isdir

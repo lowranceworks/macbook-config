@@ -1,5 +1,13 @@
+  - name: Podman | Check if Podman is installed
+    command: 
+      cmd: which podman
+    register: podman_check
+    failed_when: false
+    changed_when: false
+
   - name: Podman | Create symbolic link from podman to docker
     command:
       cmd: ln -s /usr/local/bin/podman /usr/local/bin/docker
+    when: podman_check.rc == 0
     failed_when: false
     changed_when: false

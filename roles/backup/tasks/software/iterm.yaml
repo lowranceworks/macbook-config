@@ -1,6 +1,12 @@
-  - name: Backup iTerm2 user configuration
-    ansible.builtin.copy:
-      src: "~/Library/Preferences/com.googlecode.iterm2.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
-      remote_src: yes
-      mode: '0644'
+- name: "iTerm | Check if com.googlecode.iterm2.plist exists"
+  stat:
+    path: "~/Library/Preferences/com.googlecode.iterm2.plist"
+  register: iterm_config_stat
+
+- name: "iTerm | Save user configuration"
+  ansible.builtin.copy:
+    src: "~/Library/Preferences/com.googlecode.iterm2.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
+    remote_src: yes
+    mode: '0644'
+  when: iterm_config_stat.stat.exists

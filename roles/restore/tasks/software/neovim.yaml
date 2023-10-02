@@ -1,4 +1,10 @@
-  - name: NeoVim | Push all files to ~/.config/nvim/ recursively
+  - name: "NeoVim | Ensure the nvim directory exists"
+    file:
+      path: "~/.config/nvim"
+      state: directory
+      mode: '0755'
+
+  - name: "NeoVim | Push all files to ~/.config/nvim/ recursively"
     synchronize:
       src: "{{ project_path }}/files/Home/.config/nvim/"
       dest: "~/.config/nvim/"

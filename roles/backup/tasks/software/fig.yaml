@@ -1,5 +1,11 @@
-- name: Fig | Save settings.json file
+- name: "Fig | Check if settings.json exists"
+  stat:
+    path: "~/.fig/settings.json"
+  register: fig_settings_file_stat
+
+- name: "Fig | Save settings.json file"
   copy:
     src: "~/.fig/settings.json"
     dest: "{{ project_path }}/files/Home/.fig/settings.json"
     remote_src: no
+  when: fig_settings_file_stat.stat.exists
