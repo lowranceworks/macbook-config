@@ -47,6 +47,7 @@
         - "telegram"
         - "betterdisplay"
         - "steam"
+        - "menubar-countdown"
 
   - name: Brew | Check if brew-casks.txt should be updated
     stat:
