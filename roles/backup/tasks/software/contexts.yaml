@@ -1,12 +1,23 @@
-- name: Contexts | Save com.contextsformac.Contexts.plist file
+- name: "Contexts | Check if com.contextsformac.Contexts.plist exists"
+  stat:
+    path: "~/Library/Preferences/com.contextsformac.Contexts.plist"
+  register: contextsformac_file_stat
+
+- name: "Contexts | Save com.contextsformac.Contexts.plist file"
   copy:
     src: "~/Library/Preferences/com.contextsformac.Contexts.plist"
     dest: "{{ project_path }}/files/Home/Library/Preferences/com.contextsformac.Contexts.plist"
     remote_src: no
+  when: contextsformac_file_stat.stat.exists
 
-- name: Contexts | Save ContextStoreAgent.plist file
+- name: "Contexts | Check if ContextStoreAgent.plist exists"
+  stat:
+    path: "~/Library/Preferences/ContextStoreAgent.plist"
+  register: contextstoreagent_file_stat
+
+- name: "Contexts | Save ContextStoreAgent.plist file"
   copy:
     src: "~/Library/Preferences/ContextStoreAgent.plist"
     dest: "{{ project_path }}/files/Home/Library/Preferences/ContextStoreAgent.plist"
     remote_src: no
-
+  when: contextstoreagent_file_stat.stat.exists

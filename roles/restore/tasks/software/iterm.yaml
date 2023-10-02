@@ -1,4 +1,10 @@
-  - name: Restore iTerm2 user configuration
+  - name: "iTerm2 | Ensure the Preferences directory exists"
+    file:
+      path: "~/Library/Preferences"
+      state: directory
+      mode: '0755'
+
+  - name: "iTerm2 | Restore user configuration"
     ansible.builtin.copy:
       src: "{{ project_path }}/files/Home/Library/Preferences/com.googlecode.iterm2.plist"
       dest: "~/Library/Preferences/com.googlecode.iterm2.plist"

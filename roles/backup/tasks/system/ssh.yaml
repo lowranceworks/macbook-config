@@ -1,5 +1,11 @@
-  - name: SSH | Fetch ~/.ssh/config
-    fetch:
-      src: "~/.ssh/config"
-      dest: "{{ project_path }}/files/Home/.ssh/config"
-      flat: yes
+- name: "SSH | Check if ~/.ssh/config exists"
+  stat:
+    path: "~/.ssh/config"
+  register: ssh_config_stat
+
+- name: "SSH | Fetch ~/.ssh/config"
+  fetch:
+    src: "~/.ssh/config"
+    dest: "{{ project_path }}/files/Home/.ssh/config"
+    flat: yes
+  when: ssh_config_stat.stat.exists
