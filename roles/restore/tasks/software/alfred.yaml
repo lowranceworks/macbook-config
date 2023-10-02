@@ -1,6 +1,6 @@
   - name: Alfred | Ensure ~/.alfred-preferences directory exists
     ansible.builtin.file:
-      path: "~/Library/Application\ Support/Alfred/"
+      path: "~/Library/Application Support/Alfred/"
       state: directory
       mode: '0755'
       owner: "{{ lookup('env', 'USER') }}"
@@ -8,8 +8,8 @@
 
   - name: Alfred | Unzip and restore preferences and other directories
     unarchive:
-      src: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
-      dest: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
+      src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences.zip"
+      dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/"
       remote_src: yes
       owner: "{{ lookup('env', 'USER') }}"
       group: staff    
