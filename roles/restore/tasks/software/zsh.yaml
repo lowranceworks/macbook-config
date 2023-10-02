@@ -37,10 +37,10 @@
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
 
-  - name: Zsh | Oh-My-Zsh | Check if ~/oh-my-zsh directory exists
+  - name: Zsh | Oh-My-Zsh | Check if ~/.oh-my-zsh directory exists
     stat:
       path: ~/.oh-my-zsh/
-    register: oh_my_zsh_home_dit
+    register: oh_my_zsh_home_dir
 
   - name: Zsh | Oh-My-Zsh | Set *.zsh files
     copy:
