@@ -1,5 +1,4 @@
 alfred
-betterdisplay
 bitwarden
 brave-browser
 chromium
@@ -22,14 +21,8 @@ microsoft-teams
 mission-control-plus
 paintbrush
 rectangle-pro
-signal
 slack
 stats
-steam
-tailscale
-teamviewer
-telegram
 utm
 visual-studio-code
 webcatalog
-yubico-yubikey-manager

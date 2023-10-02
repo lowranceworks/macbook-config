@@ -1,7 +1,12 @@
+- name: "Check if com.apple.Terminal.plist exists"
+  stat:
+    path: "~/Library/Preferences/com.apple.Terminal.plist"
+  register: terminal_plist_stat
 
-  - name: Backup Terminal user configuration
-    ansible.builtin.copy:
-      src: "~/Library/Preferences/com.apple.Terminal.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
-      remote_src: yes
-      mode: '0644'
+- name: "Backup Terminal user configuration"
+  ansible.builtin.copy:
+    src: "~/Library/Preferences/com.apple.Terminal.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.Terminal.plist"
+    remote_src: yes
+    mode: '0644'
+  when: terminal_plist_stat.stat.exists

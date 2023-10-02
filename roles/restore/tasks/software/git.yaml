@@ -1,0 +1,4 @@
+# TODO: add git tasks
+
+  - name: Git | Set default branch to main
+    command: git config --global init.defaultBranch main

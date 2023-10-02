@@ -1,37 +1,32 @@
-  - name: MacOS | Set native keybindings
-    copy:
-      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
-      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
- 
-  - name: MacOS | Create Learn directory
-    file:
-      path: "~/Learn"
-      state: directory
+- name: "MacOS | Ensure Preferences directory exists"
+  file:
+    path: "{{ lookup('env', 'HOME') }}/Library/Preferences"
+    state: directory
+    mode: '0755'
 
-  - name: MacOS | Enable global key-repeat
-    command: "defaults write -g ApplePressAndHoldEnabled -bool false"
-    args:
-      creates: "~/Library/Preferences/.GlobalPreferences.plist"
+- name: "MacOS | Set native keybindings"
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
 
+- name: "MacOS | Enable global key-repeat"
+  command: "defaults write -g ApplePressAndHoldEnabled -bool false"
+  args:
+    creates: "~/Library/Preferences/.GlobalPreferences.plist"
 
-  # - name: MacOS | Map "Caps Lock" key to "Esc" key
-  #   command: "defaults -currentHost write -g com.apple.keyboard.modifiermapping.{{ item.device_id }}-0 -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>5</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'"
-  #   with_items:
-  #     - { device_id: '1452-597-0' } # This device_id might differ. Please adjust as needed.
-  #   become: True
+- name: "MacOS | Save GlobalPreferences plist (keyboard shortcuts?)"
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
 
-  - name: MacOS | Save GlobalPreferences plist (keyboard shortcuts?)
-    copy:
-      src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
-      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
- 
-  - name: MacOS | Save GlobalPreferences_m plist (?)
-    copy:
-      src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
-      dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
+- name: "MacOS | Save GlobalPreferences_m plist (?)"
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
 
-  - name: MacOS | Save dock configuration
-    fetch:
-      src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
-      dest: "~/Library/Preferences/com.apple.dock.plist"
-      flat: yes
+- name: "MacOS | Save dock configuration"
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
+    dest: "~/Library/Preferences/com.apple.dock.plist"
+    remote_src: yes
+    mode: '0644'

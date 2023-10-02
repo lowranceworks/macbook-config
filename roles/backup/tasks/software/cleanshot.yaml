@@ -1,5 +1,11 @@
-- name: Contexts | Save pl.maketheweb.cleanshotx.plist file
+- name: Cleanshot | Check if pl.maketheweb.cleanshotx.plist exists
+  stat:
+    path: "~/Library/Preferences/pl.maketheweb.cleanshotx.plist"
+  register: cleanshot_file_stat
+
+- name: Cleanshot | Save pl.maketheweb.cleanshotx.plist to project path
   copy:
     src: "~/Library/Preferences/pl.maketheweb.cleanshotx.plist"
     dest: "{{ project_path }}/files/Home/Library/Preferences/pl.maketheweb.cleanshotx.plist"
     remote_src: no
+  when: cleanshot_file_stat.stat.exists

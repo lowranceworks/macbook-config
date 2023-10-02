@@ -1,60 +1,91 @@
----
-  - name: Check if $ZSH folder exists
+  - name: Zsh | Check if $ZSH folder exists
     stat:
       path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
-    register: zsh_folder_check
+    register: oh_my_zsh_folder_check
 
-  - name: Check if ~/.zshrc exists
-    stat:
-      path: ~/.zshrc
-    register: zshrc
+  # - name: Zsh | Check if ~/.zshrc exists
+  #   stat:
+  #     path: ~/.zshrc
+  #   register: zshrc_c
 
-  # - name: Save a copy of the existing .zshrc configuration
+  # - name: Zsh | Save a copy of the existing .zshrc configuration
   #   ansible.builtin.copy:
   #     src: ~/.zshrc
   #     dest: ~/.zshrc-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
   #     directory_mode: yes
-  #     remote_src: yes
+  #     remote_src: no
   #   when: zshrc.stat.exists
 
-  - name: copy .zsh* configuration files
+  - name: Zsh | Save .zsh* configuration files
     copy:
-      src: "{{ project_path }}/files/Home/{{ item }}"
-      dest: "~/{{ item }}"
-      remote_src: yes
+      src: "~/{{ item }}"
+      dest: "{{ project_path }}/files/Home/{{ item }}"
+      remote_src: no
       owner: "{{ ansible_facts['user_id'] }}"
       mode: '0755'
     loop:
       - .zshrc
       - .zshenv
-    when: project_path is defined
+    when: oh_my_zsh_folder_check.stat.exists
 
-  - name: Zsh | Fetch aliases.zsh from ~/.oh-my-zsh/
-    fetch:
-      src: "~/.oh-my-zsh/aliases.zsh"
-      dest: "{{ project_path }}/files/Home/.oh-my-zsh/aliases.zsh"
-      flat: yes
+  - name: Zsh | Oh-My-Zsh | Save *.zsh files from ~/.oh-my-zsh/
+    copy:
+      src: "~/.oh-my-zsh/{{ item }}"
+      dest: "{{ project_path }}/files/Home/{{ item }}"
+      remote_src: no
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+    loop:
+      - aliases.zsh
+    when: oh_my_zsh_folder_check.stat.exists
 
-  - name: Zsh | Fetch oh-my-zsh.sh from ~/.oh-my-zsh/
+  - name: Zsh | Oh-My-Zsh | Save oh-my-zsh.sh from ~/.oh-my-zsh/
     fetch:
       src: "~/.oh-my-zsh/oh-my-zsh.sh"
       dest: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
       flat: yes
+    when: oh_my_zsh_folder_check.stat.exists
 
-  - name: Zsh | Fetch ~/.p10k.zsh
+  # - name: Zsh | Oh-My-Zsh | Save a copy of the existing oh-my-zsh configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.oh-my-zsh/
+  #     dest: ~/.oh-my-zsh-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: no
+  #   when: 
+  #     - oh_my_zsh_folder_check.stat.exists
+  #     - not oh_my_zsh_folder_check.stat.islnk
+
+  - name: Zsh | Oh-My-Zsh | Copy .oh-my-zsh configuration files
+    copy:
+      src: "{{ project_path }}/files/Home/.oh-my-zsh/"
+      dest: "~/.oh-my-zsh/"
+      remote_src: no
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+      directory_mode: '0755'
+
+  # - name: Zsh | Oh-My-Zsh | Copy plugins to custom plugins directory
+  #   ansible.builtin.copy:
+  #     src: "/tmp/oh-my-zsh/plugins/{{ item }}/"
+  #     dest: "{{ lookup('env', 'ZSH_CUSTOM') or lookup('env', 'HOME') + '/.oh-my-zsh/custom' }}/plugins/{{ item }}"
+  #     directory_mode: yes
+  #     remote_src: no
+  #   loop:
+  #     - terraform
+  #     - ansible
+  #     - docker
+  #   when: 
+  #     - oh_my_zsh_dir.stat.exists
+
+  - name: Zsh | Oh-My-Zsh | Powerlevel10k | Check if ~/.p10k.zsh exists
+    stat:
+      path: ~/.p10k.zsh
+    register: p10k_file_stat
+
+  - name: Zsh | Oh-My-Zsh | Powerlevel10k | Save ~/.p10k.zsh
     fetch:
       src: "~/.p10k.zsh"
       dest: "{{ project_path }}/files/Home/.p10k.zsh"
       flat: yes
-
-  - name: Zsh | Fetch ~/.zshenv
-    fetch:
-      src: "~/.zshenv"
-      dest: "{{ project_path }}/files/Home/.zshenv"
-      flat: yes
-
-  - name: Zsh | Fetch ~/.zshrc
-    fetch:
-      src: "~/.zshrc"
-      dest: "{{ project_path }}/files/Home/.zshrc"
-      flat: yes
+    when: p10k_file_stat.stat.exists

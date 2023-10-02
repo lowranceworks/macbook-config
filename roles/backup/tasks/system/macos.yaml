@@ -1,38 +1,71 @@
-  - name: MacOS | Save GlobalPreferences plist (keyboard shortcuts?)
-    copy:
-      src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
- 
-  - name: MacOS | Save GlobalPreferences_m plist (?)
-    copy:
-      src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
-    
-  - name: MacOS | Save native keybindings
-    copy:
-      src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
+- name: "MacOS | Check if .GlobalPreferences.plist exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
+  register: global_prefs_stat
 
-  - name: MacOS | Save general keyboard preferences
-    fetch:
-      src: "~/Library/Preferences/com.apple.HIToolbox.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.HIToolbox.plist"
-      flat: yes
-          
-  - name: MacOS | Check if DefaultKeyBinding.dict exists
-    stat:
-      path: "~/Library/KeyBindings/DefaultKeyBinding.dict"
-    register: keybinding_file
+- name: "MacOS | Save GlobalPreferences plist (keyboard shortcuts?)"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
+  when: global_prefs_stat.stat.exists
 
-  - name: MacOS | Save keybindings
-    fetch:
-      src: "~/Library/KeyBindings/DefaultKeyBinding.dict"
-      dest: "{{ project_path }}/files/Home/Library/KeyBindings/DefaultKeyBinding.dict"
-      flat: yes
-    when: keybinding_file.stat.exists
+- name: "MacOS | Check if .GlobalPreferences_m.plist exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
+  register: global_prefs_m_stat
 
-  - name: MacOS | Save dock configuration
-    fetch:
-      src: "~/Library/Preferences/com.apple.dock.plist"
-      dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
-      flat: yes
+- name: "MacOS | Save GlobalPreferences_m plist (?)"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
+  when: global_prefs_m_stat.stat.exists
+
+- name: "MacOS | Check if com.apple.symbolichotkeys.plist exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+  register: symbolichotkeys_stat
+
+- name: "MacOS | Save native keybindings"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
+  when: symbolichotkeys_stat.stat.exists
+
+- name: "MacOS | Check if com.apple.HIToolbox.plist exists"
+  stat:
+    path: "~/Library/Preferences/com.apple.HIToolbox.plist"
+  register: hitoolbox_stat
+
+- name: "MacOS | Save general keyboard preferences"
+  fetch:
+    src: "~/Library/Preferences/com.apple.HIToolbox.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.HIToolbox.plist"
+    flat: yes
+  when: hitoolbox_stat.stat.exists
+
+# You already have the check for DefaultKeyBinding.dict
+# So the next two tasks are unchanged
+
+- name: "MacOS | Check if DefaultKeyBinding.dict exists"
+  stat:
+    path: "~/Library/KeyBindings/DefaultKeyBinding.dict"
+  register: keybinding_file
+
+- name: "MacOS | Save keybindings"
+  fetch:
+    src: "~/Library/KeyBindings/DefaultKeyBinding.dict"
+    dest: "{{ project_path }}/files/Home/Library/KeyBindings/DefaultKeyBinding.dict"
+    flat: yes
+  when: keybinding_file.stat.exists
+
+- name: "MacOS | Check if com.apple.dock.plist exists"
+  stat:
+    path: "~/Library/Preferences/com.apple.dock.plist"
+  register: dock_stat
+
+- name: "MacOS | Save dock configuration"
+  fetch:
+    src: "~/Library/Preferences/com.apple.dock.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
+    flat: yes
+  when: dock_stat.stat.exists
