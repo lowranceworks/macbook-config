@@ -1,3 +1,4 @@
 .DS_Store
-.zsh_history
-.bash_history
+
+# .zsh_history or .bash_history could contain sensitive strings and should not be commited. 
+*history* 
