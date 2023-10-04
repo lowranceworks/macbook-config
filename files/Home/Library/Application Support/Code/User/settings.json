@@ -11,17 +11,17 @@
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.fontFamily": "MesloLGS NF",
-  "window.zoomLevel": 1,
   "workbench.colorTheme": "Dracula",
   "workbench.sideBar.location": "right",
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
-  "hediet.vscode-drawio.resizeImages": null,
   "go.toolsManagement.autoUpdate": true,
-  "editor.lineNumbers": "relative",
   "vs-kubernetes": {
-    "vs-kubernetes.minikube-show-information-expiration": "2024-03-19T22:18:24.496Z"
+    "vscode-kubernetes.minikube-path.mac": "/Users/jlowrance/.vs-kubernetes/tools/minikube/darwin-arm64/minikube",
+    "vs-kubernetes.minikube-show-information-expiration": "2024-03-25T16:49:21.864Z"
   },
-  "git.openRepositoryInParentFolders": "never"
+  "git.openRepositoryInParentFolders": "always",
+  "editor.lineNumbers": "relative",
+  "window.zoomLevel": 1
 }
