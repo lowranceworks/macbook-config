@@ -1,0 +1,60 @@
+"*":
+  core:
+    db:
+      machineId: "6OyKlfswc"
+    disabledPackages: [
+      "switch-notebook"
+      "ghost-fade-focus"
+      "visible-on-all-workspaces"
+      "link-card"
+      "admonition"
+      "vim"
+    ]
+    lastNavigationState:
+      editingNoteId: "note:7257GuIoH"
+      queryContext:
+        mode: "search"
+        searchKeyword: "hai"
+      sidebar:
+        workspace:
+          bookId: ""
+          visible: false
+    mainWindow:
+      acrylicEnabled: true
+      fullscreen: false
+      hiddenComponents:
+        "sidebar-menu": []
+      maximized: true
+      noteListBar:
+        w: 300
+      position:
+        x: 0
+        y: 25
+      sideBar:
+        collapsedBooks: [
+          "book:RhsuyUaOB"
+          "book:8Ed7jta11"
+          "book:9ENLRQo3A"
+        ]
+        visible: false
+      size:
+        h: 1415
+        w: 1145
+    themes: [
+      "vibrant-dark-ui"
+      "dracula-preview"
+      "material-dark-mod-syntax"
+    ]
+  editor:
+    lineNumbers: true
+    styleActiveLine: true
+    viewMode: "edit"
+  "switch-notebook":
+    switchWithReturnKey: true
+server:
+  auth:
+    password: "bar"
+    username: "foo"
+  bindAddress: "127.0.0.1"
+  enabled: true
+  port: 19840
