@@ -9,7 +9,7 @@
   - name: Alfred | Unzip and restore preferences and other directories
     unarchive:
       src: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
-      dest: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
+      dest: "~/Library/Application\ Support/Alfred/"
       remote_src: yes
       owner: "{{ lookup('env', 'USER') }}"
       group: staff    
