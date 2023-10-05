@@ -31,6 +31,17 @@
     dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/config.cson"
   when: inkdrop_config_stat.stat.exists
 
+- name: "Inkdrop | Check if init.js exists"
+  stat:
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+  register: inkdrop_init_stat
+
+- name: "Inkdrop | Save init.js"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+  when: inkdrop_init_stat.stat.exists
+
 - name: "Inkdrop | Check if packages directory exists"
   stat:
     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
