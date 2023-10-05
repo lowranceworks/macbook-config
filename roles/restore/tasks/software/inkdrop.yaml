@@ -28,17 +28,22 @@
       dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages"
       remote_src: yes
 
-  - name: Inkdrop | Check if 'config.cson' file exists
-    stat:
-      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
-    register: config_file_status
+  # - name: Inkdrop | Check if 'config.cson' file exists
+  #   stat:
+  #     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+  #   register: config_file_status
 
-  - name: Inkdrop | Create 'config.cson' file
-    file:
-      path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
-      state: touch
-      mode: '0644'
-    when: not config_file_status.stat.exists
+  # - name: Inkdrop | Create 'config.cson' file
+  #   file:
+  #     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
+  #     state: touch
+  #     mode: '0644'
+  #   when: not config_file_status.stat.exists
+
+  - name: "Inkdrop | Set config.cson"
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/config.cson"
+      dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
 
   - name: Inkdrop | Check if 'server' configuration exists
     shell: grep -Fq 'server:' "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/config.cson"
