@@ -14,3 +14,9 @@
       owner: "{{ lookup('env', 'USER') }}"
       group: staff    
       mode: '0755'
+
+  - name: Alfred | Set prefs.json file
+    copy:
+      src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
+      dest: "~/Library/Application Support/Alfred/prefs.json"
+      remote_src: no
