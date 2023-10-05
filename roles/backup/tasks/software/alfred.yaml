@@ -3,8 +3,8 @@
       path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
     register: alfred_prefs
 
-  # - name: Alfred | Save Alfred.alfredpreferences
-  #   archive:
-  #     path: "~/.alfred-preferences/Alfred.alfredpreferences/"
-  #     dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
-  #     format: zip
+  - name: Alfred | Save Alfred.alfredpreferences
+    archive:
+      path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences"
+      dest: "{{ project_path }}/files/Home//Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
+      format: zip
