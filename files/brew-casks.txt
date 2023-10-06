@@ -1,6 +1,7 @@
 alfred
 bitwarden
 brave-browser
+choosy
 chromium
 cleanshot
 contexts
