@@ -1,12 +1,12 @@
-- name: "LunarVim | Check if ~/.config/nvim/ directory exists"
+- name: "LunarVim | Check if ~/.config/lvim/ directory exists"
   stat:
-    path: "~/.config/nvim/"
-  register: nvim_config_stat
+    path: "~/.config/lvim/"
+  register: lvim_config_stat
 
 - name: "LunarVim | Save all files from ~/.config/lvim/ recursively"
   synchronize:
-    src: "~/.config/nvim/"
-    dest: "{{ project_path }}/files/Home/.config/nvim/"
+    src: "~/.config/lvim/"
+    dest: "{{ project_path }}/files/Home/.config/lvim/"
     recursive: yes
     mode: pull
-  when: nvim_config_stat.stat.exists and nvim_config_stat.stat.isdir
+  when: lvim_config_stat.stat.exists and lvim_config_stat.stat.isdir

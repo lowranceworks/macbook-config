@@ -170,7 +170,14 @@ lvim.builtin.treesitter.highlight.enable = true
 
 -- Additional Plugins
 lvim.plugins = {
-  { "Mofiqul/dracula.nvim" },
+  {
+    "Mofiqul/dracula.nvim"
+  },
+  {
+    "nvim-telescope/telescope-fzy-native.nvim",
+    build = "make",
+    event = "BufRead",
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
