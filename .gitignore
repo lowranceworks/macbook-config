@@ -2,3 +2,6 @@
 
 # .zsh_history or .bash_history could contain sensitive strings and should not be commited. 
 *history* 
+
+# ignore neovim plugins
+files/Home/.config/nvim/plugged/vim-be-good
