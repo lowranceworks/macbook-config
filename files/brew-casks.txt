@@ -21,6 +21,7 @@ microsoft-outlook
 microsoft-teams
 mission-control-plus
 paintbrush
+podman-desktop
 rectangle-pro
 sensiblesidebuttons
 slack
