@@ -24,8 +24,27 @@ lvim.use_icons = true
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+
+-- basic keymappings
 vim.api.nvim_set_keymap('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'N', 'Nzzzv', { noremap = true, silent = true })
+
+-- advanced keymappings
+
+-- greatest remap ever
+vim.api.nvim_set_keymap('x', '<leader>p', '"_dP', { noremap = true, silent = true })
+
+-- next greatest remaps ever
+vim.api.nvim_set_keymap('n', '<leader>Y', '\\Y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>y', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>Y', '"+Y', { noremap = false, silent = true }) -- Notice noremap is set to false since nmap was used
+
+vim.api.nvim_set_keymap('n', '<leader>d', '"_d', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>d', '"_d', { noremap = true, silent = true })
+
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
