@@ -10,3 +10,10 @@
       dest: "~/.config/nvim/"
       recursive: yes
       mode: push
+
+  - name: NeoVim | Set keymappings
+    synchronize:
+      src: "{{ project_path }}/files/Home/.vim/keymappings.vim/"
+      dest: "~/.vim/keymappings.vim"
+      recursive: yes
+      mode: push
