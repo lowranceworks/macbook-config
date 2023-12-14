@@ -13,13 +13,11 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use 'Mofiqul/dracula.nvim'
-
   use({
-    'rose-pine/neovim',
-    as = 'rose-pine',
+    'Mofiqul/dracula.nvim',
+    as = 'dracula',
     config = function()
-        vim.cmd('colorscheme rose-pine')
+        vim.cmd('colorscheme dracula')
     end
   })
 
