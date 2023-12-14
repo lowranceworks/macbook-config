@@ -13,12 +13,8 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use({
-	  "folke/tokyonight.nvim",
-	  lazy = false,
-	  priority = 1000,
-	  opts = {},
-  })
+ use 'Mofiqul/dracula.nvim'
+
 
   use({
       "folke/trouble.nvim",
