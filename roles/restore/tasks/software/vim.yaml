@@ -14,3 +14,10 @@
     git:
       repo: "https://github.com/dracula/vim.git"
       dest: "~/.vim/pack/themes/start/dracula"
+
+  - name: Vim | Set keymappings
+    synchronize:
+      src: "{{ project_path }}/files/Home/.vim/keymappings.vim/"
+      dest: "~/.vim/keymappings.vim"
+      recursive: yes
+      mode: push
