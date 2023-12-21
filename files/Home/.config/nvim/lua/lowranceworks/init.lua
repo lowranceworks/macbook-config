@@ -2,7 +2,7 @@ require("lowranceworks.set")
 require("lowranceworks.remap")
 
 local augroup = vim.api.nvim_create_augroup
-local lowranceworks = augroup('lowranceworks', {})
+local LowranceWorksGroup = augroup('LowranceWorks', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -23,7 +23,7 @@ autocmd('TextYankPost', {
 })
 
 autocmd({"BufWritePre"}, {
-    group = lowranceworks,
+    group = LowranceWorksGroup,
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
