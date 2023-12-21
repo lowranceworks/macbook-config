@@ -9,7 +9,7 @@
     dest: "{{ project_path }}/files/Home/Library/Application Support/Code/User/settings.json"
   when: vscode_settings_stat.stat.exists
 
-- name: "Check if keybindings.json exists"
+- name: "Visual Studio Code | Check if keybindings.json exists"
   stat:
     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/Code/User/keybindings.json"
   register: vscode_keybindings_stat

@@ -27,7 +27,6 @@
     loop:
       - .zshrc
       - .zshenv
-    when: project_path is defined
 
   - name: Zsh | Push ~/.zshenv
     copy:
@@ -43,21 +42,41 @@
       owner: "{{ lookup('env', 'USER') }}"
       mode: '0644'
 
+  - name: Zsh | Oh-My-Zsh | Check if ~/.oh-my-zsh directory exists
+    stat:
+      path: ~/.oh-my-zsh/
+    register: oh_my_zsh_home_dir
+
   - name: Zsh | Oh-My-Zsh | Set *.zsh files
     copy:
       src: "{{ project_path }}/files/Home/.oh-my-zsh/{{ item }}"
       dest: "~/.oh-my-zsh/{{ item }}"
       owner: "{{ ansible_facts['user_id'] }}"
-      mode: '0755'
+      mode: '
+      
+      '
     loop:
       - aliases.zsh
 
-  - name: Zsh | Oh-My-Zsh | Set .oh-my-zsh.sh file
+  - name: Zsh | Oh-My-Zsh | Set *.zsh files
     copy:
+      src: "{{ project_path }}/files/Home/{{ item }}"
+      dest: "~/.oh-my-zsh/{{ item }}"
+      remote_src: no
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '0755'
+    loop:
+      - aliases.zsh
+    when: oh_my_zsh_home_dir.stat.exists
+
+  - name: Zsh | Oh-My-Zsh | Set oh-my-zsh.sh
+    fetch:
       src: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
       dest: "~/.oh-my-zsh/oh-my-zsh.sh"
+      flat: yes
       mode: '0755'
-
+    when: oh_my_zsh_home_dir.stat.exists
+    
   - name: Zsh | Oh-My-Zsh | Install zsh-autosuggestions
     git:
       repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'

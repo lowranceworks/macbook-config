@@ -3,19 +3,6 @@
       path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
     register: oh_my_zsh_folder_check
 
-  # - name: Zsh | Check if ~/.zshrc exists
-  #   stat:
-  #     path: ~/.zshrc
-  #   register: zshrc_c
-
-  # - name: Zsh | Save a copy of the existing .zshrc configuration
-  #   ansible.builtin.copy:
-  #     src: ~/.zshrc
-  #     dest: ~/.zshrc-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
-  #     directory_mode: yes
-  #     remote_src: no
-  #   when: zshrc.stat.exists
-
   - name: Zsh | Save .zsh* configuration files
     copy:
       src: "~/{{ item }}"
@@ -46,16 +33,6 @@
       flat: yes
     when: oh_my_zsh_folder_check.stat.exists
 
-  # - name: Zsh | Oh-My-Zsh | Save a copy of the existing oh-my-zsh configuration
-  #   ansible.builtin.copy:
-  #     src: ~/.oh-my-zsh/
-  #     dest: ~/.oh-my-zsh-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
-  #     directory_mode: yes
-  #     remote_src: no
-  #   when: 
-  #     - oh_my_zsh_folder_check.stat.exists
-  #     - not oh_my_zsh_folder_check.stat.islnk
-
   - name: Zsh | Oh-My-Zsh | Copy .oh-my-zsh configuration files
     copy:
       src: "{{ project_path }}/files/Home/.oh-my-zsh/"
@@ -64,6 +41,31 @@
       owner: "{{ ansible_facts['user_id'] }}"
       mode: '0755'
       directory_mode: '0755'
+
+  - name: Zsh | Oh-My-Zsh | Powerlevel10k | Check if ~/.p10k.zsh exists
+    stat:
+      path: ~/.p10k.zsh
+    register: p10k_file_stat
+
+  - name: Zsh | Oh-My-Zsh | Powerlevel10k | Save ~/.p10k.zsh
+    fetch:
+      src: "~/.p10k.zsh"
+      dest: "{{ project_path }}/files/Home/.p10k.zsh"
+      flat: yes
+    when: p10k_file_stat.stat.exists
+
+  # - name: Zsh | Check if ~/.zshrc exists
+  #   stat:
+  #     path: ~/.zshrc
+  #   register: zshrc_c
+
+  # - name: Zsh | Save a copy of the existing .zshrc configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.zshrc
+  #     dest: ~/.zshrc-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: no
+  #   when: zshrc.stat.exists
 
   # - name: Zsh | Oh-My-Zsh | Copy plugins to custom plugins directory
   #   ansible.builtin.copy:
@@ -78,14 +80,12 @@
   #   when: 
   #     - oh_my_zsh_dir.stat.exists
 
-  - name: Zsh | Oh-My-Zsh | Powerlevel10k | Check if ~/.p10k.zsh exists
-    stat:
-      path: ~/.p10k.zsh
-    register: p10k_file_stat
-
-  - name: Zsh | Oh-My-Zsh | Powerlevel10k | Save ~/.p10k.zsh
-    fetch:
-      src: "~/.p10k.zsh"
-      dest: "{{ project_path }}/files/Home/.p10k.zsh"
-      flat: yes
-    when: p10k_file_stat.stat.exists
+  # - name: Zsh | Oh-My-Zsh | Save a copy of the existing oh-my-zsh configuration
+  #   ansible.builtin.copy:
+  #     src: ~/.oh-my-zsh/
+  #     dest: ~/.oh-my-zsh-backup-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}
+  #     directory_mode: yes
+  #     remote_src: no
+  #   when: 
+  #     - oh_my_zsh_folder_check.stat.exists
+  #     - not oh_my_zsh_folder_check.stat.islnk
