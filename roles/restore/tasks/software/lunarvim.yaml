@@ -46,7 +46,7 @@
       state: touch
       mode: '0644'
 
-  - name: Zsh | Ensure ~/.zshrc exists
+  - name: LunarVim | Zsh | Ensure ~/.zshrc exists
     file:
       path: "{{ lookup('env', 'HOME') }}/.zshrc"
       state: touch
