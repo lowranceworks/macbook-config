@@ -35,6 +35,7 @@ gh
 ghostscript
 giflib
 git
+git-filter-repo
 glib
 gmp
 gnu-sed

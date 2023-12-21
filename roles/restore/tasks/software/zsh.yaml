@@ -4,6 +4,11 @@
       path: ~/.zshrc
     register: zshrc
 
+  - name: Zsh | Check if $ZSH folder exists
+    stat:
+      path: "{{ lookup('env', 'ZSH') | default('~/.oh-my-zsh', true) }}"
+    register: oh_my_zsh_home_dir
+
   # - name: Save a copy of the existing .zshrc configuration
   #   ansible.builtin.copy:
   #     src: ~/.zshrc
@@ -44,6 +49,17 @@
 
   - name: Zsh | Oh-My-Zsh | Set *.zsh files
     copy:
+      src: "{{ project_path }}/files/Home/.oh-my-zsh/{{ item }}"
+      dest: "~/.oh-my-zsh/{{ item }}"
+      owner: "{{ ansible_facts['user_id'] }}"
+      mode: '
+      
+      '
+    loop:
+      - aliases.zsh
+
+  - name: Zsh | Oh-My-Zsh | Set *.zsh files
+    copy:
       src: "{{ project_path }}/files/Home/{{ item }}"
       dest: "~/.oh-my-zsh/{{ item }}"
       remote_src: no
@@ -58,8 +74,9 @@
       src: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
       dest: "~/.oh-my-zsh/oh-my-zsh.sh"
       flat: yes
+      mode: '0755'
     when: oh_my_zsh_home_dir.stat.exists
-
+    
   - name: Zsh | Oh-My-Zsh | Install zsh-autosuggestions
     git:
       repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'

@@ -5,6 +5,12 @@
 
   - name: Alfred | Save Alfred.alfredpreferences
     archive:
-      path: "~/.alfred-preferences/Alfred.alfredpreferences/"
-      dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
+      path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences"
+      dest: "{{ project_path }}/files/Home//Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
       format: zip
+    
+  - name: Alfred | Save prefs.json file
+    copy:
+      src: "~/Library/Application Support/Alfred/prefs.json"
+      dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
+      remote_src: no
