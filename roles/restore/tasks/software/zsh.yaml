@@ -45,7 +45,7 @@
 
   - name: Zsh | Oh-My-Zsh | Set *.zsh files
     copy:
-      src: "{{ project_path }}/files/Home/{{ item }}"
+      src: "{{ project_path }}/files/Home/.oh-my-zsh/{{ item }}"
       dest: "~/.oh-my-zsh/{{ item }}"
       owner: "{{ ansible_facts['user_id'] }}"
       mode: '0755'
