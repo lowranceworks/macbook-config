@@ -1,0 +1,12 @@
+- name: "tmux | Check if ~/.config/tmux/ directory exists"
+  stat:
+    path: "~/.config/tmux/"
+  register: tmux_config_stat
+
+- name: "tmux | Save all files from ~/.config/tmux/ recursively"
+  synchronize:
+    src: "~/.config/tmux/"
+    dest: "{{ project_path }}/files/Home/.config/tmux/"
+    recursive: yes
+    mode: pull
+  when: tmux_config_stat.stat.exists and tmux_config_stat.stat.isdir
