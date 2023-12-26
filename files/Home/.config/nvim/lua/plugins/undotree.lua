@@ -1,8 +1,12 @@
 return {
   "mbbill/undotree",
   lazy = false,
-  config = true,
+  config = function()
+    -- Configuration settings for undotree go here
+    -- If undotree has specific setup or configuration options,
+    -- they should be included in this function block
+  end,
   keys = {
-    { "<leader>u", vim.cmd.UndotreeToggle, desc = "Toggle undotree" },
+    { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle undotree" },
   },
 }
