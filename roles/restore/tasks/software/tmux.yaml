@@ -18,3 +18,4 @@
     clone: yes
     update: yes
   become: no
+# tpm install command: prefix + I (your tmux prefix is ctrl+a)
