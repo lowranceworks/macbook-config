@@ -208,6 +208,6 @@ alias docker='podman'
 alias p='podman'
 alias c='clear'
 alias kc='kubectx'
-alias t='task'
+alias t='tmux'
 alias vim='nvim'
 # ----------------------
