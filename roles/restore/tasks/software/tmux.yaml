@@ -18,4 +18,8 @@
     clone: yes
     update: yes
   become: no
-# tpm install command: prefix + I (your tmux prefix is ctrl+a)
+
+- name: Source tmux configuration
+  shell: tmux source ~/.config/tmux/tmux.conf
+  args:
+    executable: /bin/zsh
