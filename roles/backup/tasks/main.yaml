@@ -99,3 +99,8 @@
     cmd: git push --set-upstream origin latest-config
     chdir: "{{ project_path }}"
   when: "'Your branch is up to date with' not in git_status_result.stdout"
+
+- name: Git | Checkout the previous branch
+  command:
+    cmd: git checkout -
+    chdir: "{{ project_path }}"
