@@ -13,6 +13,21 @@
     update: yes
   when: git_status.stdout == ""
 
+- name: Git | Checkout 'latest-config' branch or create it if it doesn't exist
+  command:
+    cmd: git checkout -b latest-config || git checkout latest-config
+    chdir: "{{ project_path }}"
+  register: git_checkout_latest_config
+  changed_when: "'Switched to a new branch' in git_checkout_update_config.stdout or 'Switched to branch' in git_checkout_update_config.stdout"
+
+- name: Git | Ensure the 'latest-config' branch is up to date
+  git:
+    repo: "https://github.com/lowranceworks/macbook_config.git"
+    dest: "{{ project_path }}"
+    version: "latest-config"
+    force: yes
+  when: "'latest-config' in git_checkout_update_config.stdout"
+
 - block:
     - import_tasks: system/terminal.yaml
       tags: system, terminal
@@ -62,11 +77,6 @@
     - import_tasks: software/rectangle-pro.yaml
       tags: software, rectangle-pro
 
-- name: Git | Create and checkout 'update-config' branch
-  command:
-    cmd: git checkout -b update-config
-    chdir: "{{ project_path }}"
-
 - name: Git | Add all changes
   command:
     cmd: git add --all
@@ -86,6 +96,6 @@
 
 - name: Git | Push changes
   command:
-    cmd: git push --set-upstream origin
+    cmd: git push --set-upstream origin latest-config
     chdir: "{{ project_path }}"
   when: "'Your branch is up to date with' not in git_status_result.stdout"
