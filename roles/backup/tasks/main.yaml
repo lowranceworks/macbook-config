@@ -41,8 +41,8 @@
     - import_tasks: software/vim.yaml
       tags: software, vim
 
-    - import_tasks: software/vscode.yaml
-      tags: software, vscode
+    #  - import_tasks: software/vscode.yaml
+    #    tags: software, vscode
 
     - import_tasks: software/zsh.yaml
       tags: software, zsh, oh-my-zsh
@@ -61,11 +61,6 @@
 
     - import_tasks: software/rectangle-pro.yaml
       tags: software, rectangle-pro
-
-- name: Git | Stash changes in current branch
-  command:
-    cmd: git stash
-    chdir: "{{ project_path }}"
 
 - name: Git | Create and checkout 'update-config' branch
   command:
