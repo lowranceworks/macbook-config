@@ -79,14 +79,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# use plugins from oh-my-zsh
 plugins=( 
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
     docker
     terraform
-    ansible
+    kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -116,11 +115,11 @@ source $ZSH/aliases.zsh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -143,8 +142,16 @@ export KIND_EXPERIMENTAL_PROVIDER=podman
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export GO111MODULE=on
+# set environment variable to authz into oci
+export TF_VAR_config_file_profile=DEFAULT
+
+# set default docker platform to amd64
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
+# For security reasons, Kustomize doesn’t load plugins by default. To enable it, you must set XDG_CONFIG_HOME to the directory containing kustomize plugin configurations.
+export XDG_CONFIG_HOME=~/.config
+
+export PATH="$PATH:/usr/local/bin/ksops"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-export PATH=~/.npm-global/bin:$PATH
