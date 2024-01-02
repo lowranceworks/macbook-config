@@ -69,8 +69,8 @@
     - import_tasks: software/neovim.yaml
       tags: software, neovim
 
-    - import_tasks: software/vim.yaml
-      tags: software, vim
+    # - import_tasks: software/vim.yaml
+    #  tags: software, vim
 
     #  - import_tasks: software/vscode.yaml
     #    tags: software, vscode
