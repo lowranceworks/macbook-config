@@ -17,17 +17,8 @@
     - import_tasks: software/iterm.yaml
       tags: software, iterm, iterm2
 
-    - import_tasks: software/lunarvim.yaml
-      tags: software, lunarvim, lvim
-
     - import_tasks: software/neovim.yaml
       tags: software, neovim, nvim
-
-    - import_tasks: software/vim.yaml
-      tags: software, vim
-
-    - import_tasks: software/vscode.yaml
-      tags: software, vscode
 
     - import_tasks: software/zsh.yaml
       tags: software, zsh, oh-my-zsh
@@ -57,4 +48,3 @@
       tags: tmux
 
       # - import_tasks: software, software/git.yaml
-
