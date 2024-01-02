@@ -1,5 +1,9 @@
 ---
 - hosts: localhost
+  gather_facts: yes
   roles:
-    - Backup
+    - role: Backup
+      vars:
+        project_path: "/Users/{{ ansible_env.USER }}/Projects/lowranceworks/macbook_config"
   connection: local
+
