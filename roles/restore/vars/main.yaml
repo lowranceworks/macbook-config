@@ -1,2 +1,2 @@
 ---
-project_path: /Users/josh/Projects/macbook_config
+project_path: /Users/{{ ansible_env.USER }}/Projects/macbook_config
