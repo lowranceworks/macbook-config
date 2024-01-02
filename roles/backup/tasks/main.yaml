@@ -13,12 +13,28 @@
     update: yes
   when: git_status.stdout == ""
 
-- name: Git | Checkout 'latest-config' branch or create it if it doesn't exist
+- name: Git | Check if 'latest-config' branch exists
   command:
-    cmd: git checkout -b latest-config || git checkout latest-config
+    cmd: git rev-parse --verify latest-config
     chdir: "{{ project_path }}"
-  register: git_checkout_latest_config
-  changed_when: "'Switched to a new branch' in git_checkout_latest_config.stdout or 'Switched to branch' in git_checkout_latest_config.stdout"
+  register: branch_check
+  ignore_errors: true
+
+- name: Git | Checkout 'latest-config' branch
+  command:
+    cmd: git checkout latest-config
+    chdir: "{{ project_path }}"
+  when: branch_check.rc == 0
+  register: git_checkout
+  changed_when: "'Switched to branch' in git_checkout.stdout"
+
+- name: Git | Create and checkout 'latest-config' branch
+  command:
+    cmd: git checkout -b latest-config
+    chdir: "{{ project_path }}"
+  when: branch_check.rc != 0
+  register: git_checkout_new
+  changed_when: "'Switched to a new branch' in git_checkout_new.stdout"
 
 - name: Git | Ensure the 'latest-config' branch is up to date
   git:
