@@ -1,6 +1,1 @@
-{
-  "app.preferredTerminal": "iTerm2",
-  "autocomplete.keybindings.enter": "insertSelected",
-  "autocomplete.keybindings.tab": "insertCommonPrefix",
-  "autocomplete.theme": "dracula"
-}
+{}

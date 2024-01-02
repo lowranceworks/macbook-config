@@ -30,4 +30,3 @@ stats
 utm
 visual-studio-code
 webcatalog
-yubico-yubikey-manager
