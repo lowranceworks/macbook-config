@@ -1,0 +1,25 @@
+- name: "tmux | Ensure the tmux directory exists"
+  file:
+    path: "~/.config/tmux"
+    state: directory
+    mode: "0755"
+
+- name: "tmux | Push all files to ~/.config/tmux/ recursively"
+  synchronize:
+    src: "{{ project_path }}/files/Home/.config/tmux/"
+    dest: "~/.config/tmux/"
+    recursive: yes
+    mode: push
+
+- name: "tmux | install tpm (tmux plugin manager)"
+  git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "~/.tmux/plugins/tpm"
+    clone: yes
+    update: yes
+  become: no
+
+- name: Source tmux configuration
+  shell: tmux source ~/.config/tmux/tmux.conf
+  args:
+    executable: /bin/zsh
