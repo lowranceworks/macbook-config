@@ -13,37 +13,6 @@
     update: yes
   when: git_status.stdout == ""
 
-- name: Git | Check if 'latest-config' branch exists
-  command:
-    cmd: git rev-parse --verify latest-config
-    chdir: "{{ project_path }}"
-  register: branch_check
-  ignore_errors: true
-
-- name: Git | Checkout 'latest-config' branch
-  command:
-    cmd: git checkout latest-config
-    chdir: "{{ project_path }}"
-  when: branch_check.rc == 0
-  register: git_checkout
-  changed_when: "'Switched to branch' in git_checkout.stdout"
-
-- name: Git | Create and checkout 'latest-config' branch
-  command:
-    cmd: git checkout -b latest-config
-    chdir: "{{ project_path }}"
-  when: branch_check.rc != 0
-  register: git_checkout_new
-  changed_when: "'Switched to a new branch' in git_checkout_new.stdout"
-
-- name: Git | Ensure the 'latest-config' branch is up to date
-  git:
-    repo: "https://github.com/lowranceworks/macbook_config.git"
-    dest: "{{ project_path }}"
-    version: "latest-config"
-    force: yes
-  when: "'latest-config' in git_checkout_latest_config.stdout"
-
 - block:
     - import_tasks: system/terminal.yaml
       tags: system, terminal
@@ -92,31 +61,3 @@
 
     - import_tasks: software/rectangle-pro.yaml
       tags: software, rectangle-pro
-
-- name: Git | Add all changes
-  command:
-    cmd: git add --all
-    chdir: "{{ project_path }}"
-
-- name: Git | Execute status command
-  command:
-    cmd: git status
-    chdir: "{{ project_path }}"
-  register: git_status_result
-
-- name: Git | Commit changes
-  command:
-    cmd: git commit -m "update configuration files"
-    chdir: "{{ project_path }}"
-  when: "'Your branch is up to date with' not in git_status_result.stdout"
-
-- name: Git | Push changes
-  command:
-    cmd: git push --set-upstream origin latest-config
-    chdir: "{{ project_path }}"
-  when: "'Your branch is up to date with' not in git_status_result.stdout"
-
-- name: Git | Checkout the previous branch
-  command:
-    cmd: git checkout -
-    chdir: "{{ project_path }}"
