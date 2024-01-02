@@ -18,8 +18,3 @@
     clone: yes
     update: yes
   become: no
-
-- name: Source tmux configuration
-  shell: tmux source ~/.config/tmux/tmux.conf
-  args:
-    executable: /bin/zsh
