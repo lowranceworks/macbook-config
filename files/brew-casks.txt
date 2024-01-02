@@ -1,6 +1,7 @@
 alfred
 bitwarden
 brave-browser
+choosy
 chromium
 cleanshot
 contexts
@@ -12,15 +13,18 @@ google-chrome
 google-cloud-sdk
 inkdrop
 iterm2
+karabiner-elements
+keycastr
 lens
-menubar-countdown
 microsoft-auto-update
 microsoft-excel
 microsoft-outlook
 microsoft-teams
 mission-control-plus
 paintbrush
+podman-desktop
 rectangle-pro
+sensiblesidebuttons
 slack
 stats
 utm

@@ -1,8 +1,2 @@
-require("josh.plugins-setup")
-require("josh.core.options")
-require("josh.core.keymaps")
-require("josh.core.colorscheme")
-require("josh.plugins.comment")
-require("josh.plugins.nvim-tree")
-require("josh.plugins.lualine")
-require("josh.plugins.telescope")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
