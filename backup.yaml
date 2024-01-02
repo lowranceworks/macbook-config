@@ -1,5 +1,8 @@
 ---
 - hosts: localhost
+  environment:
+    project_path: "./"
   roles:
     - Backup
   connection: local
+
