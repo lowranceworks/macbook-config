@@ -61,3 +61,6 @@
 
     - import_tasks: software/rectangle-pro.yaml
       tags: software, rectangle-pro
+
+    - import_tasks: software/tmux.yaml
+      tags: software, tmux
