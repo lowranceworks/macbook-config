@@ -209,4 +209,5 @@ alias p='podman'
 alias c='clear'
 alias kc='kubectx'
 alias t='tmux'
+alias vim='nvim'
 # ----------------------

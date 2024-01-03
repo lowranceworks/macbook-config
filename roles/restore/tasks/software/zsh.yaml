@@ -49,15 +49,6 @@
 
 - name: Zsh | Oh-My-Zsh | Set *.zsh files
   copy:
-    src: "{{ project_path }}/files/Home/.oh-my-zsh/{{ item }}"
-    dest: "~/.oh-my-zsh/{{ item }}"
-    owner: "{{ ansible_facts['user_id'] }}"
-    mode: "0755"
-  loop:
-    - aliases.zsh
-
-- name: Zsh | Oh-My-Zsh | Set *.zsh files
-  copy:
     src: "{{ project_path }}/files/Home/{{ item }}"
     dest: "~/.oh-my-zsh/{{ item }}"
     remote_src: no
@@ -131,4 +122,3 @@
     - MesloLGS NF Bold.ttf
     - MesloLGS NF Italic.ttf
     - MesloLGS NF Regular.ttf
-
