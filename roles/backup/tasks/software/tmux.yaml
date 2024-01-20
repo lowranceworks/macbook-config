@@ -10,5 +10,5 @@
     recursive: yes
     mode: pull
     rsync_opts:
-      - "--exclude=.config/tmux/plugins/*"
+      - "--exclude=plugins/*"
   when: tmux_config_stat.stat.exists and tmux_config_stat.stat.isdir
