@@ -4,6 +4,5 @@
   roles:
     - role: Backup
       vars:
-        project_path: "/Users/{{ ansible_env.USER }}/Projects/lowranceworks/macbook_config"
+        project_path: "/Users/{{ ansible_env.USER }}/Projects/lowranceworks/macbook-config"
   connection: local
-
