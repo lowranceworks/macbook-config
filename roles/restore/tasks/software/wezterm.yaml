@@ -1,7 +1,8 @@
-- name: Wezterm | Check if wezterm config folder exists
-  stat:
-    path: "~/.config/wezterm/"
-  register: wezterm_folder_check
+- name: "Wezterm | Ensure the wezterm directory exists"
+  file:
+    path: "~/.config/wezterm"
+    state: directory
+    mode: "0755"
 
 - name: Wezterm | Set *.lua files
   copy:
