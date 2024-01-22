@@ -12,4 +12,3 @@
     mode: "0755"
   loop:
     - wezterm.lua
-  when: wezterm_folder_check.stat.exists
