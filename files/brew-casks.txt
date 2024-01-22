@@ -31,3 +31,4 @@ stats
 utm
 visual-studio-code
 webcatalog
+wezterm
