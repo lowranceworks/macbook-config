@@ -64,3 +64,6 @@
 
     - import_tasks: software/tmux.yaml
       tags: software, tmux
+
+    - import_tasks: software/wezterm.yaml
+      tags: wezterm
