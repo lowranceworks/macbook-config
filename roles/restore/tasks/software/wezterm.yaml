@@ -1,14 +1,18 @@
-- name: "Wezterm | Ensure the wezterm directory exists"
+- name: "Wezterm | Ensure the wezterm config directory exists"
   file:
     path: "~/.config/wezterm"
     state: directory
     mode: "0755"
 
-- name: Wezterm | Set *.lua files
-  copy:
-    src: "{{ project_path }}/files/Home/.config/wezterm/{{ item }}"
-    dest: "~/.config/wezterm/{{ item }}"
+- name: Wezterm | Restore entire config directory
+  synchronize:
+    src: "{{ project_path }}/files/Home/.config/wezterm/"
+    dest: "~/.config/wezterm/"
+    recursive: yes
+
+- name: Wezterm | Set correct owner for wezterm config files
+  ansible.builtin.file:
+    path: "~/.config/wezterm/"
     owner: "{{ ansible_facts['user_id'] }}"
-    mode: "0755"
-  loop:
-    - wezterm.lua
+    state: directory
+    recurse: yes
