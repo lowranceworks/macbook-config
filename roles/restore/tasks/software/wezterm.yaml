@@ -1,0 +1,8 @@
+- name: Wezterm | Set *.lua files
+  copy:
+    src: "{{ project_path }}/files/Home/.config/wezterm/{{ item }}"
+    dest: "~/.config/wezterm/{{ item }}"
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+  loop:
+    - wezterm.lua

@@ -1,0 +1,15 @@
+- name: Wezterm | Check if wezterm config folder exists
+  stat:
+    path: "~/.config/wezterm/"
+  register: wezterm_folder_check
+
+- name: Wezterm | Save *.lua files
+  copy:
+    src: "~/.config/wezterm/{{ item }}"
+    dest: "{{ project_path }}/files/Home/.config/wezterm/{{ item }}"
+    remote_src: no
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+  loop:
+    - wezterm.lua
+  when: wezterm_folder_check.stat.exists
