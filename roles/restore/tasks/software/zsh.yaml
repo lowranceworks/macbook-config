@@ -42,6 +42,20 @@
     owner: "{{ lookup('env', 'USER') }}"
     mode: "0644"
 
+- name: Zsh | Set ~/.zprofile
+  copy:
+    src: "{{ project_path }}/files/Home/zprofile"
+    dest: "~/.zprofile"
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+
+- name: Zsh | Save ~/.zprofile
+  copy:
+    src: "~/.zprofile"
+    dest: "{{ project_path }}/files/Home/zprofile"
+    remote_src: no
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
 - name: Zsh | Oh-My-Zsh | Check if ~/.oh-my-zsh directory exists
   stat:
     path: ~/.oh-my-zsh/
