@@ -1,3 +1,8 @@
+- name: Wezterm | Check if wezterm config folder exists
+  stat:
+    path: "~/.config/wezterm/"
+  register: wezterm_folder_check
+
 - name: Wezterm | Set *.lua files
   copy:
     src: "{{ project_path }}/files/Home/.config/wezterm/{{ item }}"
@@ -6,3 +11,4 @@
     mode: "0755"
   loop:
     - wezterm.lua
+  when: wezterm_folder_check.stat.exists
