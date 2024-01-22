@@ -11,6 +11,8 @@ if wezterm.config_builder then
 end
 
 -- general settings
+config.font_size = 20
+
 config.adjust_window_size_when_changing_font_size = false
 config.debug_key_events = false
 config.enable_tab_bar = false
