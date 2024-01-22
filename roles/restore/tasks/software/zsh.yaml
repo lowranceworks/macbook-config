@@ -49,18 +49,6 @@
     owner: "{{ ansible_facts['user_id'] }}"
     mode: "0755"
 
-- name: Zsh | Save ~/.zprofile
-  copy:
-    src: "~/.zprofile"
-    dest: "{{ project_path }}/files/Home/zprofile"
-    remote_src: no
-    owner: "{{ ansible_facts['user_id'] }}"
-    mode: "0755"
-- name: Zsh | Oh-My-Zsh | Check if ~/.oh-my-zsh directory exists
-  stat:
-    path: ~/.oh-my-zsh/
-  register: oh_my_zsh_home_dir
-
 - name: Zsh | Oh-My-Zsh | Set *.zsh files
   copy:
     src: "{{ project_path }}/files/Home/{{ item }}"
