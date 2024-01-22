@@ -5,32 +5,25 @@ local function get_home_dir()
 	return os.getenv("HOME")
 end
 
--- This table will hold the configuration.
-local config = {}
+return {
+	-- General settings
+	adjust_window_size_when_changing_font_size = false,
+	debug_key_events = false,
+	enable_tab_bar = false,
+	native_macos_fullscreen_mode = false,
+	window_close_confirmation = "NeverPrompt",
+	window_decorations = "RESIZE", -- hides title bar buttons
 
--- In newer versions of wezterm, use the config_builder which will
--- help provide clearer error messages
-if wezterm.config_builder then
-	config = wezterm.config_builder()
-end
+	-- Appearance settings
+	color_scheme = "Dracula (Official)",
+	font = wezterm.font("MesloLGS NF"),
+	font_size = 16,
 
--- general settings
-config.font_size = 16
+	-- Background image
+	-- window_background_image = get_home_dir() .. "/.config/wezterm/wallpapers/space-moon.jpg",
 
-config.adjust_window_size_when_changing_font_size = false
-config.debug_key_events = false
-config.enable_tab_bar = false
-config.native_macos_fullscreen_mode = false
-config.window_close_confirmation = "NeverPrompt"
-config.window_decorations = "RESIZE" -- hides title bar buttons
-
--- appearance settings
-config.color_scheme = "Dracula (Official)"
-config.font = wezterm.font("MesloLGS NF")
--- config.window_background_image = get_home_dir() .. "/.config/wezterm/wallpapers/space-moon.jpg"
-config.colors = {
-	background = "rgba(40, 42, 54, 1.0)", -- fully opaque
+	-- Background color with an opaque overlay (adjust the alpha value)
+	colors = {
+		background = "rgba(41, 42, 54, 1.0)", -- Semi-transparent dark overlay
+	},
 }
--- config.window_background_opacity = 0.8, -- Adjust as needed for background opacity
-
-return config
