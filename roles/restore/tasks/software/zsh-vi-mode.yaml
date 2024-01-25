@@ -1,0 +1,20 @@
+- name: zsh-vi-mode | Ensure zsh-vi-mode plugin is sourced in .zshrc
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: "source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+    state: present
+    create: yes
+    backup: yes
+
+- name: zsh-vi-mode | Install zsh-vi-mode using Homebrew
+  community.general.homebrew:
+    name: zsh-vi-mode
+    state: present
+
+- name: zsh-vi-mode | resolve compatability with fzf and zsh-autocomplete
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: "zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')"
+    state: present
+    create: yes
+    backup: yes
