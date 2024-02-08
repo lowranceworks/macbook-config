@@ -1,0 +1,5 @@
+- name: skhd | save ~/.skhdrc
+  copy:
+    src: "~/.skhdrc"
+    dest: "{{ project_path }}/files/Home/.skhdrc"
+    remote_src: no

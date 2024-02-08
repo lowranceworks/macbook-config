@@ -67,3 +67,12 @@
 
     - import_tasks: software/wezterm.yaml
       tags: wezterm
+
+    - import_tasks: software/yabai.yaml
+      tags: yabai
+
+    - import_tasks: software/skhd.yaml
+      tags: skhd
+
+    - import_tasks: software/spacelauncher.yaml
+      tags: spacelauncher

@@ -1,0 +1,20 @@
+- name: yabai | install yabai
+  community.general.homebrew:
+    name: yabai
+    state: present
+
+- name: yabai | check yabai service status
+  ansible.builtin.command: pgrep -f yabai
+  register: yabai_status
+  failed_when: yabai_status.rc not in [0, 1]
+  changed_when: False
+
+- name: yabai | start yabai service
+  ansible.builtin.command: yabai --start-service
+  when: yabai_status.rc == 1
+
+- name: yabai | set ~/.yabairc
+  copy:
+    src: "{{ project_path }}/files/Home/.yabairc"
+    dest: "~/.yabairc"
+    remote_src: no

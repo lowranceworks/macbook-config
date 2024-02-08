@@ -1,0 +1,255 @@
+{
+  "hotKeys" : [
+
+  ],
+  "decision" : {
+    "actions" : [
+      {
+        "getFrontmostApp" : {
+          "kind" : "bundleURL"
+        }
+      }
+    ],
+    "chances" : [
+      {
+        "pattern" : {
+          "alwaysMatch" : {
+
+          }
+        },
+        "decision" : {
+          "chances" : [
+            {
+              "decision" : {
+                "chances" : [
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          0
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "toggleConfigurationWindow" : {
+
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "openApp" : {
+                            "path" : "\/Applications\/Brave Browser.app",
+                            "launchArgumentsText" : "",
+                            "hideAppIfRunning" : false,
+                            "switchToPreviousApp" : false
+                          },
+                          "description" : "testing"
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          11
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          2
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "openApp" : {
+                            "hideAppIfRunning" : false,
+                            "path" : "\/System\/Applications\/Dictionary.app"
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "decision" : {
+                      "chances" : [
+                        {
+                          "decision" : {
+                            "chances" : [
+
+                            ],
+                            "actions" : [
+                              {
+                                "openFolder" : {
+                                  "folderPath" : "~\/Library\/Mobile Documents"
+                                },
+                                "description" : "Open iCloud Drive"
+                              },
+                              {
+                                "reWaitTriggerKeys" : {
+
+                                }
+                              }
+                            ]
+                          },
+                          "pattern" : {
+                            "key" : {
+                              "allowedKeyCodes" : [
+                                8
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "decision" : {
+                            "actions" : [
+                              {
+                                "openFolder" : {
+                                  "folderPath" : "~\/Downloads"
+                                },
+                                "description" : "Open Downloads"
+                              },
+                              {
+                                "reWaitTriggerKeys" : {
+
+                                }
+                              }
+                            ],
+                            "chances" : [
+
+                            ]
+                          },
+                          "pattern" : {
+                            "key" : {
+                              "allowedKeyCodes" : [
+                                2
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "pattern" : {
+                            "key" : {
+                              "allowedKeyCodes" : [
+                                15
+                              ]
+                            }
+                          },
+                          "decision" : {
+                            "actions" : [
+                              {
+                                "openFolder" : {
+                                  "folderPath" : "~\/Library"
+                                },
+                                "description" : "Open Library"
+                              },
+                              {
+                                "reWaitTriggerKeys" : {
+
+                                }
+                              }
+                            ],
+                            "chances" : [
+
+                            ]
+                          }
+                        }
+                      ],
+                      "actions" : [
+
+                      ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          3
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          1
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "actions" : [
+                        {
+                          "openApp" : {
+                            "hideAppIfRunning" : false,
+                            "path" : "\/Applications\/Safari.app"
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ],
+                      "chances" : [
+
+                      ]
+                    }
+                  }
+                ],
+                "actions" : [
+
+                ]
+              },
+              "pattern" : {
+                "message" : {
+                  "regex" : "49\\(0\\)"
+                }
+              }
+            }
+          ],
+          "actions" : [
+            {
+              "getLeaderKey" : {
+                "kind" : "keyCodeText"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
