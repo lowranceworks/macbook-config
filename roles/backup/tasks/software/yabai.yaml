@@ -1,0 +1,5 @@
+- name: yabai | save ~/.yabairc
+  copy:
+    src: "~/.yabairc"
+    dest: "{{ project_path }}/files/Home/.yabairc"
+    remote_src: no
