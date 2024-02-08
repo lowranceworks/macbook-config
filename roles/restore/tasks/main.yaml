@@ -59,4 +59,7 @@
     - import_tasks: software/skhd.yaml
       tags: skhd
 
+    - import_tasks: software/starship.yaml
+      tags: starship
+
       # - import_tasks: software, software/git.yaml
