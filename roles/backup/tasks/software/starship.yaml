@@ -1,0 +1,5 @@
+- name: starship | save starship.toml
+  copy:
+    src: "~/.config/starship.toml"
+    dest: "{{ project_path }}/files/Home/.config/starship.toml"
+    remote_src: no

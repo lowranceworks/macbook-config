@@ -1,0 +1,28 @@
+- name: install starship using Homebrew
+  community.general.homebrew:
+    name: starship
+    state: present
+
+- name: starship | add starship init to .zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'eval "$(starship init zsh)"'
+    create: yes
+
+- name: starship | ensure .config/fish directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/fish"
+    state: directory
+    mode: "0755"
+
+- name: starship | add starship init to config.fish
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    line: "starship init fish | source"
+    create: yes
+
+- name: starship | set starship.toml
+  copy:
+    src: "{{ project_path }}/files/Home/.config/starship.toml"
+    dest: "~/.config/starship.toml"
+    remote_src: no

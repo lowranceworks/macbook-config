@@ -76,3 +76,6 @@
 
     - import_tasks: software/spacelauncher.yaml
       tags: spacelauncher
+
+    - import_tasks: software/starship.yaml
+      tags: starship
