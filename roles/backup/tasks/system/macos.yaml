@@ -66,3 +66,13 @@
     dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
     flat: yes
   when: dock_stat.stat.exists
+
+- name: "MacOS | Save com.apple.Accessibility.plist"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.Accessibility.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.Accessibility.plist"
+
+- name: "MacOS | Save com.apple.universalaccess.plist"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.universalaccess.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.universalaccess.plist"
