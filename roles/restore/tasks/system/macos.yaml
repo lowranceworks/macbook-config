@@ -2,7 +2,7 @@
   file:
     path: "{{ lookup('env', 'HOME') }}/Library/Preferences"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: "MacOS | Set native keybindings"
   copy:
@@ -14,19 +14,29 @@
   args:
     creates: "~/Library/Preferences/.GlobalPreferences.plist"
 
-- name: "MacOS | Save GlobalPreferences plist (keyboard shortcuts?)"
+- name: "MacOS | Set GlobalPreferences plist (keyboard shortcuts?)"
   copy:
     src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
     dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
 
-- name: "MacOS | Save GlobalPreferences_m plist (?)"
+- name: "MacOS | Set GlobalPreferences_m plist (?)"
   copy:
     src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
     dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
 
-- name: "MacOS | Save dock configuration"
+- name: "MacOS | Set dock configuration"
   copy:
     src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
     dest: "~/Library/Preferences/com.apple.dock.plist"
     remote_src: yes
-    mode: '0644'
+    mode: "0644"
+
+- name: "MacOS | Set com.apple.Accessibility.plist"
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.Accessibility.plist"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.Accessibility.plist"
+
+- name: "MacOS | Set com.apple.universalaccess.plist"
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.universalaccess.plist"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.universalaccess.plist"
