@@ -1,15 +1,16 @@
 - name: Wezterm | Check if wezterm config folder exists
   stat:
     path: "~/.config/wezterm/"
-  register: wezterm_folder_check
 
-- name: Wezterm | Save *.lua files
-  copy:
-    src: "~/.config/wezterm/{{ item }}"
-    dest: "{{ project_path }}/files/Home/.config/wezterm/{{ item }}"
-    remote_src: no
+- name: Wezterm | Backup entire config directory
+  synchronize:
+    src: "~/.config/wezterm/"
+    dest: "{{ project_path }}/files/Home/.config/wezterm/"
+    recursive: yes
+
+- name: Wezterm | Set correct owner for wezterm config files
+  ansible.builtin.file:
+    path: "{{ project_path }}/files/Home/.config/wezterm/"
     owner: "{{ ansible_facts['user_id'] }}"
-    mode: "0755"
-  loop:
-    - wezterm.lua
-  when: wezterm_folder_check.stat.exists
+    state: directory
+    recurse: yes
