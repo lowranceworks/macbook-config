@@ -76,3 +76,8 @@
   copy:
     src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.universalaccess.plist"
     dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.universalaccess.plist"
+
+- name: "MacOS | Save com.apple.symbolichotkeys.plist"
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.symbolichotkeys.plist"
