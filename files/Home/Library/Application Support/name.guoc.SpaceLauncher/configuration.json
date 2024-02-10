@@ -12,15 +12,18 @@
     ],
     "chances" : [
       {
-        "pattern" : {
-          "alwaysMatch" : {
-
-          }
-        },
         "decision" : {
           "chances" : [
             {
+              "pattern" : {
+                "message" : {
+                  "regex" : "49\\(0\\)"
+                }
+              },
               "decision" : {
+                "actions" : [
+
+                ],
                 "chances" : [
                   {
                     "pattern" : {
@@ -36,9 +39,13 @@
                       ],
                       "actions" : [
                         {
-                          "toggleConfigurationWindow" : {
-
-                          }
+                          "openApp" : {
+                            "path" : "\/Applications\/iTerm 2.app",
+                            "switchToPreviousApp" : false,
+                            "hideAppIfRunning" : true,
+                            "launchArgumentsText" : ""
+                          },
+                          "description" : "Terminal"
                         },
                         {
                           "reWaitTriggerKeys" : {
@@ -49,52 +56,22 @@
                     }
                   },
                   {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          45
+                        ]
+                      }
+                    },
                     "decision" : {
-                      "chances" : [
-
-                      ],
                       "actions" : [
                         {
+                          "description" : "Inkdrop",
                           "openApp" : {
-                            "path" : "\/Applications\/Brave Browser.app",
                             "launchArgumentsText" : "",
+                            "switchToPreviousApp" : false,
                             "hideAppIfRunning" : false,
-                            "switchToPreviousApp" : false
-                          },
-                          "description" : "testing"
-                        },
-                        {
-                          "reWaitTriggerKeys" : {
-
-                          }
-                        }
-                      ]
-                    },
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          11
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          2
-                        ]
-                      }
-                    },
-                    "decision" : {
-                      "chances" : [
-
-                      ],
-                      "actions" : [
-                        {
-                          "openApp" : {
-                            "hideAppIfRunning" : false,
-                            "path" : "\/System\/Applications\/Dictionary.app"
+                            "path" : "\/Applications\/Inkdrop.app"
                           }
                         },
                         {
@@ -102,120 +79,52 @@
 
                           }
                         }
-                      ]
-                    }
-                  },
-                  {
-                    "decision" : {
-                      "chances" : [
-                        {
-                          "decision" : {
-                            "chances" : [
-
-                            ],
-                            "actions" : [
-                              {
-                                "openFolder" : {
-                                  "folderPath" : "~\/Library\/Mobile Documents"
-                                },
-                                "description" : "Open iCloud Drive"
-                              },
-                              {
-                                "reWaitTriggerKeys" : {
-
-                                }
-                              }
-                            ]
-                          },
-                          "pattern" : {
-                            "key" : {
-                              "allowedKeyCodes" : [
-                                8
-                              ]
-                            }
-                          }
-                        },
-                        {
-                          "decision" : {
-                            "actions" : [
-                              {
-                                "openFolder" : {
-                                  "folderPath" : "~\/Downloads"
-                                },
-                                "description" : "Open Downloads"
-                              },
-                              {
-                                "reWaitTriggerKeys" : {
-
-                                }
-                              }
-                            ],
-                            "chances" : [
-
-                            ]
-                          },
-                          "pattern" : {
-                            "key" : {
-                              "allowedKeyCodes" : [
-                                2
-                              ]
-                            }
-                          }
-                        },
-                        {
-                          "pattern" : {
-                            "key" : {
-                              "allowedKeyCodes" : [
-                                15
-                              ]
-                            }
-                          },
-                          "decision" : {
-                            "actions" : [
-                              {
-                                "openFolder" : {
-                                  "folderPath" : "~\/Library"
-                                },
-                                "description" : "Open Library"
-                              },
-                              {
-                                "reWaitTriggerKeys" : {
-
-                                }
-                              }
-                            ],
-                            "chances" : [
-
-                            ]
-                          }
-                        }
                       ],
-                      "actions" : [
+                      "chances" : [
 
                       ]
-                    },
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          3
-                        ]
-                      }
                     }
                   },
                   {
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          1
-                        ]
-                      }
-                    },
                     "decision" : {
                       "actions" : [
                         {
                           "openApp" : {
-                            "hideAppIfRunning" : false,
-                            "path" : "\/Applications\/Safari.app"
+                            "hideAppIfRunning" : true,
+                            "launchArgumentsText" : "",
+                            "switchToPreviousApp" : false,
+                            "path" : "\/Applications\/Brave Browser.app"
+                          },
+                          "description" : "Brave"
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ],
+                      "chances" : [
+
+                      ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          13
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "decision" : {
+                      "actions" : [
+                        {
+                          "description" : "Zoom",
+                          "openApp" : {
+                            "path" : "\/Applications\/zoom.us.app",
+                            "launchArgumentsText" : "",
+                            "switchToPreviousApp" : false,
+                            "hideAppIfRunning" : true
                           }
                         },
                         {
@@ -227,17 +136,16 @@
                       "chances" : [
 
                       ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          6
+                        ]
+                      }
                     }
                   }
-                ],
-                "actions" : [
-
                 ]
-              },
-              "pattern" : {
-                "message" : {
-                  "regex" : "49\\(0\\)"
-                }
               }
             }
           ],
@@ -248,6 +156,11 @@
               }
             }
           ]
+        },
+        "pattern" : {
+          "alwaysMatch" : {
+
+          }
         }
       }
     ]

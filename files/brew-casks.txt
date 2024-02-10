@@ -27,8 +27,10 @@ podman-desktop
 rectangle-pro
 sensiblesidebuttons
 slack
+spacelauncher
 stats
 utm
 visual-studio-code
 webcatalog
 wezterm
+homebrew/cask-fonts/font-fontawesome

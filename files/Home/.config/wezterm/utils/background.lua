@@ -1,16 +1,11 @@
 local M = {}
-local h = require("utils/helpers")
+local os = require("os")
 
 M.get_background = function()
 	return {
-		source = {
-			Gradient = {
-				colors = { h.is_dark() and "#000000" or "#ffffff" },
-			},
-		},
-		width = "100%",
-		height = "100%",
-		opacity = h.is_dark() and 0.8 or 0.85,
+		source = "wezterm.background_image.File",
+		file = os.getenv("HOME") .. "./.config/wezterm/wallpapers/sessions/dotfiles/_config/fish.jpeg",
+		-- Other optional settings for the background image
 	}
 end
 
