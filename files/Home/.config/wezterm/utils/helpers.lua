@@ -8,6 +8,11 @@ M.is_dark = function()
 end
 
 M.get_random_entry = function(tbl)
+	if #tbl == 0 then
+		-- Return nil or a default value if the table is empty
+		return nil
+	end
+
 	local keys = {}
 	for key, _ in ipairs(tbl) do
 		table.insert(keys, key)

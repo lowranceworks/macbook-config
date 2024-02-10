@@ -12,6 +12,11 @@ M.get_wallpaper = function()
 		end
 	end
 	local wallpaper = h.get_random_entry(wallpapers)
+	if wallpaper == nil then
+		-- Handle the case when no wallpaper is found
+		-- For example, return a default wallpaper or an empty table
+		return {}
+	end
 	return {
 		source = { File = { path = wallpaper } },
 		height = "Cover",
