@@ -1,47 +1,20 @@
 - name: "MacOS | Ensure Preferences directory exists"
-  file:
+  ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/Library/Preferences"
     state: directory
     mode: "0755"
 
-- name: "MacOS | Set native keybindings"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
-
-- name: "MacOS | Enable global key-repeat"
-  command: "defaults write -g ApplePressAndHoldEnabled -bool false"
-  args:
-    creates: "~/Library/Preferences/.GlobalPreferences.plist"
-
-- name: "MacOS | Set GlobalPreferences plist (keyboard shortcuts?)"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
-
-- name: "MacOS | Set GlobalPreferences_m plist (?)"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
-
-- name: "MacOS | Set dock configuration"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
-    dest: "~/Library/Preferences/com.apple.dock.plist"
-    remote_src: yes
+- name: "MacOS | Set preference files"
+  ansible.builtin.copy:
+    src: "{{ project_path }}/files/Home/Library/Preferences/{{ item }}"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/{{ item }}"
     mode: "0644"
-
-- name: "MacOS | Set com.apple.Accessibility.plist"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.Accessibility.plist"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.Accessibility.plist"
-
-- name: "MacOS | Set com.apple.universalaccess.plist"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.universalaccess.plist"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.universalaccess.plist"
-
-- name: "MacOS | Set com.apple.symbolichotkeys.plist"
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.symbolichotkeys.plist"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
+    remote_src: no
+  loop:
+    - "com.apple.symbolichotkeys.plist"
+    - ".GlobalPreferences.plist"
+    - ".GlobalPreferences_m.plist"
+    - "com.apple.dock.plist"
+    - ".com.apple.Accessibility.plist"
+    - ".com.apple.universalaccess.plist"
+    - "com.apple.HIToolbox.plist"

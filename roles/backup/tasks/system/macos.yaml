@@ -1,83 +1,16 @@
-- name: "MacOS | Check if .GlobalPreferences.plist exists"
-  stat:
-    path: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
-  register: global_prefs_stat
-
-- name: "MacOS | Save GlobalPreferences plist (keyboard shortcuts?)"
-  copy:
-    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences.plist"
-  when: global_prefs_stat.stat.exists
-
-- name: "MacOS | Check if .GlobalPreferences_m.plist exists"
-  stat:
-    path: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
-  register: global_prefs_m_stat
-
-- name: "MacOS | Save GlobalPreferences_m plist (?)"
-  copy:
-    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/.GlobalPreferences_m.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/.GlobalPreferences_m.plist"
-  when: global_prefs_m_stat.stat.exists
-
-- name: "MacOS | Check if com.apple.symbolichotkeys.plist exists"
-  stat:
-    path: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
-  register: symbolichotkeys_stat
-
-- name: "MacOS | Save native keybindings"
-  copy:
-    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.symbolichotkeys.plist"
-  when: symbolichotkeys_stat.stat.exists
-
-- name: "MacOS | Check if com.apple.HIToolbox.plist exists"
-  stat:
-    path: "~/Library/Preferences/com.apple.HIToolbox.plist"
-  register: hitoolbox_stat
-
-- name: "MacOS | Save general keyboard preferences"
-  fetch:
-    src: "~/Library/Preferences/com.apple.HIToolbox.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.HIToolbox.plist"
-    flat: yes
-  when: hitoolbox_stat.stat.exists
-
-- name: "MacOS | Check if DefaultKeyBinding.dict exists"
-  stat:
-    path: "~/Library/KeyBindings/DefaultKeyBinding.dict"
-  register: keybinding_file
-
-- name: "MacOS | Save keybindings"
-  fetch:
-    src: "~/Library/KeyBindings/DefaultKeyBinding.dict"
-    dest: "{{ project_path }}/files/Home/Library/KeyBindings/DefaultKeyBinding.dict"
-    flat: yes
-  when: keybinding_file.stat.exists
-
-- name: "MacOS | Check if com.apple.dock.plist exists"
-  stat:
-    path: "~/Library/Preferences/com.apple.dock.plist"
-  register: dock_stat
-
-- name: "MacOS | Save dock configuration"
-  fetch:
-    src: "~/Library/Preferences/com.apple.dock.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/com.apple.dock.plist"
-    flat: yes
-  when: dock_stat.stat.exists
-
-- name: "MacOS | Save com.apple.Accessibility.plist"
-  copy:
-    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.Accessibility.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.Accessibility.plist"
-
-- name: "MacOS | Save com.apple.universalaccess.plist"
-  copy:
-    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.universalaccess.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.universalaccess.plist"
-
-- name: "MacOS | Save com.apple.symbolichotkeys.plist"
-  copy:
-    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/com.apple.symbolichotkeys.plist"
-    dest: "{{ project_path }}/files/Home/Library/Preferences/.com.apple.symbolichotkeys.plist"
+- name: "MacOS | Save preference files"
+  ansible.builtin.copy:
+    src: "{{ lookup('env', 'HOME') }}/Library/Preferences/{{ item }}"
+    dest: "{{ project_path }}/files/Home/Library/Preferences/{{ item }}"
+    remote_src: yes
+    mode: "0644"
+  loop:
+    - ".GlobalPreferences.plist"
+    - ".GlobalPreferences_m.plist"
+    - "com.apple.symbolichotkeys.plist"
+    - "com.apple.HIToolbox.plist"
+    - "com.apple.dock.plist"
+    - "com.apple.Accessibility.plist"
+    - "com.apple.universalaccess.plist"
+  when: "'DefaultKeyBinding.dict' not in item"
+  ignore_errors: yes
