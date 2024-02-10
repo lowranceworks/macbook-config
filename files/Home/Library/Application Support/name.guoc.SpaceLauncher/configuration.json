@@ -12,7 +12,19 @@
     ],
     "chances" : [
       {
+        "pattern" : {
+          "alwaysMatch" : {
+
+          }
+        },
         "decision" : {
+          "actions" : [
+            {
+              "getLeaderKey" : {
+                "kind" : "keyCodeText"
+              }
+            }
+          ],
           "chances" : [
             {
               "pattern" : {
@@ -34,16 +46,13 @@
                       }
                     },
                     "decision" : {
-                      "chances" : [
-
-                      ],
                       "actions" : [
                         {
                           "openApp" : {
-                            "path" : "\/Applications\/iTerm 2.app",
                             "switchToPreviousApp" : false,
-                            "hideAppIfRunning" : true,
-                            "launchArgumentsText" : ""
+                            "path" : "\/Applications\/iTerm 2.app",
+                            "launchArgumentsText" : "",
+                            "hideAppIfRunning" : true
                           },
                           "description" : "Terminal"
                         },
@@ -52,33 +61,6 @@
 
                           }
                         }
-                      ]
-                    }
-                  },
-                  {
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          45
-                        ]
-                      }
-                    },
-                    "decision" : {
-                      "actions" : [
-                        {
-                          "description" : "Inkdrop",
-                          "openApp" : {
-                            "launchArgumentsText" : "",
-                            "switchToPreviousApp" : false,
-                            "hideAppIfRunning" : false,
-                            "path" : "\/Applications\/Inkdrop.app"
-                          }
-                        },
-                        {
-                          "reWaitTriggerKeys" : {
-
-                          }
-                        }
                       ],
                       "chances" : [
 
@@ -90,12 +72,72 @@
                       "actions" : [
                         {
                           "openApp" : {
+                            "path" : "\/Users\/josh\/Applications\/ChatGPT.app",
+                            "hideAppIfRunning" : false,
+                            "switchToPreviousApp" : false,
+                            "launchArgumentsText" : ""
+                          },
+                          "description" : "ChatGPT"
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ],
+                      "chances" : [
+
+                      ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          8
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "decision" : {
+                      "actions" : [
+                        {
+                          "openApp" : {
+                            "path" : "\/Applications\/Inkdrop.app",
+                            "launchArgumentsText" : "",
+                            "hideAppIfRunning" : false,
+                            "switchToPreviousApp" : false
+                          },
+                          "description" : "Inkdrop"
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ],
+                      "chances" : [
+
+                      ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          45
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "decision" : {
+                      "actions" : [
+                        {
+                          "description" : "Brave",
+                          "openApp" : {
                             "hideAppIfRunning" : true,
                             "launchArgumentsText" : "",
                             "switchToPreviousApp" : false,
                             "path" : "\/Applications\/Brave Browser.app"
-                          },
-                          "description" : "Brave"
+                          }
                         },
                         {
                           "reWaitTriggerKeys" : {
@@ -116,16 +158,23 @@
                     }
                   },
                   {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          6
+                        ]
+                      }
+                    },
                     "decision" : {
                       "actions" : [
                         {
-                          "description" : "Zoom",
                           "openApp" : {
-                            "path" : "\/Applications\/zoom.us.app",
-                            "launchArgumentsText" : "",
                             "switchToPreviousApp" : false,
+                            "launchArgumentsText" : "",
+                            "path" : "\/Applications\/zoom.us.app",
                             "hideAppIfRunning" : true
-                          }
+                          },
+                          "description" : "Zoom"
                         },
                         {
                           "reWaitTriggerKeys" : {
@@ -136,31 +185,12 @@
                       "chances" : [
 
                       ]
-                    },
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          6
-                        ]
-                      }
                     }
                   }
                 ]
               }
             }
-          ],
-          "actions" : [
-            {
-              "getLeaderKey" : {
-                "kind" : "keyCodeText"
-              }
-            }
           ]
-        },
-        "pattern" : {
-          "alwaysMatch" : {
-
-          }
         }
       }
     ]
