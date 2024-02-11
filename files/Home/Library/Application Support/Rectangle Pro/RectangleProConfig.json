@@ -35,7 +35,7 @@
       "int" : 0
     },
     "appSpecs" : {
-      "string" : "[{\"id\":123,\"shortcut\":{\"keyCode\":35,\"modifierFlags\":786432},\"loc\":0,\"name\":\"work\",\"children\":[{\"x\":\"4854\",\"display\":-3,\"y\":\"0\",\"id\":105,\"h\":\"1415\",\"bundleId\":\"com.googlecode.iterm2\",\"w\":\"1146\",\"loc\":9},{\"x\":\"3841\",\"display\":-3,\"y\":\"0\",\"id\":106,\"h\":\"1415\",\"bundleId\":\"com.microsoft.VSCode\",\"w\":\"1557\",\"loc\":9},{\"x\":\"3069\",\"display\":-3,\"y\":\"0\",\"id\":127,\"h\":\"1415\",\"bundleId\":\"com.apple.Safari\",\"w\":\"771\",\"loc\":9}],\"isGroup\":true}]"
+      "string" : "[{\"shortcut\":{\"modifierFlags\":786432,\"keyCode\":13},\"id\":123,\"loc\":0,\"name\":\"work\",\"isGroup\":true,\"children\":[{\"bundleId\":\"com.googlecode.iterm2\",\"w\":\"1146\",\"x\":\"4854\",\"display\":-3,\"loc\":9,\"h\":\"1415\",\"id\":105,\"y\":\"0\"},{\"display\":-3,\"w\":\"1557\",\"h\":\"1415\",\"loc\":9,\"x\":\"3841\",\"y\":\"0\",\"bundleId\":\"com.microsoft.VSCode\",\"id\":106},{\"loc\":9,\"id\":127,\"h\":\"1415\",\"x\":\"3069\",\"display\":-3,\"bundleId\":\"com.apple.Safari\",\"w\":\"771\",\"y\":\"0\"}]}]"
     },
     "attemptMatchOnNextPrevDisplay" : {
       "int" : 0
@@ -101,7 +101,7 @@
       "int" : 2
     },
     "footprintAlpha" : {
-      "float" : 0.30000001192092896
+      "float" : 0.3
     },
     "footprintAnimationDurationMultiplier" : {
       "float" : 0
@@ -116,10 +116,10 @@
       "int" : 0
     },
     "gapSize" : {
-      "float" : 0
+      "float" : 15
     },
     "gestures" : {
-      "string" : "[35,{\"flags\":0,\"trail\":0}]"
+
     },
     "helperRelaunch" : {
       "int" : 3
@@ -136,11 +136,14 @@
     "iCloudSync" : {
       "int" : 1
     },
+    "ignoreBehavior" : {
+      "int" : 0
+    },
     "ignoredSnapAreas" : {
       "int" : 0
     },
     "landscapeSnapAreas" : {
-
+      "string" : "null"
     },
     "launchOnLogin" : {
       "bool" : true
@@ -200,7 +203,7 @@
       "int" : 0
     },
     "portraitSnapAreas" : {
-
+      "string" : "null"
     },
     "preciseScrollTriggerIncrements" : {
       "float" : 10
@@ -233,7 +236,7 @@
       "int" : 2
     },
     "reticleColor" : {
-      "string" : "{\"red\":0.80000000000000004,\"alpha\":0.5,\"blue\":0.20000000000000001,\"green\":0.29999999999999999}"
+      "string" : "{\"blue\":0.2,\"green\":0.3,\"alpha\":0.5,\"red\":0.8}"
     },
     "reticleDisplayMinDist" : {
       "float" : 0
@@ -275,7 +278,7 @@
       "float" : 20
     },
     "scrollTriggerIncrements" : {
-      "float" : 0.10000000149011612
+      "float" : 0.1
     },
     "shortEdgeSnapAreaSize" : {
       "float" : 145
@@ -338,7 +341,7 @@
       "int" : 0
     },
     "stashHideTime" : {
-      "double" : 0.29999999999999999
+      "double" : 0.3
     },
     "stashHideUsingMod" : {
       "int" : 0
@@ -350,7 +353,7 @@
       "int" : 0
     },
     "stashShowTime" : {
-      "double" : 0.29999999999999999
+      "double" : 0.3
     },
     "stashShowUsingMod" : {
       "int" : 0
@@ -424,72 +427,32 @@
   },
   "shortcuts" : {
     "bottomHalf" : {
-      "keyCode" : 84,
-      "modifierFlags" : 786432
-    },
-    "bottomLeft" : {
-      "keyCode" : 83,
-      "modifierFlags" : 786432
-    },
-    "bottomRight" : {
-      "keyCode" : 85,
+      "keyCode" : 38,
       "modifierFlags" : 786432
     },
     "center" : {
       "keyCode" : 8,
-      "modifierFlags" : 786432
+      "modifierFlags" : 1572864
     },
     "centerHalf" : {
-      "keyCode" : 125,
+      "keyCode" : 8,
       "modifierFlags" : 786432
-    },
-    "centerThird" : {
-      "keyCode" : 87,
-      "modifierFlags" : 786432
-    },
-    "fillLeft" : {
-      "keyCode" : 123,
-      "modifierFlags" : 786432
-    },
-    "fillRight" : {
-      "keyCode" : 124,
-      "modifierFlags" : 786432
-    },
-    "firstThird" : {
-      "keyCode" : 86,
-      "modifierFlags" : 786432
-    },
-    "firstTwoThirds" : {
-      "keyCode" : 86,
-      "modifierFlags" : 917504
     },
     "larger" : {
-      "keyCode" : 69,
+      "keyCode" : 24,
       "modifierFlags" : 786432
-    },
-    "lastThird" : {
-      "keyCode" : 88,
-      "modifierFlags" : 786432
-    },
-    "lastTwoThirds" : {
-      "keyCode" : 88,
-      "modifierFlags" : 917504
     },
     "leftHalf" : {
-      "keyCode" : 123,
+      "keyCode" : 4,
       "modifierFlags" : 786432
     },
     "maximize" : {
-      "keyCode" : 126,
+      "keyCode" : 3,
       "modifierFlags" : 786432
-    },
-    "maximizeHeight" : {
-      "keyCode" : 126,
-      "modifierFlags" : 917504
     },
     "nextDisplay" : {
-      "keyCode" : 82,
-      "modifierFlags" : 786432
+      "keyCode" : 124,
+      "modifierFlags" : 1835008
     },
     "previousDisplay" : {
       "keyCode" : 123,
@@ -500,26 +463,18 @@
       "modifierFlags" : 786432
     },
     "rightHalf" : {
-      "keyCode" : 124,
+      "keyCode" : 37,
       "modifierFlags" : 786432
     },
     "smaller" : {
-      "keyCode" : 78,
+      "keyCode" : 27,
       "modifierFlags" : 786432
     },
     "topHalf" : {
-      "keyCode" : 91,
-      "modifierFlags" : 786432
-    },
-    "topLeft" : {
-      "keyCode" : 89,
-      "modifierFlags" : 786432
-    },
-    "topRight" : {
-      "keyCode" : 92,
+      "keyCode" : 40,
       "modifierFlags" : 786432
     }
   },
-  "timestamp" : 717824849.42980301,
-  "version" : "147"
+  "timestamp" : 729313216.621279,
+  "version" : "150"
 }
