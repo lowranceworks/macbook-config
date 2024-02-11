@@ -8,43 +8,32 @@
 # The minimal, blazing-fast, and infinitely customizable prompt
 # https://starship.rs
 
+[aws]
+style = "bold #ffb86c"
+
 [character]
-success_symbol = ""
+error_symbol = "[󰩈](bold #ff5555)"
+success_symbol = "[](bold #50fa7b)"
 vicmd_symbol = ""
-error_symbol = "󰩈"
+
+[cmd_duration]
+style = "bold #f1fa8c"
 
 [directory]
-style = "blue bold"
-
-[package]
-disabled = true
-
-[username]
-disabled = true
-
-[hostname]
-disabled = true
-
-[aws]
-disabled = true
-
-[docker_context]
-disabled = true
+style = "bold #50fa7b"
 
 [git_branch]
-disabled = true
-
-[git_commit]
-disabled = true
-
-[git_state]
-disabled = true
-
-[git_metrics]
-disabled = true
+style = "bold #ff79c6"
 
 [git_status]
-disabled = true
+style = "bold #ff5555"
 
-[vagrant]
+[hostname]
+style = "bold #bd93f9"
+
+[username]
+format = "[$user]($style) on "
+style_user = "bold #8be9fd"
+
+[gcloud]
 disabled = true
