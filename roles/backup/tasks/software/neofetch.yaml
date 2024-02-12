@@ -1,0 +1,5 @@
+- name: neofetch | save config.conf
+  copy:
+    src: "~/.config/neofetch/config.conf"
+    dest: "{{ project_path }}/files/Home/.config/neofetch/config.conf"
+    remote_src: no
