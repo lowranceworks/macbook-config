@@ -85,3 +85,6 @@
 
     - import_tasks: software/fish.yaml
       tags: fish
+
+    - import_tasks: software/neofetch.yaml
+      tags: neofetch
