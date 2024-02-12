@@ -82,3 +82,6 @@
 
     - import_tasks: software/starship.yaml
       tags: starship
+
+    - import_tasks: software/fish.yaml
+      tags: fish
