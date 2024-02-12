@@ -8,6 +8,9 @@
     - import_tasks: system/terminal.yaml
       tags: system, terminal
 
+    - import_tasks: system/shell.yaml
+      tags: shell
+
     - import_tasks: software/brew-applications.yaml
       tags: software, brew
 
