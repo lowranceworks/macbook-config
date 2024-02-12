@@ -68,4 +68,7 @@
     - import_tasks: software/zsh-vi-mode.yaml
       tags: zsh-vi-mode, zvm
 
+    - import_tasks: software/fish.yaml
+      tags: fish
+
       # - import_tasks: software, software/git.yaml
