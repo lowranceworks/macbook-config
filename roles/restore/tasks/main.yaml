@@ -8,6 +8,9 @@
     - import_tasks: system/terminal.yaml
       tags: system, terminal
 
+    - import_tasks: system/shell.yaml
+      tags: shell
+
     - import_tasks: software/brew-applications.yaml
       tags: software, brew
 
@@ -21,6 +24,9 @@
       tags: software, neovim, nvim
 
     - import_tasks: software/zsh.yaml
+      tags: software, zsh, oh-my-zsh
+
+    - import_tasks: software/oh-my-zsh.yaml
       tags: software, zsh, oh-my-zsh
 
     - import_tasks: software/podman.yaml
@@ -50,7 +56,25 @@
     - import_tasks: software/wezterm.yaml
       tags: wezterm
 
+    - import_tasks: software/spacelauncher.yaml
+      tags: spacelauncher
+
+    - import_tasks: software/yabai.yaml
+      tags: yabai
+
+    - import_tasks: software/skhd.yaml
+      tags: skhd
+
+    - import_tasks: software/starship.yaml
+      tags: starship
+
     - import_tasks: software/zsh-vi-mode.yaml
       tags: zsh-vi-mode, zvm
+
+    - import_tasks: software/fish.yaml
+      tags: fish
+
+    - import_tasks: software/neofetch.yaml
+      tags: neofetch
 
       # - import_tasks: software, software/git.yaml

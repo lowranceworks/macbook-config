@@ -1,4 +1,4 @@
-- name: zsh-vi-mode | Ensure zsh-vi-mode plugin is sourced in .zshrc
+- name: zsh-vi-mode | ensure zsh-vi-mode plugin is sourced in .zshrc
   lineinfile:
     path: "{{ ansible_env.HOME }}/.zshrc"
     line: "source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
@@ -6,7 +6,7 @@
     create: yes
     backup: yes
 
-- name: zsh-vi-mode | Install zsh-vi-mode using Homebrew
+- name: zsh-vi-mode | install zsh-vi-mode using Homebrew
   community.general.homebrew:
     name: zsh-vi-mode
     state: present

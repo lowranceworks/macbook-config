@@ -1,0 +1,5 @@
+- name: shell | save /etc/shells
+  copy:
+    src: "/etc/shells"
+    dest: "{{ project_path }}/files/etc/shells"
+    remote_src: no

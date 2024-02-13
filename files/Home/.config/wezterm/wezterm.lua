@@ -8,22 +8,30 @@
 -- A GPU-accelerated cross-platform terminal emulator
 -- https://wezfurlong.org/wezterm/
 
-local b = require("utils/background")
 local cs = require("utils/color_scheme")
 local f = require("utils/font")
 local h = require("utils/helpers")
 local k = require("utils/keys")
 local w = require("utils/wallpaper")
+local b = require("utils/background")
 
 local wezterm = require("wezterm")
 local act = wezterm.action
 
 local config = {
-	-- background = {
-	-- 	w.get_wallpaper(),
-	-- 	b.get_background(),
-	-- },
+	-- background = b.get_background(),
+	--	w.get_wallpaper(),
+
 	-- color_scheme = cs.get_color_scheme(),
+	-- window_background_image = os.getenv("HOME") .. "/.config/wezterm/wallpapers/sessions/dotfiles/_config/fish.jpeg",
+	window_background_opacity = 0.9,
+
+	-- window_background_image_hsb = {
+	-- 	brightness = 1.0,
+	-- 	hue = 1.0,
+	-- 	saturation = 1.0,
+	-- },
+
 	color_scheme = "Dracula (Official)",
 	font = wezterm.font("MesloLGS NF"),
 	font_size = 16,
@@ -35,11 +43,11 @@ local config = {
 		bottom = 10,
 	},
 
-	set_environment_variables = {
-		-- THEME_FLAVOUR = "latte",
-		BAT_THEME = h.is_dark() and "Catppuccin-mocha" or "Catppuccin-latte",
-		TERM = "xterm-256color",
-	},
+	-- set_environment_variables = {
+	-- 	-- THEME_FLAVOUR = "latte",
+	-- 	BAT_THEME = h.is_dark() and "Catppuccin-mocha" or "Catppuccin-latte",
+	-- 	TERM = "xterm-256color",
+	-- },
 
 	-- general options
 	adjust_window_size_when_changing_font_size = false,
@@ -54,7 +62,7 @@ local config = {
 		-- enable natural text editing
 		{ mods = "OPT", key = "LeftArrow", action = wezterm.action.SendKey({ mods = "ALT", key = "b" }) },
 		{ mods = "OPT", key = "RightArrow", action = wezterm.action.SendKey({ mods = "ALT", key = "f" }) },
-		-- { mods = "CMD", key = "LeftArrow", action = wezterm.action.SendKey({ mods = "CTRL", key = "a" }) }, -- this is disabled because it shares the same hexcode as C-a (which is my tmux prefix)
+		-- { mods  "CMD", key = "LeftArrow", action = wezterm.action.SendKey({ mods = "CTRL", key = "a" }) }, -- this is disabled because it shares the same hexcode as C-a (which is my tmux prefix)
 		{ mods = "CMD", key = "RightArrow", action = wezterm.action.SendKey({ mods = "CTRL", key = "e" }) },
 		{ mods = "CMD", key = "Backspace", action = wezterm.action.SendKey({ mods = "CTRL", key = "u" }) },
 
@@ -146,16 +154,6 @@ local config = {
 				act.SendKey({ key = "n" }),
 			}),
 		},
-
-		-- FIX: disable binding
-		-- {
-		-- 	mods = "CMD",
-		-- 	key = "`",
-		-- 	action = act.Multiple({
-		-- 		act.SendKey({ mods = "CTRL", key = "b" }),
-		-- 		act.SendKey({ key = "n" }),
-		-- 	}),
-		-- },
 
 		{
 			mods = "CMD",

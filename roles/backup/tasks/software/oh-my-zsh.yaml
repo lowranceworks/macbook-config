@@ -1,0 +1,38 @@
+- name: Zsh | Oh-My-Zsh | Save *.zsh files from ~/.oh-my-zsh/
+  copy:
+    src: "~/.oh-my-zsh/{{ item }}"
+    dest: "{{ project_path }}/files/Home/{{ item }}"
+    remote_src: no
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+  loop:
+    - aliases.zsh
+  when: oh_my_zsh_folder_check.stat.exists
+
+- name: Zsh | Oh-My-Zsh | Save oh-my-zsh.sh from ~/.oh-my-zsh/
+  fetch:
+    src: "~/.oh-my-zsh/oh-my-zsh.sh"
+    dest: "{{ project_path }}/files/Home/.oh-my-zsh/oh-my-zsh.sh"
+    flat: yes
+  when: oh_my_zsh_folder_check.stat.exists
+
+- name: Zsh | Oh-My-Zsh | Copy .oh-my-zsh configuration files
+  copy:
+    src: "{{ project_path }}/files/Home/.oh-my-zsh/"
+    dest: "~/.oh-my-zsh/"
+    remote_src: no
+    owner: "{{ ansible_facts['user_id'] }}"
+    mode: "0755"
+    directory_mode: "0755"
+
+- name: Zsh | Oh-My-Zsh | Powerlevel10k | Check if ~/.p10k.zsh exists
+  stat:
+    path: ~/.p10k.zsh
+  register: p10k_file_stat
+
+- name: Zsh | Oh-My-Zsh | Powerlevel10k | Save ~/.p10k.zsh
+  fetch:
+    src: "~/.p10k.zsh"
+    dest: "{{ project_path }}/files/Home/.p10k.zsh"
+    flat: yes
+  when: p10k_file_stat.stat.exists

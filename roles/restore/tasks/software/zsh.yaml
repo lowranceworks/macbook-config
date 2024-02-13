@@ -49,6 +49,18 @@
     owner: "{{ ansible_facts['user_id'] }}"
     mode: "0755"
 
+- name: Zsh | check if ~/.oh-my-zsh exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  register: oh_my_zsh_stat
+
+- name: Zsh | execute oh-my-zsh install script
+  ansible.builtin.shell:
+    cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    args:
+    executable: /bin/bash
+  when: not oh_my_zsh_stat.stat.exists
+
 - name: Zsh | Oh-My-Zsh | Set *.zsh files
   copy:
     src: "{{ project_path }}/files/Home/{{ item }}"

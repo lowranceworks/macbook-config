@@ -1,0 +1,78 @@
+
+# ███████╗████████╗ █████╗ ██████╗ ███████╗██╗  ██╗██╗██████╗
+# ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║  ██║██║██╔══██╗
+# ███████╗   ██║   ███████║██████╔╝███████╗███████║██║██████╔╝
+# ╚════██║   ██║   ██╔══██║██╔══██╗╚════██║██╔══██║██║██╔═══╝
+# ███████║   ██║   ██║  ██║██║  ██║███████║██║  ██║██║██║
+# ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝
+# The minimal, blazing-fast, and infinitely customizable prompt
+# https://starship.rs
+
+add_newline = false
+
+# A minimal left prompt
+format = """$directory$character"""
+
+# move the rest of the prompt to the right
+right_format = """$all"""
+
+[directory.substitutions]
+# '~/tests/starship-custom' = 'work-project'
+
+[golang]
+format = '[ ](bold cyan)'
+
+[kubernetes]
+symbol = '☸ '
+disabled = false
+detect_files = ['Dockerfile']
+format = '[$context(\[$namespace\])]($style) '
+
+[kubernetes.context_aliases]
+# 'arn:ws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster' = 'gal'
+
+[docker_context]
+disabled = true
+
+[gcloud]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold #ffb86c"
+symbol = "  "
+
+[aws]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold #ffb86c"
+symbol = "  "
+
+[azure]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold #ffb86c"
+symbol = "  "
+
+[character]
+error_symbol = "[󰩈](bold #ff5555)"
+success_symbol = "[](bold #50fa7b)"
+vicmd_symbol = ""
+
+[cmd_duration]
+style = "bold #f1fa8c"
+
+[directory]
+style = "bold #50fa7b"
+
+[git_branch]
+style = "bold #ff79c6"
+
+[git_status]
+style = "bold #ff5555"
+
+[hostname]
+style = "bold #bd93f9"
+
+[username]
+format = "[$user]($style) on "
+style_user = "bold #8be9fd"
+

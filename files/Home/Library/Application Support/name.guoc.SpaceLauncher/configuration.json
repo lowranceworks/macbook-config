@@ -1,0 +1,198 @@
+{
+  "decision" : {
+    "chances" : [
+      {
+        "pattern" : {
+          "alwaysMatch" : {
+
+          }
+        },
+        "decision" : {
+          "actions" : [
+            {
+              "getLeaderKey" : {
+                "kind" : "keyCodeText"
+              }
+            }
+          ],
+          "chances" : [
+            {
+              "pattern" : {
+                "message" : {
+                  "regex" : "49\\(0\\)"
+                }
+              },
+              "decision" : {
+                "actions" : [
+
+                ],
+                "chances" : [
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          0
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "description" : "Terminal",
+                          "openApp" : {
+                            "path" : "\/Applications\/iTerm 2.app",
+                            "hideAppIfRunning" : true,
+                            "switchToPreviousApp" : false,
+                            "launchArgumentsText" : ""
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          8
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "description" : "ChatGPT",
+                          "openApp" : {
+                            "path" : "\/Users\/josh\/Applications\/ChatGPT.app",
+                            "launchArgumentsText" : "",
+                            "hideAppIfRunning" : false,
+                            "switchToPreviousApp" : false
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "openApp" : {
+                            "switchToPreviousApp" : false,
+                            "path" : "\/Applications\/Inkdrop.app",
+                            "launchArgumentsText" : "",
+                            "hideAppIfRunning" : false
+                          },
+                          "description" : "Inkdrop"
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
+                    },
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          45
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          13
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "actions" : [
+                        {
+                          "openApp" : {
+                            "path" : "\/Applications\/Brave Browser.app",
+                            "switchToPreviousApp" : false,
+                            "hideAppIfRunning" : true,
+                            "launchArgumentsText" : ""
+                          },
+                          "description" : "Brave"
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ],
+                      "chances" : [
+
+                      ]
+                    }
+                  },
+                  {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          6
+                        ]
+                      }
+                    },
+                    "decision" : {
+                      "actions" : [
+                        {
+                          "description" : "Zoom",
+                          "openApp" : {
+                            "path" : "\/Applications\/zoom.us.app",
+                            "launchArgumentsText" : "",
+                            "switchToPreviousApp" : false,
+                            "hideAppIfRunning" : true
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ],
+                      "chances" : [
+
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "actions" : [
+      {
+        "getFrontmostApp" : {
+          "kind" : "bundleURL"
+        }
+      }
+    ]
+  },
+  "hotKeys" : [
+
+  ]
+}
