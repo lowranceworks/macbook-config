@@ -8,8 +8,49 @@
 # The minimal, blazing-fast, and infinitely customizable prompt
 # https://starship.rs
 
-[aws]
+add_newline = false
+
+# A minimal left prompt
+format = """$directory$character"""
+
+# move the rest of the prompt to the right
+right_format = """$all"""
+
+[directory.substitutions]
+# '~/tests/starship-custom' = 'work-project'
+
+[golang]
+format = '[ ](bold cyan)'
+
+[kubernetes]
+symbol = '☸ '
+disabled = false
+detect_files = ['Dockerfile']
+format = '[$context(\[$namespace\])]($style) '
+
+[kubernetes.context_aliases]
+# 'arn:ws:eks:us-west-2:577926974532:cluster/gal-kub-demo-cluster' = 'gal'
+
+[docker_context]
+disabled = true
+
+[gcloud]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
 style = "bold #ffb86c"
+symbol = "  "
+
+[aws]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold #ffb86c"
+symbol = "  "
+
+[azure]
+disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold #ffb86c"
+symbol = "  "
 
 [character]
 error_symbol = "[󰩈](bold #ff5555)"
@@ -35,5 +76,3 @@ style = "bold #bd93f9"
 format = "[$user]($style) on "
 style_user = "bold #8be9fd"
 
-[gcloud]
-disabled = true

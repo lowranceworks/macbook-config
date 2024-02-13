@@ -1,15 +1,5 @@
 {
-  "hotKeys" : [
-
-  ],
   "decision" : {
-    "actions" : [
-      {
-        "getFrontmostApp" : {
-          "kind" : "bundleURL"
-        }
-      }
-    ],
     "chances" : [
       {
         "pattern" : {
@@ -46,66 +36,69 @@
                       }
                     },
                     "decision" : {
+                      "chances" : [
+
+                      ],
                       "actions" : [
                         {
+                          "description" : "Terminal",
                           "openApp" : {
-                            "switchToPreviousApp" : false,
                             "path" : "\/Applications\/iTerm 2.app",
-                            "launchArgumentsText" : "",
-                            "hideAppIfRunning" : true
-                          },
-                          "description" : "Terminal"
+                            "hideAppIfRunning" : true,
+                            "switchToPreviousApp" : false,
+                            "launchArgumentsText" : ""
+                          }
                         },
                         {
                           "reWaitTriggerKeys" : {
 
                           }
                         }
-                      ],
-                      "chances" : [
-
                       ]
                     }
                   },
                   {
-                    "decision" : {
-                      "actions" : [
-                        {
-                          "openApp" : {
-                            "path" : "\/Users\/josh\/Applications\/ChatGPT.app",
-                            "hideAppIfRunning" : false,
-                            "switchToPreviousApp" : false,
-                            "launchArgumentsText" : ""
-                          },
-                          "description" : "ChatGPT"
-                        },
-                        {
-                          "reWaitTriggerKeys" : {
-
-                          }
-                        }
-                      ],
-                      "chances" : [
-
-                      ]
-                    },
                     "pattern" : {
                       "key" : {
                         "allowedKeyCodes" : [
                           8
                         ]
                       }
+                    },
+                    "decision" : {
+                      "chances" : [
+
+                      ],
+                      "actions" : [
+                        {
+                          "description" : "ChatGPT",
+                          "openApp" : {
+                            "path" : "\/Users\/josh\/Applications\/ChatGPT.app",
+                            "launchArgumentsText" : "",
+                            "hideAppIfRunning" : false,
+                            "switchToPreviousApp" : false
+                          }
+                        },
+                        {
+                          "reWaitTriggerKeys" : {
+
+                          }
+                        }
+                      ]
                     }
                   },
                   {
                     "decision" : {
+                      "chances" : [
+
+                      ],
                       "actions" : [
                         {
                           "openApp" : {
+                            "switchToPreviousApp" : false,
                             "path" : "\/Applications\/Inkdrop.app",
                             "launchArgumentsText" : "",
-                            "hideAppIfRunning" : false,
-                            "switchToPreviousApp" : false
+                            "hideAppIfRunning" : false
                           },
                           "description" : "Inkdrop"
                         },
@@ -114,9 +107,6 @@
 
                           }
                         }
-                      ],
-                      "chances" : [
-
                       ]
                     },
                     "pattern" : {
@@ -128,16 +118,23 @@
                     }
                   },
                   {
+                    "pattern" : {
+                      "key" : {
+                        "allowedKeyCodes" : [
+                          13
+                        ]
+                      }
+                    },
                     "decision" : {
                       "actions" : [
                         {
-                          "description" : "Brave",
                           "openApp" : {
-                            "hideAppIfRunning" : true,
-                            "launchArgumentsText" : "",
+                            "path" : "\/Applications\/Brave Browser.app",
                             "switchToPreviousApp" : false,
-                            "path" : "\/Applications\/Brave Browser.app"
-                          }
+                            "hideAppIfRunning" : true,
+                            "launchArgumentsText" : ""
+                          },
+                          "description" : "Brave"
                         },
                         {
                           "reWaitTriggerKeys" : {
@@ -148,13 +145,6 @@
                       "chances" : [
 
                       ]
-                    },
-                    "pattern" : {
-                      "key" : {
-                        "allowedKeyCodes" : [
-                          13
-                        ]
-                      }
                     }
                   },
                   {
@@ -168,13 +158,13 @@
                     "decision" : {
                       "actions" : [
                         {
+                          "description" : "Zoom",
                           "openApp" : {
-                            "switchToPreviousApp" : false,
-                            "launchArgumentsText" : "",
                             "path" : "\/Applications\/zoom.us.app",
+                            "launchArgumentsText" : "",
+                            "switchToPreviousApp" : false,
                             "hideAppIfRunning" : true
-                          },
-                          "description" : "Zoom"
+                          }
                         },
                         {
                           "reWaitTriggerKeys" : {
@@ -193,6 +183,16 @@
           ]
         }
       }
+    ],
+    "actions" : [
+      {
+        "getFrontmostApp" : {
+          "kind" : "bundleURL"
+        }
+      }
     ]
-  }
+  },
+  "hotKeys" : [
+
+  ]
 }
