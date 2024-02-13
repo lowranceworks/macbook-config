@@ -81,6 +81,19 @@ abbr hd "history delete --exact --case-sensitive \'(history | fzf-tmux -p -m)\'"
 
 abbr k kubectl
 abbr kc kubectx
+abbr ka "kubectl apply -f"
+abbr kg "kubectl get"
+abbr kd "kubectl describe"
+abbr kdel "kubectl delete"
+abbr kl "kubectl logs"
+abbr kgpo "kubectl get pod"
+abbr kgd "kubectl get deployments"
+abbr kc kubectx
+abbr kns kubens
+abbr kl "kubectl logs -f"
+abbr ke "kubectl exec -it"
+abbr kcns "kubectl config set-context --current --namespace"
+
 abbr ka killall
 abbr kn "killall node"
 

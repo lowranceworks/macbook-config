@@ -23,6 +23,7 @@ capstone
 cffi
 checkov
 curl
+direnv
 docker
 docker-completion
 docker-compose
@@ -57,6 +58,7 @@ groff
 guile
 helm
 highway
+htop
 icu4c
 imath
 isl
@@ -212,7 +214,6 @@ unibilium
 unixodbc
 utf8proc
 vde
-vim
 virtualenv
 wakatime-cli
 watch
@@ -222,6 +223,7 @@ xz
 yq
 yubikey-agent
 z3
+zf
 zoxide
 zsh-autosuggestions
 zsh-fast-syntax-highlighting

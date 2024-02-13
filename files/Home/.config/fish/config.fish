@@ -8,6 +8,8 @@
 # A smart and user-friendly command line
 # https://fishshell.com/
 
+fish_config theme choose "Dracula Official"
+
 eval (/opt/homebrew/bin/brew shellenv)
 
 starship init fish | source # https://starship.rs/

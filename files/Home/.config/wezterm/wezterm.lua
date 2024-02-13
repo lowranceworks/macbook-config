@@ -24,7 +24,7 @@ local config = {
 
 	-- color_scheme = cs.get_color_scheme(),
 	-- window_background_image = os.getenv("HOME") .. "/.config/wezterm/wallpapers/sessions/dotfiles/_config/fish.jpeg",
-	-- window_background_opacity = 0.9,
+	window_background_opacity = 0.9,
 
 	-- window_background_image_hsb = {
 	-- 	brightness = 1.0,
