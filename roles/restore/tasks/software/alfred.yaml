@@ -1,22 +1,23 @@
-  - name: Alfred | Ensure ~/.alfred-preferences directory exists
-    ansible.builtin.file:
-      path: "~/Library/Application Support/Alfred/Alfred.alfredpreferences"
-      state: directory
-      mode: '0755'
-      owner: "{{ lookup('env', 'USER') }}"
-      group: staff
+- name: Alfred | Ensure ~/.alfred-preferences directory exists
+  ansible.builtin.file:
+    path: "~/Library/Application Support/Alfred/Alfred.alfredpreferences"
+    state: directory
+    mode: "0755"
+    owner: "{{ lookup('env', 'USER') }}"
+    group: staff
 
-  - name: Alfred | Unzip and restore preferences and other directories
-    unarchive:
-      src: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
-      dest: "~/Library/Application\ Support/Alfred/"
-      remote_src: yes
-      owner: "{{ lookup('env', 'USER') }}"
-      group: staff    
-      mode: '0755'
+- name: Alfred | Unzip and restore workflows
+  unarchive:
+    src: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences/workflows.zip"
+    dest: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/Workflows"
+    remote_src: yes
+    owner: "{{ lookup('env', 'USER') }}"
+    group: staff
+    mode: "0755"
 
-  - name: Alfred | Set prefs.json file
-    copy:
-      src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
-      dest: "~/Library/Application Support/Alfred/prefs.json"
-      remote_src: no
+- name: Alfred | Set prefs.json file
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
+    dest: "~/Library/Application Support/Alfred/prefs.json"
+    remote_src: no
+
