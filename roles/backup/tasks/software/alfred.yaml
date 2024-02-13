@@ -1,16 +1,17 @@
-  - name: Alfred | Check if Alfred.alfredpreferences directory exists
-    ansible.builtin.stat:
-      path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
-    register: alfred_prefs
+- name: Alfred | Check if Alfred.alfredpreferences directory exists
+  ansible.builtin.stat:
+    path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
+  register: alfred_prefs
 
-  - name: Alfred | Save Alfred.alfredpreferences
-    archive:
-      path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences"
-      dest: "{{ project_path }}/files/Home//Library/Application\ Support/Alfred/Alfred.alfredpreferences.zip"
-      format: zip
-    
-  - name: Alfred | Save prefs.json file
-    copy:
-      src: "~/Library/Application Support/Alfred/prefs.json"
-      dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
-      remote_src: no
+- name: Alfred | Save workflows
+  archive:
+    path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/workflows"
+    dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences/workflows.zip"
+    format: zip
+
+- name: Alfred | Save prefs.json file
+  copy:
+    src: "~/Library/Application Support/Alfred/prefs.json"
+    dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
+    remote_src: no
+
