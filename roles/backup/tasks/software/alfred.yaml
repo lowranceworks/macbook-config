@@ -3,6 +3,24 @@
     path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/"
   register: alfred_prefs
 
+- name: Alfred | Save preferences
+  archive:
+    path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/preferences"
+    dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences/preferences.zip"
+    format: zip
+
+- name: Alfred | Save snippets
+  archive:
+    path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/snippets"
+    dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences/snippets.zip"
+    format: zip
+
+- name: Alfred | Save themes
+  archive:
+    path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/themes"
+    dest: "{{ project_path }}/files/Home/Library/Application\ Support/Alfred/Alfred.alfredpreferences/themes.zip"
+    format: zip
+
 - name: Alfred | Save workflows
   archive:
     path: "~/Library/Application\ Support/Alfred/Alfred.alfredpreferences/workflows"
@@ -14,4 +32,3 @@
     src: "~/Library/Application Support/Alfred/prefs.json"
     dest: "{{ project_path }}/files/Home/Library/Application Support/Alfred/prefs.json"
     remote_src: no
-
