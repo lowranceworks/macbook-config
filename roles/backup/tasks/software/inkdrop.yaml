@@ -47,9 +47,8 @@
     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
   register: inkdrop_packages_stat
 
-- name: "Inkdrop | Save packages"
-  archive:
-    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages/"
-    dest: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.zip"
-    format: zip
-  when: inkdrop_packages_stat.stat.exists and inkdrop_packages_stat.stat.isdir
+- name: Inkdrop | List packages into packages.txt
+  ansible.builtin.shell:
+    cmd: ls ~/Library/Application\ Support/inkdrop/packages/ > "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.txt"
+  args:
+    executable: /bin/bash
