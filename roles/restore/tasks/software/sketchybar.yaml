@@ -1,0 +1,38 @@
+- name: Sketchybar | Tap FelixKratz/formulae
+  homebrew_tap:
+    name: FelixKratz/formulae
+    state: present
+
+- name: Sketchybar | Install sketchybar
+  homebrew:
+    name: sketchybar
+    state: present
+
+- name: Sketchybar | Create sketchybar configuration directory
+  ansible.builtin.file:
+    path: ~/.config/sketchybar/plugins
+    state: directory
+    mode: "0755"
+
+- name: Sketchybar | Start sketchybar service
+  ansible.builtin.command:
+    cmd: brew services start sketchybar
+  args:
+  become: no
+
+- name: Sketchybar | Tap homebrew/cask-fonts
+  homebrew_tap:
+    name: homebrew/cask-fonts
+    state: present
+
+- name: Sketchybar | Check if font-hack-nerd-font is already installed
+  ansible.builtin.command: brew list --cask
+  register: installed_casks
+  changed_when: False
+
+- name: Sketchybar | Install font-hack-nerd-font
+  homebrew:
+    name: font-hack-nerd-font
+    state: present
+    install_options: cask
+  when: "'font-hack-nerd-font' not in installed_casks.stdout"
