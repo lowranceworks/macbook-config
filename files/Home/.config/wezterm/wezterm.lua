@@ -50,6 +50,10 @@ local config = {
 	-- },
 
 	-- general options
+	-- enable_scroll_bar = false,
+	-- scrollback_lines = 5000, -- Set the number of lines in the scrollback buffer
+	-- mouse_wheel_scroll_rate = 3, -- Adjust the mouse scroll rate (number of lines per wheel click)
+
 	adjust_window_size_when_changing_font_size = false,
 	debug_key_events = false,
 	enable_tab_bar = false,
