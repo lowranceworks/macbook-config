@@ -1,0 +1,5 @@
+- name: Sketchybar | Save entire config directory
+  synchronize:
+    src: "~/.config/sketchybar/"
+    dest: "{{ project_path }}/files/Home/.config/sketchybar/"
+    recursive: yes

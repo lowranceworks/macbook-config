@@ -91,3 +91,6 @@
 
     - import_tasks: software/neofetch.yaml
       tags: neofetch
+
+    - import_tasks: software/sketchybar.yaml
+      tags: sketchybar

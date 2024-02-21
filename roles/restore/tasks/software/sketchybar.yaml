@@ -65,3 +65,9 @@
     name: gh
     state: present
   when: "'gh' not in installed_casks.stdout"
+
+- name: Sketchybar | Restore entire config directory
+  synchronize:
+    src: "{{ project_path }}/files/Home/.config/sketchybar/"
+    dest: "~/.config/sketchybar/"
+    recursive: yes
