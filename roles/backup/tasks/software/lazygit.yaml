@@ -1,0 +1,5 @@
+- name: lazygit | save config.yml
+  copy:
+    src: "~/Library/Application Support/lazygit/config.yml"
+    dest: "{{ project_path }}/files/Library/Application Support/lazygit/config.yml"
+    remote_src: no

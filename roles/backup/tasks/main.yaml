@@ -94,3 +94,6 @@
 
     - import_tasks: software/sketchybar.yaml
       tags: sketchybar
+
+    - import_tasks: software/lazygit.yaml
+      tags: lazygit
