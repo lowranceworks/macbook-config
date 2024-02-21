@@ -8,7 +8,7 @@
 # A smart and user-friendly command line
 # https://fishshell.com/
 
-fish_config theme choose "Dracula Official"
+fish_config theme choose "Catppuccin Mocha"
 
 eval (/opt/homebrew/bin/brew shellenv)
 

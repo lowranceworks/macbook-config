@@ -1,14 +1,11 @@
-admonition
 code-title
 copy-code-to-clipboard
 dracula-dark-ui
 dracula-preview
 dracula-syntax
-ghost-fade-focus
 horizon-dark-preview
 horizon-dark-ui
 inkdrop-note-templates
-link-card
 markdown-emoji
 material-dark-mod-syntax
 mermaid
@@ -25,4 +22,3 @@ tokyo-night-dark-ui
 tokyo-night-syntax
 vibrant-dark-ui
 vim
-visible-on-all-workspaces

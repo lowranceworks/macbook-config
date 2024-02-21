@@ -1,0 +1,73 @@
+- name: Sketchybar | Tap FelixKratz/formulae
+  homebrew_tap:
+    name: FelixKratz/formulae
+    state: present
+
+- name: Sketchybar | Install sketchybar
+  homebrew:
+    name: sketchybar
+    state: present
+
+- name: Sketchybar | Create sketchybar configuration directory
+  ansible.builtin.file:
+    path: ~/.config/sketchybar/plugins
+    state: directory
+    mode: "0755"
+
+- name: Sketchybar | Start sketchybar service
+  ansible.builtin.command:
+    cmd: brew services start sketchybar
+  args:
+  become: no
+
+- name: Sketchybar | Tap homebrew/cask-fonts
+  homebrew_tap:
+    name: homebrew/cask-fonts
+    state: present
+
+- name: Sketchybar | Check if dependencies are installed
+  ansible.builtin.command: brew list
+  register: installed_packages
+  changed_when: False
+
+- name: Sketchybar | Check if dependencies are installed (casks)
+  ansible.builtin.command: brew list --cask
+  register: installed_casks
+  changed_when: False
+
+- name: Sketchybar | Install dependency | sf-symbols
+  homebrew:
+    name: sf-symbols
+    state: present
+    install_options: cask
+
+- name: Sketchybar | Install dependency | meetingbar
+  homebrew:
+    name: meetingbar
+    state: present
+    install_options: cask
+  when: "'meetingbar' not in installed_casks.stdout"
+
+- name: Sketchybar | Install dependency | jq
+  homebrew:
+    name: jq
+    state: present
+  when: "'jq' not in installed_casks.stdout"
+
+- name: Sketchybar | Install dependency | ifstat
+  homebrew:
+    name: ifstat
+    state: present
+  when: "'ifstat' not in installed_casks.stdout"
+
+- name: Sketchybar | Install dependency | gh
+  homebrew:
+    name: gh
+    state: present
+  when: "'gh' not in installed_casks.stdout"
+
+- name: Sketchybar | Restore entire config directory
+  synchronize:
+    src: "{{ project_path }}/files/Home/.config/sketchybar/"
+    dest: "~/.config/sketchybar/"
+    recursive: yes
