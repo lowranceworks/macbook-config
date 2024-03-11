@@ -7,3 +7,5 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+
+alias ll="lsd --group-dirs first -Al"

@@ -36,7 +36,6 @@ abbr er "espanso restart"
 abbr fi "fisher install"
 abbr fr "fisher refresh"
 abbr fu "fisher update"
-abbr fl "fisher list | sed 's/.*/"&"/'"
 
 abbr g "git status"
 abbr ga "git add ."
@@ -102,7 +101,7 @@ abbr kn "killall node"
 abbr l "lsd  --group-dirs first -A"
 abbr ld lazydocker
 abbr lg lazygit
-abbr ll "lsd  --group-dirs first -Al"
+# abbr ll "lsd  --group-dirs first -Al"
 abbr lt "lsd  --group-dirs last -A --tree"
 
 abbr mt "man tmux"

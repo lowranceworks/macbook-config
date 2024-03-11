@@ -19,7 +19,9 @@ bottom
 brotli
 c-ares
 ca-certificates
+cairo
 capstone
+ccm
 cffi
 checkov
 curl
@@ -53,9 +55,11 @@ gnupg
 gnutls
 go
 go-task
+graphite2
 grep
 groff
 guile
+harfbuzz
 helm
 highway
 icu4c
@@ -110,6 +114,12 @@ libusb
 libuv
 libvmaf
 libvterm
+libx11
+libxau
+libxcb
+libxdmcp
+libxext
+libxrender
 libyaml
 libzip
 little-cms2
@@ -124,6 +134,7 @@ lzo
 m4
 mackup
 make
+maven
 mpdecimal
 mpfr
 msgpack
@@ -140,6 +151,8 @@ nvm
 oniguruma
 openblas
 openexr
+openjdk
+openjdk@11
 openjpeg
 openldap
 openssl@1.1
@@ -157,6 +170,7 @@ podman
 pre-commit
 psutils
 pycparser
+pyenv
 pygments
 python-argcomplete
 python-certifi
@@ -179,7 +193,6 @@ python-setuptools
 python-tabulate
 python-toml
 python-typing-extensions
-python@3.10
 python@3.11
 python@3.12
 pyyaml
@@ -221,6 +234,7 @@ wakatime-cli
 watch
 webp
 wget
+xorgproto
 xz
 yq
 yubikey-agent
@@ -232,7 +246,6 @@ zsh-fast-syntax-highlighting
 zsh-vi-mode
 zstd
 federico-terzi/espanso/espanso
-felixkratz/formulae/sketchybar
 koekeishiya/formulae/skhd
 koekeishiya/formulae/yabai
 minamijoyo/hcledit/hcledit
