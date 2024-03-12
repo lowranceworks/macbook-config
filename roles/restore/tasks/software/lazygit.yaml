@@ -1,4 +1,10 @@
-- name: lazygit | set config.yml
+- name: Lazygit | Ensure lazygit directory exists
+  ansible.builtin.file:
+    path: "{{ project_path }}/files/Library/Application Support/lazygit"
+    state: directory
+    mode: '0755'
+
+- name: Lazygit | Set config.yml
   copy:
     src: "{{ project_path }}/files/Library/Application Support/lazygit/config.yml"
     dest: "~/Library/Application Support/lazygit/config.yml"
