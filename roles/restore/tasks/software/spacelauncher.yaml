@@ -1,19 +1,17 @@
-- name: spacelauncher | install spacelauncher
+- name: Spacelauncher | Install Spacelauncher
   community.general.homebrew:
-    name: spacelauncher
+    name: Spacelauncher
     state: present
   register: result
-  failed_when: >
-    result.msg is defined and ("Warning: Not upgrading spacelauncher, the latest version is already installed" not in result.msg)
 
-- name: spacelauncher | set configuration.json
+- name: Spacelauncher | Set configuration.json
   copy:
-    src: "{{ project_path }}/files/Home/Library/Application Support/name.guoc.SpaceLauncher/configuration.json"
-    dest: "~/Library/Application Support/name.guoc.SpaceLauncher/configuration.json"
+    src: "{{ project_path }}/files/Home/Library/Application Support/name.guoc.Spacelauncher/configuration.json"
+    dest: "~/Library/Application Support/name.guoc.Spacelauncher/configuration.json"
     remote_src: no
 
-- name: spacelauncher | set plist configuration
+- name: Spacelauncher | Set plist configuration
   copy:
-    src: "{{ project_path }}/files/Home/Library/Preferences/name.guoc.SpaceLauncher.plist"
-    dest: "~/Library/Preferences/name.guoc.SpaceLauncher.plist"
+    src: "{{ project_path }}/files/Home/Library/Preferences/name.guoc.Spacelauncher.plist"
+    dest: "~/Library/Preferences/name.guoc.Spacelauncher.plist"
     remote_src: no

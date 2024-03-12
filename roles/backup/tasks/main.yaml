@@ -80,8 +80,8 @@
     - import_tasks: software/skhd.yaml
       tags: skhd
 
-    - import_tasks: software/spacelauncher.yaml
-      tags: spacelauncher
+    # - import_tasks: software/spacelauncher.yaml
+    #   tags: spacelauncher
 
     - import_tasks: software/starship.yaml
       tags: starship

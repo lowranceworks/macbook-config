@@ -56,8 +56,8 @@
     - import_tasks: software/wezterm.yaml
       tags: wezterm
 
-    - import_tasks: software/spacelauncher.yaml
-      tags: spacelauncher
+    # - import_tasks: software/spacelauncher.yaml
+    #   tags: spacelauncher
 
     - import_tasks: software/yabai.yaml
       tags: yabai
@@ -77,8 +77,8 @@
     - import_tasks: software/neofetch.yaml
       tags: neofetch
 
-    - import_tasks: software/sketchybar.yaml
-      tags: sketchybar
+    # - import_tasks: software/sketchybar.yaml
+    #   tags: sketchybar
 
     - import_tasks: software/lazygit.yaml
       tags: lazygit
