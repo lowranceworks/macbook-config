@@ -37,7 +37,7 @@ abbr fi "fisher install"
 abbr fr "fisher refresh"
 abbr fu "fisher update"
 
-abbr g "git status"
+abbr g git
 abbr ga "git add ."
 abbr gaa "git add --all"
 abbr gb "git branch -v"
