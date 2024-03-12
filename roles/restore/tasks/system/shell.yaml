@@ -1,5 +1,16 @@
-- name: shell | set /etc/shells
+- name: Shell | Set /etc/shells
+  become: true
   copy:
     src: "{{ project_path }}/files/etc/shells"
     dest: "/etc/shells"
-    remote_src: no
+
+- name: Shell | Check if fish is installed
+  command: which fish
+  register: fish_installed
+  ignore_errors: yes
+
+- name: Shell | Change the user's shell to fish
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /opt/homebrew/bin/fish
+  when: fish_installed.rc == 0
