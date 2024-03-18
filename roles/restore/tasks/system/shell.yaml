@@ -1,8 +1,8 @@
-- name: Shell | Set /etc/shells
-  become: true
-  copy:
-    src: "{{ project_path }}/files/etc/shells"
-    dest: "/etc/shells"
+# - name: Shell | Set /etc/shells
+#   become: true
+#   copy:
+#     src: "{{ project_path }}/files/etc/shells"
+#     dest: "/etc/shells"
 
 - name: Shell | Check if fish is installed
   command: which fish

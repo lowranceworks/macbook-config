@@ -8,7 +8,7 @@ SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12")
 sid=0
 spaces=()
 for i in "${!SPACE_ICONS[@]}"; do
-	sid=$(($i + 1))
+	sid=$(($i + 2))
 
 	space=(
 		space=$sid
