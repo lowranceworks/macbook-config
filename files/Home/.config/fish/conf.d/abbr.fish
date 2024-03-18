@@ -187,6 +187,7 @@ abbr tfm "terraform format"
 abbr tfs "terraform state"
 abbr tfsl "terraform state list"
 abbr tfp "terraform plan"
+abbr tfv "terraform validate"
 
 abbr v "nvim +GoToFile"
 abbr vfzf "nvim (fd --type f --hidden --follow --exclude .git | fzf-tmux -p -w 100 --reverse --preview 'bat --color=always --style=numbers --line-range=:500 {}')"
