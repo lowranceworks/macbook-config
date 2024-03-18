@@ -44,8 +44,8 @@
     - import_tasks: software/contexts.yaml
       tags: software, contexts
 
-    - import_tasks: software/fig.yaml
-      tags: software, fig
+    # - import_tasks: software/fig.yaml # fig does not play nicely with vim-tmux-navigator, see https://github.com/christoomey/vim-tmux-navigator/issues/339
+    #   tags: software, fig
 
     - import_tasks: software/rectangle-pro.yaml
       tags: rectangle-software, pro

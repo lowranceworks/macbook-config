@@ -22,8 +22,10 @@ ca-certificates
 cairo
 capstone
 ccm
+certifi
 cffi
 checkov
+cryptography
 curl
 direnv
 docker
@@ -173,9 +175,7 @@ pycparser
 pyenv
 pygments
 python-argcomplete
-python-certifi
 python-click
-python-cryptography
 python-dateutil
 python-distlib
 python-docopt
