@@ -162,11 +162,6 @@ abbr sb "sam build"
 abbr sf "source ~/.config/fish/config.fish"
 abbr st "tmux source ~/.config/tmux/tmux.conf"
 
-abbr tf terraform
-abbr tfs "terraform state show"
-abbr tfsl "terraform state list"
-abbr tg terragrunt
-
 abbr th things-cli
 abbr t tmux
 abbr ta "tmux a"
@@ -179,16 +174,17 @@ abbr tp "t --repo (pbpaste)"
 abbr tn "tmux new -s (basename (pwd))"
 abbr tt "touch .t && chmod +x .t && echo -e '#!/usr/bin/env bash\n' > .t && nvim .t"
 
-# order these alphabetically
 abbr tfa "terraform apply"
 abbr tfd "terraform destroy"
+abbr tff "terraform format"
 abbr tfi "terraform init"
 abbr tfm "terraform format"
+abbr tfp "terraform plan"
 abbr tfs "terraform state"
 abbr tfsl "terraform state list"
-abbr tfp "terraform plan"
 abbr tfv "terraform validate"
-abbr tff "terraform format"
+
+abbr tg terragrunt
 
 abbr v "nvim +GoToFile"
 abbr vfzf "nvim (fd --type f --hidden --follow --exclude .git | fzf-tmux -p -w 100 --reverse --preview 'bat --color=always --style=numbers --line-range=:500 {}')"
