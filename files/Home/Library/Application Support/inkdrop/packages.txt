@@ -16,6 +16,7 @@ night-owl-preview
 nord-preview
 nord-syntax
 paste-url
+snippets
 spell-checker
 switch-notebook
 table-editor

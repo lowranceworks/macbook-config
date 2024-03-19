@@ -37,14 +37,14 @@
     path: /Applications/Inkdrop.app/Contents/Resources/app/ipm/bin/ipm
   register: ipm_binary
 
-- name: Inkdrop | Create symlink for Inkdrop ipm binary
-  ansible.builtin.file:
-    src: /Applications/Inkdrop.app/Contents/Resources/app/ipm/bin/ipm
-    dest: /usr/local/bin/ipm
-    state: link
-  become: yes
-  when: ipm_binary.stat.exists
-
+# - name: Create symlink for Inkdrop ipm binary
+#   ansible.builtin.file:
+#     src: /Applications/Inkdrop.app/Contents/Resources/app/ipm/bin/ipm
+#     dest: /usr/local/bin/ipm
+#     state: link
+#   become: yes
+#   when: 
+#     - ipm_binary.stat.exists
 
 - name: Inkdrop | Read packages.txt
   ansible.builtin.slurp:
