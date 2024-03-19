@@ -6,7 +6,6 @@ chromium
 cleanshot
 contexts
 drawio
-fig
 fork
 google-chrome
 google-cloud-sdk
