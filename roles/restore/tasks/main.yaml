@@ -26,11 +26,11 @@
     - import_tasks: software/neovim.yaml
       tags: software, neovim, nvim
 
-    - import_tasks: software/zsh.yaml
-      tags: software, zsh, oh-my-zsh
-
-    - import_tasks: software/oh-my-zsh.yaml
-      tags: software, zsh, oh-my-zsh
+    # - import_tasks: software/zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
+    #
+    # - import_tasks: software/oh-my-zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
 
     - import_tasks: software/podman.yaml
       tags: software, podman

@@ -50,12 +50,12 @@
     #  - import_tasks: software/vscode.yaml
     #    tags: software, vscode
 
-    - import_tasks: software/zsh.yaml
-      tags: software, zsh, oh-my-zsh
-
-    - import_tasks: software/oh-my-zsh.yaml
-      tags: software, zsh, oh-my-zsh
-
+    # - import_tasks: software/zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
+    #
+    # - import_tasks: software/oh-my-zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
+    #
     - import_tasks: software/alfred.yaml
       tags: software, alfred
 
