@@ -24,7 +24,10 @@
       tags: system, ssh
 
     - import_tasks: system/shell.yaml
-      tags: shell
+      tags: system, shell
+
+    - import_tasks: system/scripts.yaml
+      tags: system, scripts 
 
     - import_tasks: software/brew-applications.yaml
       tags: software, applications, brew
