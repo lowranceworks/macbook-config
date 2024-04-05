@@ -1,5 +1,3 @@
-catppuccin-mocha-syntax
-catppuccin-mocha-ui
 code-title
 copy-code-to-clipboard
 dracula-dark-ui
