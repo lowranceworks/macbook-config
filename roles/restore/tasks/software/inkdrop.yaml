@@ -16,23 +16,13 @@
     state: directory
     mode: "0755"
 
-- name: Inkdrop | Set initialization configuration
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
-
-- name: Inkdrop | Set keybindings
-  copy:
-    src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
-    dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
-
-- name: Inkdrop | Ensure packages directory exists
+- name: Inkdrop | Packages | Ensure packages directory exists
   file:
     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/packages"
     state: directory
     mode: "0755"
 
-- name: Inkdrop | Check if Inkdrop ipm binary exists
+- name: Inkdrop | Packages | Check if Inkdrop ipm binary exists
   ansible.builtin.stat:
     path: /Applications/Inkdrop.app/Contents/Resources/app/ipm/bin/ipm
   register: ipm_binary
@@ -46,34 +36,48 @@
 #   when: 
 #     - ipm_binary.stat.exists
 
-- name: Inkdrop | Read packages.txt
+- name: Inkdrop | Packages | Read packages.txt
   ansible.builtin.slurp:
     src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/packages.txt"
   register: packages_raw
 
-- name: Inkdrop | Get list of installed packages
+- name: Inkdrop | Packages | Get list of installed packages
   ansible.builtin.shell:
     cmd: ls ~/Library/Application\ Support/inkdrop/packages/
   register: installed_packages_raw
   changed_when: False
 
-- name: Inkdrop | Convert raw installed packages list to fact
+- name: Inkdrop | Packages | Convert raw installed packages list to fact
   set_fact:
     installed_packages_list: "{{ installed_packages_raw.stdout_lines }}"
 
-- name: Inkdrop | Convert packages.txt list to fact
+- name: Inkdrop | Packages | Convert packages.txt list to fact
   set_fact:
     packages_list: "{{ packages_raw['content'] | b64decode | split('\n') }}"
 
-- name: Inkdrop | Determine uninstalled packages
+- name: Inkdrop | Packages | Determine uninstalled packages
   set_fact:
     uninstalled_packages: "{{ packages_list | difference(installed_packages_list) }}"
 
-- name: Inkdrop | Install packages using ipm
+- name: Inkdrop | Packages | Install packages using ipm
   ansible.builtin.command:
     cmd: ipm install {{ item }}
   loop: "{{ uninstalled_packages }}"
   when: item != ''
+
+- name: Inkdrop | Set initialization configuration
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+- name: Inkdrop | Set initialization configuration
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/init.js"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/init.js"
+
+- name: Inkdrop | Set keybindings
+  copy:
+    src: "{{ project_path }}/files/Home/Library/Application Support/inkdrop/keymap.cson"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Application Support/inkdrop/keymap.cson"
 
 # - name: Inkdrop | Check if 'config.cson' file exists
 #   stat:
