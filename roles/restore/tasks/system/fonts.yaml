@@ -4,7 +4,13 @@
     state: present
 
 # See font options here: https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
-- name: Fonts | Install font-hack-nerd-font
+- name: Fonts | Install meslo-lg-nerd-font
+  community.general.homebrew:
+    name: font-meslo-lg-nerd-font
+    state: present
+    install_options: cask
+
+- name: Fonts | Install hack-nerd-font
   community.general.homebrew:
     name: font-hack-nerd-font
     state: present
