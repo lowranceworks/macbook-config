@@ -12,7 +12,10 @@
       tags: system, shell
 
     - import_tasks: system/scripts.yaml
-      tags: system, scripts 
+      tags: system, scripts
+
+    - import_tasks: system/fonts.yaml
+      tags: system, fonts
 
     - import_tasks: software/brew-applications.yaml
       tags: software, brew
@@ -82,7 +85,6 @@
 
     # - import_tasks: software/sketchybar.yaml
     #   tags: sketchybar
-
     - import_tasks: software/lazygit.yaml
       tags: lazygit
 
