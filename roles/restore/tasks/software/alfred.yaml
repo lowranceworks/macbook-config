@@ -1,25 +1,25 @@
 - name: Alfred | Set preferences
   unarchive:
     src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences/preferences.zip"
-    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/preferences"
+    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/"
     remote_src: yes
 
 - name: Alfred | Set snippets
   unarchive:
     src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets.zip"
-    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/snippets"
+    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/"
     remote_src: yes
 
 - name: Alfred | Set themes
   unarchive:
     src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences/themes.zip"
-    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/themes"
+    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/"
     remote_src: yes
 
 - name: Alfred | Set workflows
   unarchive:
     src: "{{ project_path }}/files/Home/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows.zip"
-    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
+    dest: "~/Library/Application Support/Alfred/Alfred.alfredpreferences/"
     remote_src: yes
 
 - name: Alfred | Set prefs.json file

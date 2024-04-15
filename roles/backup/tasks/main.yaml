@@ -24,7 +24,10 @@
       tags: system, ssh
 
     - import_tasks: system/shell.yaml
-      tags: shell
+      tags: system, shell
+
+    - import_tasks: system/scripts.yaml
+      tags: system, scripts 
 
     - import_tasks: software/brew-applications.yaml
       tags: software, applications, brew
@@ -47,12 +50,12 @@
     #  - import_tasks: software/vscode.yaml
     #    tags: software, vscode
 
-    - import_tasks: software/zsh.yaml
-      tags: software, zsh, oh-my-zsh
-
-    - import_tasks: software/oh-my-zsh.yaml
-      tags: software, zsh, oh-my-zsh
-
+    # - import_tasks: software/zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
+    #
+    # - import_tasks: software/oh-my-zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
+    #
     - import_tasks: software/alfred.yaml
       tags: software, alfred
 
@@ -74,8 +77,8 @@
     - import_tasks: software/wezterm.yaml
       tags: wezterm
 
-    - import_tasks: software/yabai.yaml
-      tags: yabai
+    # - import_tasks: software/yabai.yaml
+    #   tags: yabai
 
     - import_tasks: software/skhd.yaml
       tags: skhd

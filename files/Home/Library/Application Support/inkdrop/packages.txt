@@ -1,5 +1,3 @@
-catppuccin-mocha-syntax
-catppuccin-mocha-ui
 code-title
 copy-code-to-clipboard
 dracula-dark-ui
@@ -16,6 +14,7 @@ night-owl-preview
 nord-preview
 nord-syntax
 paste-url
+snippets
 spell-checker
 switch-notebook
 table-editor

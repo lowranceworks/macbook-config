@@ -1,4 +1,3 @@
-
   - name: SSH | Ensure ~/.ssh directory exists
     file:
       path: "{{ lookup('env', 'HOME') }}/.ssh"

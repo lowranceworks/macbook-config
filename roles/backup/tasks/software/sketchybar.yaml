@@ -1,5 +1,11 @@
+- name: Sketchybar | Check if sketchybar directory exists
+  ansible.builtin.stat:
+    path: "{{ lookup('env', 'HOME') }}/.config/sketchybar"
+  register: sketchybar_dir
+
 - name: Sketchybar | Save entire config directory
   synchronize:
     src: "~/.config/sketchybar/"
     dest: "{{ project_path }}/files/Home/.config/sketchybar/"
     recursive: yes
+  when: sketchybar_dir.stat.exists

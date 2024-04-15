@@ -1,0 +1,6 @@
+- name: "Scripts | Backup ~/.scripts/"
+  ansible.builtin.copy:
+    src: "~/.scripts/"
+    dest: "{{ project_path }}/files/Home/.scripts/"
+    remote_src: yes
+    mode: '0644'

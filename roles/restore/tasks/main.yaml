@@ -9,7 +9,13 @@
       tags: system, terminal
 
     - import_tasks: system/shell.yaml
-      tags: shell
+      tags: system, shell
+
+    - import_tasks: system/scripts.yaml
+      tags: system, scripts
+
+    - import_tasks: system/fonts.yaml
+      tags: system, fonts
 
     - import_tasks: software/brew-applications.yaml
       tags: software, brew
@@ -23,11 +29,11 @@
     - import_tasks: software/neovim.yaml
       tags: software, neovim, nvim
 
-    - import_tasks: software/zsh.yaml
-      tags: software, zsh, oh-my-zsh
-
-    - import_tasks: software/oh-my-zsh.yaml
-      tags: software, zsh, oh-my-zsh
+    # - import_tasks: software/zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
+    #
+    # - import_tasks: software/oh-my-zsh.yaml
+    #   tags: software, zsh, oh-my-zsh
 
     - import_tasks: software/podman.yaml
       tags: software, podman
@@ -59,8 +65,8 @@
     # - import_tasks: software/spacelauncher.yaml
     #   tags: spacelauncher
 
-    - import_tasks: software/yabai.yaml
-      tags: yabai
+    # - import_tasks: software/yabai.yaml
+    #   tags: yabai
 
     - import_tasks: software/skhd.yaml
       tags: skhd
@@ -79,7 +85,6 @@
 
     # - import_tasks: software/sketchybar.yaml
     #   tags: sketchybar
-
     - import_tasks: software/lazygit.yaml
       tags: lazygit
 
