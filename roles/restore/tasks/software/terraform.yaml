@@ -1,0 +1,36 @@
+- name: Terraform | tfenv | Install tfenv using Homebrew
+  community.general.homebrew:
+    name: tfenv
+    state: present
+
+- name: Terraform | tfenv | Fetch the latest Terraform version from GitHub
+  shell: >
+    curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest |
+    grep '"tag_name":' | 
+    sed -E 's/.*"v([^"]+)".*/\1/'
+  register: latest_tf_version_output
+  changed_when: false
+
+- name: Terraform | tfenv | Set the latest Terraform version
+  set_fact:
+    latest_terraform_version: "{{ latest_tf_version_output.stdout.strip() }}"
+
+- name: Terraform | tfenv | Check if latest Terraform version is installed
+  shell: tfenv list | grep '{{ latest_terraform_version }}' || true
+  register: terraform_version_installed
+  changed_when: false
+  ignore_errors: true
+
+- name: Terraform | tfenv | Install Terraform version
+  shell: tfenv install {{ latest_terraform_version }}
+  when: latest_terraform_version not in terraform_version_installed.stdout
+
+- name: Terraform | tfenv | Check if latest Terraform version is set
+  shell: tfenv version-name | grep '{{ latest_terraform_version }}' || true
+  register: terraform_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Terraform | tfenv | Set Terraform version
+  shell: tfenv use {{ latest_terraform_version }}
+  when: terraform_version.stdout.strip() != latest_terraform_version
