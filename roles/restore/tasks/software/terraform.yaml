@@ -15,6 +15,9 @@
   set_fact:
     latest_terraform_version: "{{ latest_tf_version_output.stdout.strip() }}"
 
+- name: Terraform | tfenv | Initialize tfenv
+  shell: tfenv init
+
 - name: Terraform | tfenv | Check if latest Terraform version is installed
   shell: tfenv list | grep '{{ latest_terraform_version }}' || true
   register: terraform_version_installed
