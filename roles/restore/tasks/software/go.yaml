@@ -15,6 +15,22 @@
     state: present
     backup: yes
 
+- name: Go | goenv | Ensure GOENV_ROOT is exported in fish config
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: 'set -x GOENV_ROOT "$HOME/.goenv"'
+    create: yes
+    state: present
+    backup: yes
+
+- name: Go | goenv | Ensure GOENV bin directory is added to PATH in fish config
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: 'set -x PATH "$GOENV_ROOT/bin" $PATH'
+    create: yes
+    state: present
+    backup: yes
+
 - name: Go | goenv | Check if Go version is installed
   shell: "goenv versions --bare | grep '^{{ go_version }}'"
   register: go_version_installed
