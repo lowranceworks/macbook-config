@@ -89,3 +89,12 @@
       tags: lazygit
 
       # - import_tasks: software, software/git.yaml
+
+    - import_tasks: software/terraform.yaml
+      tags: terraform
+
+    - import_tasks: software/python.yaml
+      tags: python
+
+    - import_tasks: software/go.yaml
+      tags: go
