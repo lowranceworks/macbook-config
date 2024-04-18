@@ -29,3 +29,28 @@
 - name: Terraform | tfenv | Set Terraform version {{ terraform_version }}
   shell: tfenv use {{ terraform_version }}
   when: current_terraform_version.stdout.strip() != terraform_version
+
+- name: Terraform | tools | Install tfenv using Homebrew
+  community.general.homebrew:
+    name: tfenv
+    state: present
+
+- name: Terraform | tools | Install tflint using Homebrew
+  community.general.homebrew:
+    name: tflint
+    state: present
+
+- name: Terraform | tools | Install tfsec using Homebrew
+  community.general.homebrew:
+    name: tfsec
+    state: present
+
+- name: Terraform | tools | Install tfupdate using Homebrew
+  community.general.homebrew:
+    name: tfupdate
+    state: present
+
+- name: Terraform | tools | Install terraform-docs using Homebrew
+  community.general.homebrew:
+    name: terraform-docs
+    state: present
