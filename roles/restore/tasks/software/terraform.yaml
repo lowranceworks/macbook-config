@@ -54,3 +54,8 @@
   community.general.homebrew:
     name: terraform-docs
     state: present
+
+- name: Terraform | tools | Install terragrunt using Homebrew
+  community.general.homebrew:
+    name: terragrunt
+    state: present
