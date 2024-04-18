@@ -98,3 +98,9 @@
 
     - import_tasks: software/go.yaml
       tags: go
+
+    - import_tasks: software/sesh.yaml
+      tags: sesh
+
+    - import_tasks: software/pre-commit.yaml
+      tags: pre-commit

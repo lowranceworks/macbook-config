@@ -1,0 +1,4 @@
+- name: Sesh | Install sesh using Homebrew
+  community.general.homebrew:
+    name: joshmedeski/sesh/sesh
+    state: present
