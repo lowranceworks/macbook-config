@@ -1,6 +1,6 @@
-- name: Go | goenv | Set a variable for Go version
+- name: Go | goenv | Set fact for Go version
   set_fact:
-    go_version: "1.22.2"
+    go_version: "{{ go_version }}"
 
 - name: Go | goenv | Install goenv using Homebrew
   community.general.homebrew:
@@ -31,23 +31,23 @@
     state: present
     backup: yes
 
-- name: Go | goenv | Check if Go version is installed
+- name: Go | goenv | Check if Go version {{ go_version }} is installed
   shell: "goenv versions --bare | grep '^{{ go_version }}'"
   register: go_version_installed
   changed_when: false
   failed_when: false
   ignore_errors: true
 
-- name: Go | goenv | Install Go version
+- name: Go | goenv | Install Go version {{ go_version }}
   shell: goenv install {{ go_version }}
   when: go_version_installed.stdout == ""
 
-- name: Go | goenv | Check if Go version is set
+- name: Go | goenv | Check if Go version {{ go_version }} is set
   shell: goenv version | grep '{{ go_version }}' || true
   register: current_go_version
   changed_when: false
   ignore_errors: true
 
-- name: Go | goenv | Set Go version as global
+- name: Go | goenv | Use Go version {{ go_version }}
   shell: goenv global {{ go_version }}
   when: current_go_version.stdout.strip() != go_version

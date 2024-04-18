@@ -11,27 +11,27 @@
     state: present
     backup: yes
 
-- name: Python | pyenv | Set a variable for Python version
+- name: Python | pyenv | Set fact for Python version
   set_fact:
-    python_version: "3.11.0"
+    python_version: "{{ python_version }}"
 
-- name: Python | pyenv | Check if Python version is installed
+- name: Python | pyenv | Check if Python version {{ python_version }} is installed
   shell: pyenv versions --bare | grep '^{{ python_version }}$'
   register: python_version_installed
   changed_when: false
   failed_when: false
   ignore_errors: true
 
-- name: Python | pyenv | Install Python version
+- name: Python | pyenv | Install Python version {{ python_version }}
   shell: pyenv install {{ python_version }}
   when: python_version_installed.stdout == ""
 
-- name: Python | pyenv | Check if Python version is set
+- name: Python | pyenv | Check if Python version {{ python_version }} is set
   shell: pyenv version | grep '{{ python_version }}' || true
   register: current_python_version
   changed_when: false
   ignore_errors: true
 
-- name: Python | pyenv | Set Python version as global
+- name: Python | pyenv | Use Python version {{ python_version }}
   shell: pyenv global {{ python_version }}
   when: current_python_version.stdout.strip() != python_version

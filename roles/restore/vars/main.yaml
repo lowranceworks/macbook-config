@@ -1,2 +1,5 @@
 ---
 project_path: /Users/{{ ansible_env.USER }}/Projects/macbook_config
+python_version: "3.11.0"
+terraform_version: "1.8.1"
+go_version: "1.22.2"
