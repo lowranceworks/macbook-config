@@ -1,0 +1,4 @@
+- name: karabiner-elements | Install karabiner-elements using Homebrew
+  community.general.homebrew:
+    name: karabiner-elements
+    state: present

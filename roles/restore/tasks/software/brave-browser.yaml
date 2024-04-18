@@ -1,0 +1,4 @@
+- name: brave-browser | Install brave-browser using Homebrew
+  community.general.homebrew:
+    name: brave-browser
+    state: present
