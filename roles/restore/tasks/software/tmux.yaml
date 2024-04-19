@@ -1,47 +1,17 @@
-- name: Tmux | Check if tmux directory exists
-  ansible.builtin.stat:
-    path: "~/.config/tmux"
-  register: tmux_dir_stat
-
-- name: Tmux | Create ~/.config.bak directory if it doesn't exist
-  ansible.builtin.file:
-    path: "~/.config.bak"
-    state: directory
-  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
-
-- name: Tmux | Copy files from ~/.config/tmux to ~/.config.bak/tmux
-  ansible.builtin.copy:
-    src: ~/.config/tmux/
-    dest: ~/.config.bak/tmux/
-    remote_src: true
-  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
-
-- name: Tmux | Remove old files in ~/.config/tmux
-  ansible.builtin.file:
-    path: ~/.config/tmux
-    state: absent
-  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
-#
-- name: Tmux | Move tmux directory to ~/.config.bak if not a symlink
-  ansible.builtin.file:
-    src: "~/.config/tmux/"
-    dest: "~/.config.bak/tmux"
-  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
-
-- name: Tmux | Ensure dotfiles repository exists
-  ansible.builtin.git:
-    repo: https://github.com/lowranceworks/dotfiles.git
-    dest: ~/Projects/lowranceworks/dotfiles
-    update: yes
-    version: main
-
-- name: Tmux | Create symlink for tmux config
+- name: "tmux | Ensure the tmux directory exists"
   file:
-    src: ~/Projects/lowranceworks/dotfiles/.config/tmux
-    dest: ~/.config/tmux
-    state: link
+    path: "~/.config/tmux"
+    state: directory
+    mode: "0755"
 
-- name: Tmux | Install tpm (tmux plugin manager)
+- name: "tmux | Push all files to ~/.config/tmux/ recursively"
+  synchronize:
+    src: "{{ project_path }}/files/Home/.config/tmux/"
+    dest: "~/.config/tmux/"
+    recursive: yes
+    mode: push
+
+- name: "tmux | install tpm (tmux plugin manager)"
   git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "~/.tmux/plugins/tpm"
