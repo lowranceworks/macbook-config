@@ -1,12 +1,6 @@
 - block:
-    - import_tasks: system/macos.yaml
-      tags: system, macos
-
-    - import_tasks: system/ssh.yaml
-      tags: system, ssh
-
-    - import_tasks: system/terminal.yaml
-      tags: system, terminal
+    - import_tasks: system/preferences.yaml
+      tags: system, preferences
 
     - import_tasks: system/shell.yaml
       tags: system, shell
@@ -54,53 +48,53 @@
     #   tags: software, fig
 
     - import_tasks: software/rectangle-pro.yaml
-      tags: rectangle-software, pro
+      tags: software, rectangle-pro
 
     - import_tasks: software/tmux.yaml
-      tags: tmux
+      tags: software, tmux
 
     - import_tasks: software/wezterm.yaml
-      tags: wezterm
+      tags: software, wezterm
 
     # - import_tasks: software/spacelauncher.yaml
-    #   tags: spacelauncher
-
-    # - import_tasks: software/yabai.yaml
-    #   tags: yabai
-
-    - import_tasks: software/skhd.yaml
-      tags: skhd
+    #   tags: software, spacelauncher
 
     - import_tasks: software/starship.yaml
-      tags: starship
+      tags: software, starship
 
     - import_tasks: software/zsh-vi-mode.yaml
-      tags: zsh-vi-mode, zvm
+      tags: software, zsh-vi-mode, zvm
 
     - import_tasks: software/fish.yaml
-      tags: fish
+      tags: software, fish
 
     - import_tasks: software/neofetch.yaml
-      tags: neofetch
+      tags: software, neofetch
 
     # - import_tasks: software/sketchybar.yaml
     #   tags: sketchybar
     - import_tasks: software/lazygit.yaml
-      tags: lazygit
+      tags: software, lazygit
 
       # - import_tasks: software, software/git.yaml
 
     - import_tasks: software/terraform.yaml
-      tags: terraform
+      tags: software, terraform
 
     - import_tasks: software/python.yaml
-      tags: python
+      tags: software, python
 
     - import_tasks: software/go.yaml
-      tags: go
+      tags: software, go
 
     - import_tasks: software/sesh.yaml
-      tags: sesh
+      tags: software, sesh
 
     - import_tasks: software/pre-commit.yaml
-      tags: pre-commit
+      tags: software, pre-commit
+
+    - import_tasks: software/skhd.yaml
+      tags: software, skhd
+
+    - import_tasks: software/yabai.yaml
+      tags: software, yabai

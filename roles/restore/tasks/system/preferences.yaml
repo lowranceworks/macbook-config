@@ -18,3 +18,4 @@
     - ".com.apple.Accessibility.plist"
     - ".com.apple.universalaccess.plist"
     - "com.apple.HIToolbox.plist"
+    - "com.apple.Terminal.plist"

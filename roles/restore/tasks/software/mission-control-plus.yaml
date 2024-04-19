@@ -1,4 +1,4 @@
-- name: mission-control-plus | Install mission-control-plus using Homebrew
+- name: Mission control plus | Install mission-control-plus using Homebrew
   community.general.homebrew:
     name: mission-control-plus
     state: present
