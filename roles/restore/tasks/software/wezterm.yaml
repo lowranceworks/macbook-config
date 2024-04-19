@@ -1,18 +1,42 @@
-- name: "Wezterm | Ensure the wezterm config directory exists"
-  file:
+- name: wezterm | Check if wezterm directory exists
+  ansible.builtin.stat:
     path: "~/.config/wezterm"
-    state: directory
-    mode: "0755"
+  register: wezterm_dir_stat
 
-- name: Wezterm | Restore entire config directory
-  synchronize:
-    src: "{{ project_path }}/files/Home/.config/wezterm/"
-    dest: "~/.config/wezterm/"
-    recursive: yes
-
-- name: Wezterm | Set correct owner for wezterm config files
+- name: wezterm | Create ~/.config.bak directory if it doesn't exist
   ansible.builtin.file:
-    path: "~/.config/wezterm/"
-    owner: "{{ ansible_facts['user_id'] }}"
+    path: "~/.config.bak"
     state: directory
-    recurse: yes
+  when: wezterm_dir_stat.stat.exists and not wezterm_dir_stat.stat.islnk
+
+- name: wezterm | Copy files from ~/.config/wezterm to ~/.config.bak/wezterm
+  ansible.builtin.copy:
+    src: ~/.config/wezterm/
+    dest: ~/.config.bak/wezterm/
+    remote_src: true
+  when: wezterm_dir_stat.stat.exists and not wezterm_dir_stat.stat.islnk
+
+- name: wezterm | Remove old files in ~/.config/wezterm
+  ansible.builtin.file:
+    path: ~/.config/wezterm
+    state: absent
+  when: wezterm_dir_stat.stat.exists and not wezterm_dir_stat.stat.islnk
+#
+- name: wezterm | Move wezterm directory to ~/.config.bak if not a symlink
+  ansible.builtin.file:
+    src: "~/.config/wezterm/"
+    dest: "~/.config.bak/wezterm"
+  when: wezterm_dir_stat.stat.exists and not wezterm_dir_stat.stat.islnk
+
+- name: wezterm | Ensure dotfiles repository exists
+  ansible.builtin.git:
+    repo: https://github.com/lowranceworks/dotfiles.git
+    dest: ~/Projects/lowranceworks/dotfiles
+    update: yes
+    version: main
+
+- name: wezterm | Create symlink for wezterm config
+  file:
+    src: ~/Projects/lowranceworks/dotfiles/.config/wezterm
+    dest: ~/.config/wezterm
+    state: link
