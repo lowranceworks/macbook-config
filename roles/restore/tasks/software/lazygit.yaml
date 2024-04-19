@@ -2,10 +2,4 @@
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/lazygit"
     state: directory
-    mode: '0755'
-
-- name: Lazygit | Set config.yml
-  copy:
-    src: "{{ project_path }}/files/Library/Application Support/lazygit/config.yml"
-    dest: "~/Library/Application Support/lazygit/config.yml"
-    remote_src: no
+    mode: "0755"
