@@ -3,10 +3,29 @@
     path: "~/.config/tmux"
   register: tmux_dir_stat
 
-- name: Tmux | Remove tmux directory if it's not a symlink
+- name: Tmux | Create ~/.config.bak directory if it doesn't exist
   ansible.builtin.file:
-    path: "~/.config/tmux"
+    path: "~/.config.bak"
+    state: directory
+  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
+
+- name: Tmux | Copy files from ~/.config/tmux to ~/.config.bak/tmux
+  ansible.builtin.copy:
+    src: ~/.config/tmux/
+    dest: ~/.config.bak/tmux/
+    remote_src: true
+  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
+
+- name: Tmux | Remove old files in ~/.config/tmux
+  ansible.builtin.file:
+    path: ~/.config/tmux
     state: absent
+  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
+#
+- name: Tmux | Move tmux directory to ~/.config.bak if not a symlink
+  ansible.builtin.file:
+    src: "~/.config/tmux/"
+    dest: "~/.config.bak/tmux"
   when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
 
 - name: Tmux | Ensure dotfiles repository exists
