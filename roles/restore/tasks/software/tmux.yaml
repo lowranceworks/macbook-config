@@ -1,3 +1,14 @@
+- name: Tmux | Check if tmux directory exists
+  ansible.builtin.stat:
+    path: "~/.config/tmux"
+  register: tmux_dir_stat
+
+- name: Tmux | Remove tmux directory if it's not a symlink
+  ansible.builtin.file:
+    path: "~/.config/tmux"
+    state: absent
+  when: tmux_dir_stat.stat.exists and not tmux_dir_stat.stat.islnk
+
 - name: Tmux | Ensure dotfiles repository exists
   ansible.builtin.git:
     repo: https://github.com/lowranceworks/dotfiles.git
