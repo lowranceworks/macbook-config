@@ -8,4 +8,4 @@
   copy:
     src: "{{ project_path }}/files/Home/.config/neofetch/config.conf"
     dest: "~/.config/neofetch/config.conf"
-    remote_src:o
+    remote_src: no
