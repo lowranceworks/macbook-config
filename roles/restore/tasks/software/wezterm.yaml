@@ -1,19 +1,19 @@
-- name: "Wezterm | Ensure the wezterm config directory exists"
-  file:
-    path: "~/.config/wezterm"
-    state: directory
-    mode: "0755"
-
-- name: Wezterm | Restore entire config directory
-  synchronize:
-    src: "{{ project_path }}/files/Home/.config/wezterm/"
-    dest: "~/.config/wezterm/"
-    recursive: yes
-    set_remote_user: no
-
-- name: Wezterm | Set correct owner for wezterm config files
-  ansible.builtin.file:
-    path: "~/.config/wezterm/"
-    owner: "{{ ansible_facts['user_id'] }}"
-    state: directory
-    recurse: yes
+# - name: "Wezterm | Ensure the wezterm config directory exists"
+#   file:
+#     path: "~/.config/wezterm"
+#     state: directory
+#     mode: "0755"
+#
+# - name: Wezterm | Restore entire config directory
+#   synchronize:
+#     src: "{{ project_path }}/files/Home/.config/wezterm/"
+#     dest: "~/.config/wezterm/"
+#     recursive: yes
+#     set_remote_user: no
+#
+# - name: Wezterm | Set correct owner for wezterm config files
+#   ansible.builtin.file:
+#     path: "~/.config/wezterm/"
+#     owner: "{{ ansible_facts['user_id'] }}"
+#     state: directory
+#     recurse: yes

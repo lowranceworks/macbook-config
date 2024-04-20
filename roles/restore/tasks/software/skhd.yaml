@@ -13,12 +13,12 @@
   ansible.builtin.command: skhd --start-service
   when: skhd_status.rc == 1
 
-- name: skhd | set ~/.skhdrc
-  copy:
-    src: "{{ project_path }}/files/Home/.skhdrc"
-    dest: "~/.skhdrc"
-    remote_src: no
-  register: skhd_copy_result
+# - name: skhd | set ~/.skhdrc
+#   copy:
+#     src: "{{ project_path }}/files/Home/.skhdrc"
+#     dest: "~/.skhdrc"
+#     remote_src: no
+#   register: skhd_copy_result
 
 - name: skhd | restart skhd service to reload config
   ansible.builtin.command: skhd --restart-service
