@@ -12,14 +12,13 @@
 - name: yabai | start yabai service
   ansible.builtin.command: yabai --start-service
   when: yabai_status.rc == 1
-
-- name: yabai | set ~/.yabairc
-  ansible.builtin.copy:
-    src: "{{ project_path }}/files/Home/.yabairc"
-    dest: "~/.yabairc"
-    remote_src: no
-  register: yabairc_copy_result
-
-- name: yabai | restart yabai service to reload config
-  ansible.builtin.command: yabai --restart-service
-  when: yabairc_copy_result.changed
+# - name: yabai | set ~/.yabairc
+#   ansible.builtin.copy:
+#     src: "{{ project_path }}/files/Home/.yabairc"
+#     dest: "~/.yabairc"
+#     remote_src: no
+#   register: yabairc_copy_result
+#
+# - name: yabai | restart yabai service to reload config
+#   ansible.builtin.command: yabai --restart-service
+#   when: yabairc_copy_result.changed
