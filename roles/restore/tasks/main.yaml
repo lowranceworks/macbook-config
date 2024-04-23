@@ -16,85 +16,112 @@
 
     - import_tasks: software/inkdrop.yaml
       tags: software, inkdrop
+      when: inkdrop_install
 
     - import_tasks: software/iterm.yaml
       tags: software, iterm, iterm2
+      when: iterm_install
 
     - import_tasks: software/neovim.yaml
       tags: software, neovim, nvim
+      when: neovim_install
 
-    # - import_tasks: software/zsh.yaml
-    #   tags: software, zsh, oh-my-zsh
-    #
-    # - import_tasks: software/oh-my-zsh.yaml
-    #   tags: software, zsh, oh-my-zsh
+    - import_tasks: software/zsh.yaml
+      tags: software, zsh, oh_my_zsh
+      when: zsh_install
+
+    - import_tasks: software/oh-my-zsh.yaml
+      tags: software, zsh, oh_my_zsh
+      when: oh_my_zsh_install
 
     - import_tasks: software/podman.yaml
       tags: software, podman
+      when: podman_install
 
     - import_tasks: software/helm.yaml
       tags: software, helm
+      when: helm_install
 
     - import_tasks: software/alfred.yaml
       tags: software, alfred
+      when: alfred_install
 
     - import_tasks: software/cleanshot.yaml
       tags: software, cleanshot
+      when: cleanshot_install
 
     - import_tasks: software/contexts.yaml
       tags: software, contexts
+      when: contexts_install
 
-    # - import_tasks: software/fig.yaml # fig does not play nicely with vim-tmux-navigator, see https://github.com/christoomey/vim-tmux-navigator/issues/339
-    #   tags: software, fig
+    - import_tasks: software/fig.yaml
+      tags: software, fig
+      when: fig_install
 
     - import_tasks: software/rectangle-pro.yaml
-      tags: software, rectangle-pro
+      tags: software, rectangle, rectangle_pro
+      when: rectangle_pro_install
 
     - import_tasks: software/tmux.yaml
       tags: software, tmux
+      when: tmux_install
 
     - import_tasks: software/wezterm.yaml
       tags: software, wezterm
+      when: wezterm_install
 
-    # - import_tasks: software/spacelauncher.yaml
-    #   tags: software, spacelauncher
+    - import_tasks: software/spacelauncher.yaml
+      tags: software, spacelauncher
+      when: spacelauncher_install
 
     - import_tasks: software/starship.yaml
       tags: software, starship
+      when: starship_install
 
     - import_tasks: software/zsh-vi-mode.yaml
-      tags: software, zsh-vi-mode, zvm
+      tags: software, zsh_vi_mode, zvm
+      when: zsh_vi_mode_install
 
     - import_tasks: software/fish.yaml
       tags: software, fish
+      when: fish_install
 
     - import_tasks: software/neofetch.yaml
       tags: software, neofetch
+      when: neofetch_install
 
-    # - import_tasks: software/sketchybar.yaml
-    #   tags: sketchybar
+    - import_tasks: software/sketchybar.yaml
+      tags: software, sketchybar
+      when: sketchybar_install
+
     - import_tasks: software/lazygit.yaml
       tags: software, lazygit
-
-      # - import_tasks: software, software/git.yaml
+      when: lazygit_install
 
     - import_tasks: software/terraform.yaml
       tags: software, terraform
+      when: terraform_install
 
     - import_tasks: software/python.yaml
       tags: software, python
+      when: python_install
 
     - import_tasks: software/go.yaml
       tags: software, go
+      when: go_install
 
     - import_tasks: software/sesh.yaml
       tags: software, sesh
+      when: sesh_install
 
     - import_tasks: software/pre-commit.yaml
-      tags: software, pre-commit
+      tags: software, pre_commit
+      when: pre_commit_install
 
     - import_tasks: software/skhd.yaml
       tags: software, skhd
+      when: skhd_install
 
     - import_tasks: software/yabai.yaml
       tags: software, yabai
+      when: yabai_install
