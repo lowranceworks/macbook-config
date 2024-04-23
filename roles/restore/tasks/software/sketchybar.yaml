@@ -1,3 +1,4 @@
+---
 - name: Sketchybar | Tap FelixKratz/formulae
   homebrew_tap:
     name: FelixKratz/formulae
