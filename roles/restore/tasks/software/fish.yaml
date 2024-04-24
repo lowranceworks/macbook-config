@@ -1,12 +1,4 @@
-# - name: Fish | Ensure fish directory exists
-#   file:
-#     path: "{{ lookup('env', 'HOME') }}/.config/fish"
-#     state: directory
-#     mode: "0755"
-#
-# - name: Fish | Save fish shell config
-#   ansible.builtin.copy:
-#     src: "{{ project_path }}/files/Home/.config/fish/"
-#     dest: "{{ ansible_env.HOME }}/.config/fish/"
-#     remote_src: true
-#     directory_mode: true
+- name: Fish | Install fish
+  community.general.homebrew:
+    name: fish
+    state: present

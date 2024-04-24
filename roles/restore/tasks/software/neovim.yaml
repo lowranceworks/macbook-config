@@ -1,19 +1,4 @@
-# - name: "NeoVim | Ensure the nvim directory exists"
-#   file:
-#     path: "~/.config/nvim"
-#     state: directory
-#     mode: '0755'
-#
-# - name: "NeoVim | Push all files to ~/.config/nvim/ recursively"
-#   synchronize:
-#     src: "{{ project_path }}/files/Home/.config/nvim/"
-#     dest: "~/.config/nvim/"
-#     recursive: yes
-#     mode: push
-
-# - name: NeoVim | Set keymappings
-#   synchronize:
-#     src: "{{ project_path }}/files/Home/.vim/keymappings.vim/"
-#     dest: "~/.vim/keymappings.vim"
-#     recursive: yes
-#     mode: push
+- name: Neovim | Install neovim
+  community.general.homebrew:
+    name: neovim
+    state: present

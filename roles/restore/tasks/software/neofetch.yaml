@@ -1,11 +1,4 @@
-# - name: Neofetch | Ensure neofetch directory exists
-#   ansible.builtin.file:
-#     path: "{{ lookup('env', 'HOME') }}/.config/neofetch"
-#     state: directory
-#     mode: "0755"
-#
-# - name: Neofetch | set config.conf
-#   copy:
-#     src: "{{ project_path }}/files/Home/.config/neofetch/config.conf"
-#     dest: "~/.config/neofetch/config.conf"
-#     remote_src: no
+- name: Neofetch | Install neofetch
+  community.general.homebrew:
+    name: neofetch
+    state: present

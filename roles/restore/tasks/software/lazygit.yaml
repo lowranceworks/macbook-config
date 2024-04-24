@@ -1,5 +1,4 @@
-# - name: Lazygit | Ensure lazygit directory exists
-#   ansible.builtin.file:
-#     path: "{{ lookup('env', 'HOME') }}/Library/Application Support/lazygit"
-#     state: directory
-#     mode: "0755"
+- name: Lazygit | Install lazygit
+  community.general.homebrew:
+    name: lazygit
+    state: present
