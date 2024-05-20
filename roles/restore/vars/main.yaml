@@ -43,3 +43,4 @@ wezterm_install: true
 yabai_install: true
 zsh_vi_mode_install: false
 zsh_install: false
+hazeover_install: true

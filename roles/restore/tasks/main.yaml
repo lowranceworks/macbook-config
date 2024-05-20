@@ -125,3 +125,7 @@
     - import_tasks: software/yabai.yaml
       tags: software, yabai
       when: yabai_install
+
+    - import_tasks: software/hazeover.yaml
+      tags: software, hazeover
+      when: hazeover_install
