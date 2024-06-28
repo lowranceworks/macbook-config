@@ -3,8 +3,7 @@
     path: ~/.scripts
     state: directory
     mode: "0755"
-
-- name: "Scripts | Restore ~/.scripts/*"
-  ansible.builtin.copy:
-    src: "{{ project_path }}/files/Home/.scripts/"
-    dest: "~/.scripts/"
+# - name: "Scripts | Restore ~/.scripts/*"
+#   ansible.builtin.copy:
+#     src: "{{ project_path }}/files/Home/.scripts/"
+#     dest: "~/.scripts/"

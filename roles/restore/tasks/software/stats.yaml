@@ -1,0 +1,4 @@
+- name: Stats | Install stats using Homebrew
+  community.general.homebrew:
+    name: stats
+    state: present

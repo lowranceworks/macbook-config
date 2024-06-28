@@ -1,0 +1,53 @@
+- name: Go | goenv | Set fact for Go version
+  set_fact:
+    go_version: "{{ go_version }}"
+
+- name: Go | goenv | Install goenv using Homebrew
+  community.general.homebrew:
+    name: goenv
+    state: present
+
+- name: Go | goenv | Ensure goenv init line is in fish config
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: "status is-interactive; and source (goenv init -|psub)"
+    create: yes
+    state: present
+    backup: yes
+
+- name: Go | goenv | Ensure GOENV_ROOT is exported in fish config
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: 'set -x GOENV_ROOT "$HOME/.goenv"'
+    create: yes
+    state: present
+    backup: yes
+
+- name: Go | goenv | Ensure GOENV bin directory is added to PATH in fish config
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: 'set -x PATH "$GOENV_ROOT/bin" $PATH'
+    create: yes
+    state: present
+    backup: yes
+
+- name: Go | goenv | Check if Go version {{ go_version }} is installed
+  shell: "goenv versions --bare | grep '^{{ go_version }}'"
+  register: go_version_installed
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+
+- name: Go | goenv | Install Go version {{ go_version }}
+  shell: goenv install {{ go_version }}
+  when: go_version_installed.stdout == ""
+
+- name: Go | goenv | Check if Go version {{ go_version }} is set
+  shell: goenv version | grep '{{ go_version }}' || true
+  register: current_go_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Go | goenv | Use Go version {{ go_version }}
+  shell: goenv global {{ go_version }}
+  when: current_go_version.stdout.strip() != go_version

@@ -1,0 +1,37 @@
+- name: Python | pyenv | Install pyenv using Homebrew
+  community.general.homebrew:
+    name: pyenv
+    state: present
+
+- name: Python | pyenv | Ensure pyenv init line is in fish config
+  ansible.builtin.lineinfile:
+    path: ~/.config/fish/config.fish
+    line: "pyenv init - | source"
+    create: yes
+    state: present
+    backup: yes
+
+- name: Python | pyenv | Set fact for Python version
+  set_fact:
+    python_version: "{{ python_version }}"
+
+- name: Python | pyenv | Check if Python version {{ python_version }} is installed
+  shell: pyenv versions --bare | grep '^{{ python_version }}$'
+  register: python_version_installed
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+
+- name: Python | pyenv | Install Python version {{ python_version }}
+  shell: pyenv install {{ python_version }}
+  when: python_version_installed.stdout == ""
+
+- name: Python | pyenv | Check if Python version {{ python_version }} is set
+  shell: pyenv version | grep '{{ python_version }}' || true
+  register: current_python_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Python | pyenv | Use Python version {{ python_version }}
+  shell: pyenv global {{ python_version }}
+  when: current_python_version.stdout.strip() != python_version

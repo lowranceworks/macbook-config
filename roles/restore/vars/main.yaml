@@ -1,2 +1,46 @@
 ---
 project_path: /Users/{{ ansible_env.USER }}/Projects/macbook_config
+python_version: "3.11.0"
+terraform_version: "1.8.1"
+go_version: "1.22.2"
+
+alfred_install: true
+brave_browser_install: true
+cleanshot_install: true
+contexts_install: true
+fig_install: false # fig does not play nicely with vim_tmux_navigator, see https://github.com/christoomey/vim_tmux_navigator/issues/339
+fish_install: true
+git_install: true
+go_install: true
+google_chrome_install: true
+helm_install: true
+inkdrop_install: true
+iterm_install: false
+karabiner_elements_install: false
+kubectl_install: true
+lazygit_install: true
+lunarvim_install: false
+mission_control_plus_install: true
+neofetch_install: true
+neovim_install: true
+oh_my_zsh_install: false
+podman_install: true
+pre_commit_install: true
+python_install: true
+rectangle_pro_install: true
+sesh_install: true
+sketchybar_install: false
+skhd_install: true
+slack_install: true
+spacelauncher_install: true
+starship_install: true
+stats_install: true
+terraform_install: true
+tmux_install: true
+vim_install: true
+vscode_install: false
+wezterm_install: true
+yabai_install: true
+zsh_vi_mode_install: false
+zsh_install: false
+hazeover_install: true

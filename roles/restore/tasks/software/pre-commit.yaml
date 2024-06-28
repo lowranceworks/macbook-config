@@ -1,0 +1,4 @@
+- name: Pre-commit | Install pre-commit using Homebrew
+  community.general.homebrew:
+    name: pre-commit
+    state: present

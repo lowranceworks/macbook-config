@@ -1,17 +1,9 @@
-- name: "tmux | Ensure the tmux directory exists"
-  file:
-    path: "~/.config/tmux"
-    state: directory
-    mode: "0755"
+- name: Tmux | Install Tmux
+  community.general.homebrew:
+    name: tmux
+    state: present
 
-- name: "tmux | Push all files to ~/.config/tmux/ recursively"
-  synchronize:
-    src: "{{ project_path }}/files/Home/.config/tmux/"
-    dest: "~/.config/tmux/"
-    recursive: yes
-    mode: push
-
-- name: "tmux | install tpm (tmux plugin manager)"
+- name: "Tmux | Install tpm (tmux plugin manager)"
   git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "~/.tmux/plugins/tpm"

@@ -1,0 +1,4 @@
+- name: google-chrome | Install google-chrome using Homebrew
+  community.general.homebrew:
+    name: google-chrome
+    state: present

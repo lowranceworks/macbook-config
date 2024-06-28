@@ -1,18 +1,4 @@
-- name: "Wezterm | Ensure the wezterm config directory exists"
-  file:
-    path: "~/.config/wezterm"
-    state: directory
-    mode: "0755"
-
-- name: Wezterm | Restore entire config directory
-  synchronize:
-    src: "{{ project_path }}/files/Home/.config/wezterm/"
-    dest: "~/.config/wezterm/"
-    recursive: yes
-
-- name: Wezterm | Set correct owner for wezterm config files
-  ansible.builtin.file:
-    path: "~/.config/wezterm/"
-    owner: "{{ ansible_facts['user_id'] }}"
-    state: directory
-    recurse: yes
+- name: Wezterm | Install wezterm
+  community.general.homebrew:
+    name: wezterm
+    state: present

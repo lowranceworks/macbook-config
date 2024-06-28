@@ -249,3 +249,4 @@ federico-terzi/espanso/espanso
 koekeishiya/formulae/skhd
 koekeishiya/formulae/yabai
 minamijoyo/hcledit/hcledit
+gitleaks

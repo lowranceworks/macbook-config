@@ -1,0 +1,4 @@
+- name: hazeover | Install hazeover using Homebrew
+  community.general.homebrew:
+    name: hazeover
+    state: present
